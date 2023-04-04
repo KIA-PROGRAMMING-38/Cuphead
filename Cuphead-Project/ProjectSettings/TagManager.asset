@@ -3,17 +3,20 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Statics
+  - Dynamics
+  - Props
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Platform
+  - Enemy
+  - Bullet
   - 
   - 
   - 
@@ -40,4 +43,25 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Etc
+    uniqueID: 2405818799
+    locked: 0
+  - name: Sky
+    uniqueID: 2413445153
+    locked: 0
+  - name: Backgorund
+    uniqueID: 3081562933
+    locked: 0
+  - name: Midground
+    uniqueID: 3705338865
+    locked: 0
+  - name: Platform
+    uniqueID: 1170276225
+    locked: 0
+  - name: PlayerAndEnemy
+    uniqueID: 432366789
+    locked: 0
+  - name: ForeGround
+    uniqueID: 106158955
     locked: 0
