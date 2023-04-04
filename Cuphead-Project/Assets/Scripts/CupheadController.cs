@@ -6,9 +6,6 @@ using Unity.VisualScripting;
 
 public class CupheadController : MonoBehaviour
 {
-
-
-
     public Animator _animator;
     private AudioSource _audioSource;
     private Vector2 _inputVec;
@@ -30,13 +27,26 @@ public class CupheadController : MonoBehaviour
 
     void Start()
     {
-         PLATFORM_LAYER = LayerMask.NameToLayer("Platform");
+        PLATFORM_LAYER = LayerMask.NameToLayer("Platform");
     }
 
     void Update()
     {
         // 실시간으로 반영하여, 자료 전달. 
         _playerPosition = GetComponent<Rigidbody2D>();
+        Jump();
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            JumpingBehaviour.isLongJump = true;
+            _playerRigidbody.gravityScale = 1.0f;
+        }
+
+        else if (Input.GetKeyUp(KeyCode.A))
+        {
+            _playerRigidbody.gravityScale = 3.0f;
+            JumpingBehaviour.isLongJump = false;
+        }
     }
 
     private void LateUpdate()
@@ -47,9 +57,8 @@ public class CupheadController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+       
         MovePlayer();
-        Jump();
         Duck();
     }
 
@@ -61,22 +70,23 @@ public class CupheadController : MonoBehaviour
             _animator.SetBool(CupheadAnimID.IS_JUMPING, false);
         }
 
-     
+
     }
 
     private void MovePlayer()
     {
         _inputVec.x = Input.GetAxisRaw("Horizontal");
-       
-        _playerRigidbody.velocity = new Vector2(_inputVec.x * _moveSpeed, _playerPosition.velocity.y);
-        
+
+        _playerRigidbody.velocity = new Vector2(_inputVec.x *
+            _moveSpeed, _playerPosition.velocity.y);
+
         FlipPlayer();
-        
+
     }
 
     private void FlipPlayer()
     {
-        
+
         if (_inputVec.x != 0)
         {
             _playerSpriteRenderer.flipX = _inputVec.x < 0;
@@ -94,7 +104,7 @@ public class CupheadController : MonoBehaviour
             _animator.SetBool(CupheadAnimID.IS_RUNNING, true);
         }
 
-        Debug.Log(_inputVec.x);
+      
     }
 
     private void Duck()
@@ -107,15 +117,20 @@ public class CupheadController : MonoBehaviour
 
     private void Jump()
     {
+
         if (Input.GetKeyDown(KeyCode.A))
         {
             _animator.SetTrigger(CupheadAnimID.IS_JUMPING);
         }
+
+
+      
+        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+
     }
 }
 
