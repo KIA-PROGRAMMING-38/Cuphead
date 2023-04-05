@@ -10,16 +10,30 @@ public class CupheadController : MonoBehaviour
     public Animator _animator;
     private AudioSource _audioSource;
     private Vector2 _inputVec;
+
     SpriteRenderer _playerSpriteRenderer;
     Rigidbody2D _playerRigidbody;
 
-    [SerializeField] private float _playerMoveSpeed;
+    //[SerializeField]
+    //private float _shortJump;
+
+    //[SerializeField] 
+    //private float _longJump;
+
+    //[SerializeField] 
+    //private float _shortJumpTimingLimit;
+
+    [SerializeField] 
+    private float _playerMoveSpeed;
+
 
     private void Awake()
     {
         _playerSpriteRenderer = GetComponent<SpriteRenderer>();
         _playerRigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+
+        
     }
 
 
@@ -32,15 +46,14 @@ public class CupheadController : MonoBehaviour
 
     void Update()
     {
-
-
-
     }
 
     private void LateUpdate()
     {
         FlipPlayer();
         CheckRunning();
+        
+
     }
 
     private void FixedUpdate()
@@ -49,6 +62,8 @@ public class CupheadController : MonoBehaviour
         Duck();
         Jump();
         ShootStanding();
+        
+
     }
 
 
@@ -69,10 +84,11 @@ public class CupheadController : MonoBehaviour
     private void MovePlayer()
     {
         _inputVec.x = Input.GetAxisRaw("Horizontal");
+        _inputVec.y = Input.GetAxisRaw("Vertical");
 
-        _playerRigidbody.velocity =
-            new Vector2(_inputVec.x * _playerMoveSpeed, _playerRigidbody.velocity.y);
-
+        _playerRigidbody.velocity =new Vector2
+            (_inputVec.x * _playerMoveSpeed, _playerRigidbody.velocity.y);
+       
         FlipPlayer();
 
     }
@@ -98,7 +114,6 @@ public class CupheadController : MonoBehaviour
             _animator.SetBool(CupheadAnimID.IS_RUNNING, false);
         }
 
-
     }
 
     private void Duck()
@@ -123,20 +138,17 @@ public class CupheadController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            JumpingBehaviour.isLongJump = true;
+            _playerRigidbody.gravityScale = 1.0f;
+            // JumpingBehaviour.isLongJump = true;
         }
 
-        else if (Input.GetKeyUp(KeyCode.A))
+        else if (Input.GetKeyUp(KeyCode.A) && _playerRigidbody.velocity.y > 5.0f)
         {
-            JumpingBehaviour.isLongJump = false;
+            _playerRigidbody.gravityScale = 2.5f;
         }
-
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-
-    }
+  
 
     private void ShootStanding()
     {

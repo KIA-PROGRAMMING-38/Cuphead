@@ -11,26 +11,14 @@ public class JumpingBehaviour : StateMachineBehaviour
 
    [SerializeField] 
     Vector2 _jumpPower = new Vector2(0f, 3000f);
+    private float jumpForce = 10f;
   
     
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         rigidbody = animator.GetComponent<Rigidbody2D>();
-
-        if (isLongJump)
-        {
-            rigidbody.gravityScale = 1.0f;
-           
-        }
-
-        else
-        {
-            rigidbody.gravityScale = 3.0f;
-
-        }
-
-        rigidbody.AddForce(Vector2.up * _jumpPower);
-
+        // rigidbody.AddForce(Vector2.up * _jumpPower);
+        rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
