@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 190771919}
   - component: {fileID: 190771920}
   - component: {fileID: 190771921}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 190771921}
-  _moveSpeed: 7
+  _playerMoveSpeed: 7.5
 --- !u!50 &190771917
 Rigidbody2D:
   serializedVersion: 4

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.VisualScripting;
+using TMPro;
 
 public class CupheadController : MonoBehaviour
 {
@@ -12,11 +13,7 @@ public class CupheadController : MonoBehaviour
     SpriteRenderer _playerSpriteRenderer;
     Rigidbody2D _playerRigidbody;
 
-    private const float RUNNING = 1.0f;
-    private const float IDLE = 0.0f;
-
-    private Rigidbody2D _playerPosition;
-    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _playerMoveSpeed;
 
     private void Awake()
     {
@@ -25,6 +22,9 @@ public class CupheadController : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
+
+    private int PLATFORM_LAYER;
+
     void Start()
     {
         PLATFORM_LAYER = LayerMask.NameToLayer("Platform");
@@ -32,21 +32,9 @@ public class CupheadController : MonoBehaviour
 
     void Update()
     {
-        // 실시간으로 반영하여, 자료 전달. 
-        _playerPosition = GetComponent<Rigidbody2D>();
-        Jump();
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            JumpingBehaviour.isLongJump = true;
-            _playerRigidbody.gravityScale = 1.0f;
-        }
 
-        else if (Input.GetKeyUp(KeyCode.A))
-        {
-            _playerRigidbody.gravityScale = 3.0f;
-            JumpingBehaviour.isLongJump = false;
-        }
+
     }
 
     private void LateUpdate()
@@ -57,28 +45,33 @@ public class CupheadController : MonoBehaviour
 
     private void FixedUpdate()
     {
-       
         MovePlayer();
         Duck();
+        Jump();
+        ShootStanding();
     }
 
-    private int PLATFORM_LAYER;
+
+
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == PLATFORM_LAYER)
+        if (collision.gameObject.layer == PLATFORM_LAYER || collision.gameObject.CompareTag("Platform"))
         {
             _animator.SetBool(CupheadAnimID.IS_JUMPING, false);
         }
 
-
+        //점프 상태 초기화
+        JumpingBehaviour.isLongJumping = false;
     }
 
     private void MovePlayer()
     {
         _inputVec.x = Input.GetAxisRaw("Horizontal");
 
-        _playerRigidbody.velocity = new Vector2(_inputVec.x *
-            _moveSpeed, _playerPosition.velocity.y);
+        _playerRigidbody.velocity =
+            new Vector2(_inputVec.x * _playerMoveSpeed, _playerRigidbody.velocity.y);
 
         FlipPlayer();
 
@@ -95,23 +88,28 @@ public class CupheadController : MonoBehaviour
 
     private void CheckRunning()
     {
-        if (Math.Abs(_inputVec.x) < 0.1f)
-        {
-            _animator.SetBool(CupheadAnimID.IS_RUNNING, false);
-        }
-        else if (Math.Abs(_inputVec.x) > 0.1f)
+        if (_inputVec.x != 0.0f)
         {
             _animator.SetBool(CupheadAnimID.IS_RUNNING, true);
         }
 
-      
+        if (Math.Abs(_inputVec.x) < 0.1f)
+        {
+            _animator.SetBool(CupheadAnimID.IS_RUNNING, false);
+        }
+
+
     }
 
     private void Duck()
     {
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             _animator.SetBool(CupheadAnimID.IS_DUCKING, true);
+        }
+        else if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            _animator.SetBool(CupheadAnimID.IS_DUCKING, false);
         }
     }
 
@@ -120,16 +118,38 @@ public class CupheadController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            _animator.SetTrigger(CupheadAnimID.IS_JUMPING);
+            _animator.SetBool(CupheadAnimID.IS_JUMPING, true);
         }
 
+        if (Input.GetKey(KeyCode.A))
+        {
+            JumpingBehaviour.isLongJump = true;
+        }
 
-      
-        
+        else if (Input.GetKeyUp(KeyCode.A))
+        {
+            JumpingBehaviour.isLongJump = false;
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+
+    }
+
+    private void ShootStanding()
+    {
+        if (Input.GetKey(KeyCode.X))
+        {
+            _animator.SetBool(CupheadAnimID.IS_STANDSHOOTING, true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.X))
+        {
+            _animator.SetBool(CupheadAnimID.IS_STANDSHOOTING, false);
+        }
+
 
     }
 }

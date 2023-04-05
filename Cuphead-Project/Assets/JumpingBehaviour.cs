@@ -6,22 +6,30 @@ using UnityEngine;
 public class JumpingBehaviour : StateMachineBehaviour
 {
     public static bool isLongJump;
+    public static bool isLongJumping;
     Rigidbody2D rigidbody;
 
-   [SerializeField] Vector2 _jumpPower = new Vector2(0f, 3000f);
-
+   [SerializeField] 
+    Vector2 _jumpPower = new Vector2(0f, 3000f);
+  
+    
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
         rigidbody = animator.GetComponent<Rigidbody2D>();
 
-      
+        if (isLongJump)
+        {
+            rigidbody.gravityScale = 1.0f;
+           
+        }
+
+        else
+        {
+            rigidbody.gravityScale = 3.0f;
+
+        }
+
         rigidbody.AddForce(Vector2.up * _jumpPower);
-        
-
-       
-         
-
 
     }
 
@@ -32,7 +40,8 @@ public class JumpingBehaviour : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetBool(CupheadAnimID.IS_JUMPING, false);
+       
+
     }
 
 
