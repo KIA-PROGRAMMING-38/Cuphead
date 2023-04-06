@@ -23,7 +23,7 @@ public class CupheadController : MonoBehaviour
     //[SerializeField] 
     //private float _shortJumpTimingLimit;
 
-    [SerializeField] 
+    [SerializeField]
     private float _playerMoveSpeed;
 
 
@@ -33,10 +33,7 @@ public class CupheadController : MonoBehaviour
         _playerRigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
 
-        
     }
-
-
     private int PLATFORM_LAYER;
 
     void Start()
@@ -44,26 +41,18 @@ public class CupheadController : MonoBehaviour
         PLATFORM_LAYER = LayerMask.NameToLayer("Platform");
     }
 
-    void Update()
-    {
-    }
-
     private void LateUpdate()
     {
         FlipPlayer();
         CheckRunning();
-        
-
     }
 
     private void FixedUpdate()
     {
         MovePlayer();
-        Duck();
-        Jump();
+        DuckPlayer();
+        JumpPlayer();
         ShootStanding();
-        
-
     }
 
 
@@ -86,20 +75,19 @@ public class CupheadController : MonoBehaviour
         _inputVec.x = Input.GetAxisRaw("Horizontal");
         _inputVec.y = Input.GetAxisRaw("Vertical");
 
-        _playerRigidbody.velocity =new Vector2
+        _playerRigidbody.velocity = new Vector2
             (_inputVec.x * _playerMoveSpeed, _playerRigidbody.velocity.y);
-       
+
         FlipPlayer();
 
     }
 
+    /// <summary>
+    /// Flip player's image according to direction of the player's movement.
+    /// </summary>
     private void FlipPlayer()
     {
-
-        if (_inputVec.x != 0)
-        {
-            _playerSpriteRenderer.flipX = _inputVec.x < 0;
-        }
+        _playerSpriteRenderer.flipX = _inputVec.x < 0;
     }
 
     private void CheckRunning()
@@ -116,7 +104,7 @@ public class CupheadController : MonoBehaviour
 
     }
 
-    private void Duck()
+    private void DuckPlayer()
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -128,7 +116,12 @@ public class CupheadController : MonoBehaviour
         }
     }
 
-    private void Jump()
+
+    /// <summary>
+    /// The player's jump has three fixed heights, 
+    /// rather than a gradual increase in height. 
+    /// </summary>
+    private void JumpPlayer()
     {
 
         if (Input.GetKeyDown(KeyCode.A))
@@ -147,8 +140,6 @@ public class CupheadController : MonoBehaviour
             _playerRigidbody.gravityScale = 2.5f;
         }
     }
-
-  
 
     private void ShootStanding()
     {

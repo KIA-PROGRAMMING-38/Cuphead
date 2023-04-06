@@ -8,6 +8,7 @@ TagManager:
   - Dynamics
   - Props
   - Platform
+  - Bullet
   layers:
   - Default
   - TransparentFX
