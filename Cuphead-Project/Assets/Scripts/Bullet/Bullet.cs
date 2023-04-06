@@ -8,13 +8,16 @@ public class Bullet : MonoBehaviour
     Rigidbody2D _bulletRigidbody;
 
     [SerializeField]
-    Renderer render; 
+    Renderer render;
+
+    [SerializeField]
+    Vector2 _bulletForce;
 
 
     private void OnEnable()
     {
-        Vector2 _bulletForce = new Vector2(10f, 0f);
-       _bulletRigidbody.velocity = _bulletForce* Time.deltaTime;
+       _bulletForce = new Vector2(30f, 0f);
+        _bulletRigidbody.velocity = _bulletForce; //* Time.deltaTime;
         Invoke(nameof(DeactiveDelay), 10);
     }
 
