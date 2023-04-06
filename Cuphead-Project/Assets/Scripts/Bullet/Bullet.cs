@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
     {
        _bulletForce = new Vector2(30f, 0f);
         _bulletRigidbody.velocity = _bulletForce; //* Time.deltaTime;
-        Invoke(nameof(DeactiveDelay), 10);
+        Invoke(nameof(DeactiveDelay), 1.3f);
     }
 
     void DeactiveDelay() => gameObject.SetActive(false)

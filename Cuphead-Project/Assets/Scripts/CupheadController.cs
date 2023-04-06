@@ -40,7 +40,12 @@ public class CupheadController : MonoBehaviour
     {
         PLATFORM_LAYER = LayerMask.NameToLayer("Platform");
     }
-
+    private void Update()
+    {
+        DuckPlayer();
+        JumpPlayer();
+        ShootStanding();
+    }
     private void LateUpdate()
     {
         FlipPlayer();
@@ -50,9 +55,8 @@ public class CupheadController : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
-        DuckPlayer();
-        JumpPlayer();
-        ShootStanding();
+        
+        
     }
 
 
@@ -106,7 +110,7 @@ public class CupheadController : MonoBehaviour
 
     private void DuckPlayer()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.DownArrow))
         {
             _animator.SetBool(CupheadAnimID.IS_DUCKING, true);
         }
@@ -131,8 +135,9 @@ public class CupheadController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
+           
             _playerRigidbody.gravityScale = 1.0f;
-            // JumpingBehaviour.isLongJump = true;
+           
         }
 
         else if (Input.GetKeyUp(KeyCode.A) && _playerRigidbody.velocity.y > 5.0f)

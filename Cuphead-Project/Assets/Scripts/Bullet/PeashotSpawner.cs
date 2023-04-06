@@ -17,8 +17,7 @@ public class PeashotSpawner : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.X))
         {
-            GameObject peashot = ObjectPooler.SpawnFromPool("Bullet", _spawnposition.position);
-           
+            ObjectPooler.SpawnFromPool("Bullet", _spawnposition.position);
         }
     }
 }
