@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngineInternal;
 
 public class IdleBehaviour : StateMachineBehaviour
 {
@@ -33,4 +34,11 @@ public class IdleBehaviour : StateMachineBehaviour
     //{
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
+
+    //.마일스톤  -< 이슈발행,라벨, 담당자, 상태 설정 -> submit -> 브랜치생성 # 체크아웃, 
+    //git checkout #1 fetch origin  -> pull request 설정: 양식 등록 
+    //Creat Request => code review 가능 
+    //squash and merge: 커밋갯수 줄이기 : 여러개로 쪼갠경우 스쿼시하여 압축-> 사라짐 
+    //합치고 난 후 delete branch 
+    //Pull request 끝나면 이슈 자동 종료 
 }

@@ -17,12 +17,12 @@ public class PeashotSpawner : MonoBehaviour
     {
         _elapsedTime += Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.X) && _elapsedTime > 0.4f)
+        if (Input.GetKey(KeyCode.X) && _elapsedTime > _spawnCoolTime)
         {
             
             GameObject bullet = ObjectPooler.SpawnFromPool("Bullet", _spawnposition.transform.position);
             
-            Debug.Log(_elapsedTime);
+           
             _elapsedTime = 0.0f;
         }
     }

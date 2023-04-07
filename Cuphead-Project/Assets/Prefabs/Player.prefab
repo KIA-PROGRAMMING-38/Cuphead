@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &736912406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 736912407}
+  m_Layer: 3
+  m_Name: PlayerTemp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &736912407
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736912406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6767128761557610346}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6767128761557610344
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +44,7 @@ GameObject:
   - component: {fileID: 6767128761557610349}
   - component: {fileID: 6767128761557610350}
   - component: {fileID: 6767128761557610353}
-  - component: {fileID: 6767128761557610352}
+  - component: {fileID: 2135547211}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -28,11 +59,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6767128761557610344}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.64, y: -4.81, z: 0}
-  m_LocalScale: {x: 1.7759646, y: 1.7759646, z: 1.7759646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.4934087, y: 1.4934087, z: 1.4934087}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 736912407}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -69,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3cb8603e5aec3345ae42f7c7467f00f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 6767128761557610352}
+  _animator: {fileID: 0}
   _playerMoveSpeed: 7.5
 --- !u!212 &6767128761557610350
 SpriteRenderer:
@@ -139,7 +171,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.1}
   m_Size: {x: 1, y: 1.2}
   m_Direction: 0
---- !u!95 &6767128761557610352
+--- !u!95 &2135547211
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -149,7 +181,7 @@ Animator:
   m_GameObject: {fileID: 6767128761557610344}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2b08c52b920ce1940b841a1730ff751c, type: 2}
+  m_Controller: {fileID: 9100000, guid: fefe5cb85b6e5814d9f8bf722bdcb465, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

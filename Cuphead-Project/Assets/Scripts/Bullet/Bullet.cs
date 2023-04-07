@@ -10,23 +10,39 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     Renderer render;
 
+   
+    SpriteRenderer _playerSpriteRenderer;
+
     [SerializeField]
     Vector2 _bulletForce;
 
-
+    public void Update()
+    {
+        
+    }
     private void OnEnable()
     {
-       _bulletForce = new Vector2(30f, 0f);
-        _bulletRigidbody.velocity = _bulletForce; //* Time.deltaTime;
+        _playerSpriteRenderer = CupheadController._playerSpriteRenderer;
+        _bulletForce = new Vector2(30f, 0f);
+
+        if (_playerSpriteRenderer.flipX == false)
+        {
+            _bulletRigidbody.velocity = _bulletForce; 
+        }
+        else if (_playerSpriteRenderer.flipX == true)
+        {
+            _bulletRigidbody.velocity = - _bulletForce; //* Time.deltaTime;
+        }
+
         Invoke(nameof(DeactiveDelay), 1.3f);
     }
 
     void DeactiveDelay() => gameObject.SetActive(false)
-;  
+;
     private void OnDisable()
     {
         ObjectPooler.ReturnToPool(gameObject);
-       
+
         CancelInvoke(); //unlike coroutine, using Invoke have to be used with CancelInvoke
     }
 

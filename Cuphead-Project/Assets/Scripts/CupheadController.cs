@@ -10,8 +10,10 @@ public class CupheadController : MonoBehaviour
     public Animator _animator;
     private AudioSource _audioSource;
     private Vector2 _inputVec;
+    private float INPUTVECTORX;
 
-    SpriteRenderer _playerSpriteRenderer;
+
+    public static SpriteRenderer _playerSpriteRenderer;
     Rigidbody2D _playerRigidbody;
     Vector2 size = new Vector2(10, 3);
 
@@ -65,13 +67,7 @@ public class CupheadController : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
-        
-        
     }
-
-
-
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -84,6 +80,9 @@ public class CupheadController : MonoBehaviour
 
     private void MovePlayer()
     {
+
+        INPUTVECTORX = Input.GetAxisRaw("Horizontal");
+
         _inputVec.x = Input.GetAxisRaw("Horizontal");
         _inputVec.y = Input.GetAxisRaw("Vertical");
 
@@ -145,9 +144,7 @@ public class CupheadController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-           
-            _playerRigidbody.gravityScale = 1.0f;
-           
+            _playerRigidbody.gravityScale = 1.0f;  
         }
 
         else if (Input.GetKeyUp(KeyCode.A) && _playerRigidbody.velocity.y > 5.0f)
