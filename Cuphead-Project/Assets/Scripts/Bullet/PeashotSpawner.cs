@@ -1,23 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PeashotSpawner : MonoBehaviour
 {
     [SerializeField]
-    Transform _spawnposition;
+    GameObject _spawnposition;
+    ObjectPooler objectPooler;
+ 
 
-
-    private void Start()
-    {
-       // _parentTransfrom = GetComponentInParent<Transform>();
-    }
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.X))
         {
-            ObjectPooler.SpawnFromPool("Bullet", _spawnposition.position);
+            
+            GameObject bullet = ObjectPooler.SpawnFromPool("Bullet", _spawnposition.transform.position);
+           
         }
     }
 }

@@ -6,22 +6,20 @@ using System;
 #if UNITY_EDITOR
 using UnityEditor;
 
-[CustomEditor(typeof(ObjectPooler))]
-
-
+//[CustomEditor(typeof(ObjectPooler))]
 //using editor-handling code below to show heads-up.
-public class ObjectPoolerEditor : Editor
-{
-    const string INFO = "풀링한 오브젝트에 다음을 적으세요 \nvoid OnDisable()\n{\n" +
-        "    ObjectPooler.ReturnToPool(gameObject);    // 한 객체에 한번만 \n" +
-        "    CancelInvoke();    // Monobehaviour에 Invoke가 있다면 \n}";
+//public class ObjectPoolerEditor : Editor
+//{
+//    const string INFO = "풀링한 오브젝트에 다음을 적으세요 \nvoid OnDisable()\n{\n" +
+//        "    ObjectPooler.ReturnToPool(gameObject);    // 한 객체에 한번만 \n" +
+//        "    CancelInvoke();    // Monobehaviour에 Invoke가 있다면 \n}";
 
-    public override void OnInspectorGUI()
-    {
-        EditorGUILayout.HelpBox(INFO, MessageType.Info);
-        base.OnInspectorGUI();
-    }
-}
+//    public override void OnInspectorGUI()
+//    {
+//        EditorGUILayout.HelpBox(INFO, MessageType.Info);
+//        base.OnInspectorGUI();
+//    }
+//}
 #endif
 
 public class ObjectPooler : MonoBehaviour
@@ -46,13 +44,13 @@ public class ObjectPooler : MonoBehaviour
 
 
 
-    public static GameObject SpawnFromPool(string tag, Vector2 position) =>
+    public static GameObject SpawnFromPool(string tag, Vector3 position) =>
         inst._SpawnFromPool(tag, position, Quaternion.identity);
 
-    public static GameObject SpawnFromPool(string tag, Vector2 position, Quaternion rotation) =>
+    public static GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation) =>
         inst._SpawnFromPool(tag, position, rotation);
 
-    public static T SpawnFromPool<T>(string tag, Vector2 position) where T : Component
+    public static T SpawnFromPool<T>(string tag, Vector3 position) where T : Component
     {
         GameObject obj = inst._SpawnFromPool(tag, position, Quaternion.identity);
         if (obj.TryGetComponent(out T component))
@@ -64,7 +62,7 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    public static T SpawnFromPool<T>(string tag, Vector2 position, Quaternion rotation) where T : Component
+    public static T SpawnFromPool<T>(string tag, Vector3 position, Quaternion rotation) where T : Component
     {
         GameObject obj = inst._SpawnFromPool(tag, position, rotation);
         if (obj.TryGetComponent(out T component))
@@ -117,16 +115,16 @@ public class ObjectPooler : MonoBehaviour
         if (!poolDictionary.ContainsKey(tag))
             throw new Exception($"Pool with tag {tag} doesn't exist.");
 
-        // 큐에 없으면 새로 추가
+        // Create object only if there's no object in the queue.
         Queue<GameObject> poolQueue = poolDictionary[tag];
         if (poolQueue.Count <= 0)
         {
             Pool pool = Array.Find(pools, x => x.tag == tag);
             var obj = CreateNewObject(pool.tag, pool.prefab);
-            ArrangePool(obj);
+            //ArrangePool(obj);
         }
 
-        // 큐에서 꺼내서 사용
+        // Picking up one of active objects orderly from the queue.
         GameObject objectToSpawn = poolQueue.Dequeue();
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
@@ -147,7 +145,7 @@ public class ObjectPooler : MonoBehaviour
             for (int i = 0; i < pool.size; i++)
             {
                 var obj = CreateNewObject(pool.tag, pool.prefab);
-                ArrangePool(obj);
+                //ArrangePool(obj);
             }
 
             // OnDisable에 ReturnToPool 구현여부와 중복구현 검사
@@ -166,27 +164,27 @@ public class ObjectPooler : MonoBehaviour
         return obj;
     }
 
-    void ArrangePool(GameObject obj)
-    {
+    //void ArrangePool(GameObject obj)
+    //{
     //    // 추가된 오브젝트 묶어서 정렬
-    //    bool isFind = false;
-    //    for (int i = 0; i < transform.childCount; i++)
+    //    bool isfind = false;
+    //    for (int i = 0; i < transform.childcount; i++)
     //    {
-    //        if (i == transform.childCount - 1)
+    //        if (i == transform.childcount - 1)
     //        {
-    //            obj.transform.SetSiblingIndex(i);
-    //            spawnObjects.Insert(i, obj);
+    //            obj.transform.setsiblingindex(i);
+    //            spawnobjects.insert(i, obj);
     //            break;
     //        }
-    //        else if (transform.GetChild(i).name == obj.name)
-    //            isFind = true;
-    //        else if (isFind)
+    //        else if (transform.getchild(i).name == obj.name)
+    //            isfind = true;
+    //        else if (isfind)
     //        {
-    //            obj.transform.SetSiblingIndex(i);
-    //            spawnObjects.Insert(i, obj);
+    //            obj.transform.setsiblingindex(i);
+    //            spawnobjects.insert(i, obj);
     //            break;
     //        }
     //    }
-    }
+    //}
 
 }

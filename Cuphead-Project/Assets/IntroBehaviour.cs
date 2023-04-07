@@ -8,8 +8,5 @@ public class IntroBehaviour : StateMachineBehaviour
     {
         animator.SetBool("IntroFinished", true);
     }
-
-
-
 }
 

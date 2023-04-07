@@ -144,6 +144,11 @@ public class CupheadController : MonoBehaviour
         {
             _playerRigidbody.gravityScale = 2.5f;
         }
+
+        if(_playerRigidbody.velocity.y == 0.1f)
+        {
+            _animator.SetBool(CupheadAnimID.IS_JUMPING, false);
+        }
     }
 
     private void ShootStanding()
