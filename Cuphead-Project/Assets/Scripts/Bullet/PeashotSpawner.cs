@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,17 +8,29 @@ public class PeashotSpawner : MonoBehaviour
 {
     [SerializeField]
     GameObject _spawnposition;
-    ObjectPooler objectPooler;
- 
 
+    [SerializeField]
+    float _spawnCoolTime;
+    float _elapsedTime;
 
-    void Update()
+    private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.X))
+        _elapsedTime += Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.X) && _elapsedTime > 0.4f)
         {
             
             GameObject bullet = ObjectPooler.SpawnFromPool("Bullet", _spawnposition.transform.position);
-           
+            
+            Debug.Log(_elapsedTime);
+            _elapsedTime = 0.0f;
         }
+    }
+
+
+
+    private void FixedUpdate()
+    {
+       
     }
 }

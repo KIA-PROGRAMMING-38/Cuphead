@@ -1090,6 +1090,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnposition: {fileID: 2135547205}
+  _spawnCoolTime: 0.2
 --- !u!1 &824980736
 GameObject:
   m_ObjectHideFlags: 0
@@ -2219,7 +2220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5169500623404181285, guid: 66903df03b0091a4b9f9b1866d2b4ab7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5169500623404181286, guid: 66903df03b0091a4b9f9b1866d2b4ab7, type: 3}
       propertyPath: m_RootOrder

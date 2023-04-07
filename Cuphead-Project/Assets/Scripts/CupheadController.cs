@@ -13,6 +13,7 @@ public class CupheadController : MonoBehaviour
 
     SpriteRenderer _playerSpriteRenderer;
     Rigidbody2D _playerRigidbody;
+    Vector2 size = new Vector2(10, 3);
 
     //[SerializeField]
     //private float _shortJump;
@@ -36,8 +37,17 @@ public class CupheadController : MonoBehaviour
     }
     private int PLATFORM_LAYER;
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(transform.position, size);
+    }
+
     void Start()
     {
+       
+        Physics2D.OverlapBox(_playerRigidbody.position, size, 0);
+
         PLATFORM_LAYER = LayerMask.NameToLayer("Platform");
     }
     private void Update()
@@ -70,8 +80,6 @@ public class CupheadController : MonoBehaviour
             _animator.SetBool(CupheadAnimID.IS_JUMPING, false);
         }
 
-        //점프 상태 초기화
-        JumpingBehaviour.isLongJumping = false;
     }
 
     private void MovePlayer()
@@ -81,6 +89,8 @@ public class CupheadController : MonoBehaviour
 
         _playerRigidbody.velocity = new Vector2
             (_inputVec.x * _playerMoveSpeed, _playerRigidbody.velocity.y);
+
+       
 
         FlipPlayer();
 
@@ -145,10 +155,8 @@ public class CupheadController : MonoBehaviour
             _playerRigidbody.gravityScale = 2.5f;
         }
 
-        if(_playerRigidbody.velocity.y == 0.1f)
-        {
-            _animator.SetBool(CupheadAnimID.IS_JUMPING, false);
-        }
+
+     
     }
 
     private void ShootStanding()
