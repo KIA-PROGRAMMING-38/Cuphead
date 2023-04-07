@@ -12,5 +12,5 @@ public static class CupheadAnimID
     public static readonly int IS_STANDSHOOTING = Animator.StringToHash("StandShooting");
     public static readonly int IS_PARRYING = Animator.StringToHash("Parrying"); // shooting is not possible 
     public static readonly int IS_EX_MOVING = Animator.StringToHash("ExMoving");
-
+    public static readonly int IS_ON_GROUND = Animator.StringToHash("IsOnGround");
 }

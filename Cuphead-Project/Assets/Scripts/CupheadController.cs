@@ -10,21 +10,12 @@ public class CupheadController : MonoBehaviour
     public Animator _animator;
     private AudioSource _audioSource;
     private Vector2 _inputVec;
-    private float INPUTVECTORX;
-
+  
 
     public static SpriteRenderer _playerSpriteRenderer;
     Rigidbody2D _playerRigidbody;
-    Vector2 size = new Vector2(10, 3);
 
-    //[SerializeField]
-    //private float _shortJump;
 
-    //[SerializeField] 
-    //private float _longJump;
-
-    //[SerializeField] 
-    //private float _shortJumpTimingLimit;
 
     [SerializeField]
     private float _playerMoveSpeed;
@@ -39,24 +30,19 @@ public class CupheadController : MonoBehaviour
     }
     private int PLATFORM_LAYER;
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position, size);
-    }
 
     void Start()
     {
-       
-        Physics2D.OverlapBox(_playerRigidbody.position, size, 0);
-
         PLATFORM_LAYER = LayerMask.NameToLayer("Platform");
     }
     private void Update()
     {
+
         DuckPlayer();
         JumpPlayer();
         ShootStanding();
+
+
     }
     private void LateUpdate()
     {
@@ -67,6 +53,7 @@ public class CupheadController : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -80,16 +67,18 @@ public class CupheadController : MonoBehaviour
 
     private void MovePlayer()
     {
-
-        INPUTVECTORX = Input.GetAxisRaw("Horizontal");
-
         _inputVec.x = Input.GetAxisRaw("Horizontal");
         _inputVec.y = Input.GetAxisRaw("Vertical");
 
-        _playerRigidbody.velocity = new Vector2
-            (_inputVec.x * _playerMoveSpeed, _playerRigidbody.velocity.y);
 
-       
+        if (isDucking == false)
+        {
+            _playerRigidbody.velocity = new Vector2
+           (_inputVec.x * _playerMoveSpeed, _playerRigidbody.velocity.y);
+        }
+
+
+
 
         FlipPlayer();
 
@@ -117,14 +106,17 @@ public class CupheadController : MonoBehaviour
 
     }
 
+    static bool isDucking;
     private void DuckPlayer()
     {
         if (Input.GetKey(KeyCode.DownArrow))
         {
+            isDucking = true;
             _animator.SetBool(CupheadAnimID.IS_DUCKING, true);
         }
         else if (Input.GetKeyUp(KeyCode.DownArrow))
         {
+            isDucking = false;
             _animator.SetBool(CupheadAnimID.IS_DUCKING, false);
         }
     }
@@ -134,26 +126,31 @@ public class CupheadController : MonoBehaviour
     /// The player's jump has three fixed heights, 
     /// rather than a gradual increase in height. 
     /// </summary>
+    [SerializeField]
+    Vector2 _jumpForce = new Vector2(0f, 500);
     private void JumpPlayer()
     {
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            _animator.SetBool(CupheadAnimID.IS_JUMPING, true);
+            if (IsOnGroundChecker.isOnGround == true && isDucking == false)
+            { _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _jumpForce.y); }
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            _playerRigidbody.gravityScale = 1.0f;  
+
+            _playerRigidbody.gravityScale = 1.0f;
         }
 
         else if (Input.GetKeyUp(KeyCode.A) && _playerRigidbody.velocity.y > 5.0f)
         {
+
             _playerRigidbody.gravityScale = 2.5f;
         }
 
 
-     
+
     }
 
     private void ShootStanding()

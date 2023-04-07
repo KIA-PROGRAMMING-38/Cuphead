@@ -9,6 +9,7 @@ public class PeashotSpawner : MonoBehaviour
     [SerializeField]
     GameObject _spawnposition;
 
+
     [SerializeField]
     float _spawnCoolTime;
     float _elapsedTime;
