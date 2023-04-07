@@ -10,7 +10,7 @@ public class JumpingBehaviour : StateMachineBehaviour
     Rigidbody2D rigidbody;
 
    [SerializeField] 
-    Vector2 _jumpPower = new Vector2(0f, 3000f);
+    Vector2 _jumpPower = new Vector2(0f, 500);
  
   
     

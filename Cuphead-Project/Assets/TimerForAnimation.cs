@@ -7,7 +7,7 @@ public class TimerForAnimation : MonoBehaviour
     [SerializeField] float _timeConditionToDelay;
     public Animator _animator;
     public GameObject _gameObject;
-    public readonly float BOSSINTROBEGIN = 0.6f;
+   
 
    
     void Start()
