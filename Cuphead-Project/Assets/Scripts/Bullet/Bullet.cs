@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
         {
             _bulletRigidbody.velocity = - _bulletForce; //* Time.deltaTime;
         }
-
+       
         Invoke(nameof(DeactiveDelay), 1.3f);
     }
 
@@ -42,7 +42,7 @@ public class Bullet : MonoBehaviour
     private void OnDisable()
     {
         ObjectPooler.ReturnToPool(gameObject);
-
+       
         CancelInvoke(); //unlike coroutine, using Invoke have to be used with CancelInvoke
     }
 

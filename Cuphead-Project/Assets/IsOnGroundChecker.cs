@@ -8,6 +8,9 @@ public class IsOnGroundChecker : MonoBehaviour
     Animator _animator;
 
     [SerializeField]
+    Animator _bulletAnimator;
+
+    [SerializeField]
     Transform _transform;
 
     [SerializeField]
@@ -39,19 +42,24 @@ public class IsOnGroundChecker : MonoBehaviour
     }
 
 
-     public static bool isOnGround;
+    public static bool isOnGround;
     public void TurnOffJumpState()
     {
-         isOnGround = CheckIfPlayerIsOnGround();
+        isOnGround = CheckIfPlayerIsOnGround();
         Debug.Log(isOnGround);
         if (isOnGround)
         {
             Debug.Log("PlayerisOnGround");
             _animator.SetBool(CupheadAnimID.IS_ON_GROUND, true);
+            _bulletAnimator.SetBool(CupheadAnimID.IS_ON_GROUND, true);
+
+
         }
         else
         {
+
             _animator.SetBool(CupheadAnimID.IS_ON_GROUND, false);
+            _bulletAnimator.SetBool(CupheadAnimID.IS_ON_GROUND, false);
         }
     }
 }

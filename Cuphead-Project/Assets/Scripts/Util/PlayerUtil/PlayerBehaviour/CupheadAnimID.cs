@@ -14,3 +14,9 @@ public static class CupheadAnimID
     public static readonly int IS_EX_MOVING = Animator.StringToHash("ExMoving");
     public static readonly int IS_ON_GROUND = Animator.StringToHash("IsOnGround");
 }
+
+public static class BulletAnimID
+{
+  
+    public static readonly int IS_LAUNCHED = Animator.StringToHash("IsLaunched");
+}

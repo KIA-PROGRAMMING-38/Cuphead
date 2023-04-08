@@ -15,7 +15,8 @@ public class CupheadController : MonoBehaviour
     public static SpriteRenderer _playerSpriteRenderer;
     Rigidbody2D _playerRigidbody;
 
-
+    [SerializeField]
+    Animator _bulletSparkAnimator;
 
     [SerializeField]
     private float _playerMoveSpeed;
@@ -134,7 +135,9 @@ public class CupheadController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             if (IsOnGroundChecker.isOnGround == true && isDucking == false)
-            { _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _jumpForce.y); }
+            {
+                _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _jumpForce.y); 
+            }
         }
 
         if (Input.GetKey(KeyCode.A))
@@ -153,6 +156,9 @@ public class CupheadController : MonoBehaviour
 
     }
 
+
+
+   
     private void ShootStanding()
     {
         if (Input.GetKey(KeyCode.X))
@@ -163,6 +169,7 @@ public class CupheadController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.X))
         {
             _animator.SetBool(CupheadAnimID.IS_STANDSHOOTING, false);
+            _bulletSparkAnimator.SetBool(BulletAnimID.IS_LAUNCHED, false);
         }
 
 
