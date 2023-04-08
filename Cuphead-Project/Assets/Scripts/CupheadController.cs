@@ -115,13 +115,13 @@ public class CupheadController : MonoBehaviour
         {
             isDucking = true;
             _animator.SetBool(CupheadAnimID.IS_DUCKING, true);
-            _bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, true);
+            //_bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, true);
         }
         else if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             isDucking = false;
             _animator.SetBool(CupheadAnimID.IS_DUCKING, false);
-            _bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, false);
+            //_bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, false);
         }
     }
 
