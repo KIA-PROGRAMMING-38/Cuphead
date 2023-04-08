@@ -2343,6 +2343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bdaaebec7f01446aba500884a1830d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bulletAnimator: {fileID: 677808803}
   _transform: {fileID: 1710108547}
   _radiusSize: 0.5
   whatIsGround:
@@ -2902,7 +2903,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6767128761557610346, guid: 92afffe5fca825745b9d72d59a02a16e, type: 3}
   m_PrefabInstance: {fileID: 6767128761434807713}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &2135547223
+--- !u!95 &2135547226
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -2993,7 +2994,7 @@ PrefabInstance:
     - target: {fileID: 6767128761557610349, guid: 92afffe5fca825745b9d72d59a02a16e, type: 3}
       propertyPath: _animator
       value: 
-      objectReference: {fileID: 2135547223}
+      objectReference: {fileID: 2135547226}
     - target: {fileID: 6767128761557610349, guid: 92afffe5fca825745b9d72d59a02a16e, type: 3}
       propertyPath: _jumpForce.y
       value: 18

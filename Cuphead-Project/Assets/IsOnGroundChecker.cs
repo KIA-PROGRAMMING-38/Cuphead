@@ -50,7 +50,7 @@ public class IsOnGroundChecker : MonoBehaviour
         if (isOnGround)
         {
             Debug.Log("PlayerisOnGround");
-            _animator.SetBool(CupheadAnimID.IS_ON_GROUND, true);
+            _animator.SetBool(CupheadAnimID.IS_JUMPING, false);
             _bulletAnimator.SetBool(CupheadAnimID.IS_ON_GROUND, true);
 
 
@@ -58,7 +58,7 @@ public class IsOnGroundChecker : MonoBehaviour
         else
         {
 
-            _animator.SetBool(CupheadAnimID.IS_ON_GROUND, false);
+            _animator.SetBool(CupheadAnimID.IS_JUMPING, true);
             _bulletAnimator.SetBool(CupheadAnimID.IS_ON_GROUND, false);
         }
     }

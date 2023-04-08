@@ -98,6 +98,7 @@ public class CupheadController : MonoBehaviour
         if (_inputVec.x != 0.0f)
         {
             _animator.SetBool(CupheadAnimID.IS_RUNNING, true);
+           
         }
 
         if (Math.Abs(_inputVec.x) < 0.1f)
@@ -114,14 +115,15 @@ public class CupheadController : MonoBehaviour
         {
             isDucking = true;
             _animator.SetBool(CupheadAnimID.IS_DUCKING, true);
+            _bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, true);
         }
         else if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             isDucking = false;
             _animator.SetBool(CupheadAnimID.IS_DUCKING, false);
+            _bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, false);
         }
     }
-
 
     /// <summary>
     /// The player's jump has three fixed heights, 
@@ -155,10 +157,7 @@ public class CupheadController : MonoBehaviour
 
 
     }
-
-
-
-   
+ 
     private void ShootStanding()
     {
         if (Input.GetKey(KeyCode.X))
