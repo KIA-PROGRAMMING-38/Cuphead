@@ -8,8 +8,8 @@ using TMPro;
 public class CupheadController : MonoBehaviour
 {
     public Animator _animator;
-    private AudioSource _audioSource;
-    private Vector2 _inputVec;
+    public AudioSource _audioSource;
+    public Vector2 _inputVec;
   
 
     public static SpriteRenderer _playerSpriteRenderer;
@@ -19,8 +19,8 @@ public class CupheadController : MonoBehaviour
     Animator _bulletSparkAnimator;
 
     [SerializeField]
-    private float _playerMoveSpeed;
-
+    public float _playerMoveSpeed;
+    public static bool isDucking;
 
     private void Awake()
     {
@@ -38,19 +38,15 @@ public class CupheadController : MonoBehaviour
     }
     private void Update()
     {
-
         DuckPlayer();
         JumpPlayer();
         ShootStanding();
-
-
     }
     private void LateUpdate()
     {
         FlipPlayer();
         CheckRunning();
     }
-
     private void FixedUpdate()
     {
         MovePlayer();
@@ -66,7 +62,7 @@ public class CupheadController : MonoBehaviour
 
     }
 
-    private void MovePlayer()
+    public void MovePlayer()
     {
         _inputVec.x = Input.GetAxisRaw("Horizontal");
         _inputVec.y = Input.GetAxisRaw("Vertical");
@@ -88,12 +84,17 @@ public class CupheadController : MonoBehaviour
     /// <summary>
     /// Flip player's image according to direction of the player's movement.
     /// </summary>
-    private void FlipPlayer()
+   
+    public void FlipPlayer()
     {
-        _playerSpriteRenderer.flipX = _inputVec.x < 0;
+        if(_inputVec.x != 0f)
+        {
+            _playerSpriteRenderer.flipX = _inputVec.x < 0.0f;
+        }
+       
     }
 
-    private void CheckRunning()
+    public void CheckRunning()
     {
         if (_inputVec.x != 0.0f)
         {
@@ -108,8 +109,8 @@ public class CupheadController : MonoBehaviour
 
     }
 
-    static bool isDucking;
-    private void DuckPlayer()
+   
+    public void DuckPlayer()
     {
         if (Input.GetKey(KeyCode.DownArrow))
         {
@@ -131,7 +132,7 @@ public class CupheadController : MonoBehaviour
     /// </summary>
     [SerializeField]
     Vector2 _jumpForce = new Vector2(0f, 500);
-    private void JumpPlayer()
+    public void JumpPlayer()
     {
 
         if (Input.GetKeyDown(KeyCode.A))
@@ -158,7 +159,7 @@ public class CupheadController : MonoBehaviour
 
     }
  
-    private void ShootStanding()
+    public void ShootStanding()
     {
         if (Input.GetKey(KeyCode.X))
         {
