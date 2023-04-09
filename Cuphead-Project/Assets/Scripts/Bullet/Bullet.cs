@@ -23,10 +23,11 @@ public class Bullet : MonoBehaviour
 
     public void Update()
     {
-        
-        if (bulletHitChecker.CheckBulletHitEnemy() == true)
+       
+        if (bulletHitChecker.CheckBulletIsHit() == true)
         {
-            _bulletRigidbody.velocity = Vector2.zero; 
+            _bulletRigidbody.velocity = Vector2.zero;
+            Invoke(nameof(DeactiveDelay), 0.15f);
         }
     }
     private void OnEnable()
@@ -46,7 +47,7 @@ public class Bullet : MonoBehaviour
 
         }
 
-        Invoke(nameof(DeactiveDelay), 1.3f);
+      
     }
 
     void DeactiveDelay() => gameObject.SetActive(false)

@@ -13,49 +13,49 @@ public class BulletHitChecker : MonoBehaviour
     public LayerMask whatIsEnemy;
 
     [SerializeField]
+    public LayerMask whatIsWall;
+
+    [SerializeField]
     Animator _bulletAnimator;
 
     private void Update()
     {
         TurnOnBulletDeath();
     }
-
-
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, _radiusSize);
     }
     public bool isHittingEnemy;
-    public bool CheckBulletHitEnemy()
+    public bool CheckBulletIsHit()
     {
         return Physics2D.OverlapCircle(transform.position, _radiusSize, whatIsEnemy);
     }
+    //public bool CheckBulletHitsWall()
+    //{
+    //    return Physics2D.OverlapCircle(transform.position, _radiusSize, whatIsWall);
+    //}
+
 
     /// <summary>
     /// This code below is enemy-hit checking method.
     /// </summary>
     /// 
 
-    public bool isHit;
+
     public void TurnOnBulletDeath()
     {
-        isHittingEnemy = CheckBulletHitEnemy();
+        //bool hitWall = CheckBulletHitsWall();
+        isHittingEnemy = CheckBulletIsHit();
       
         if (isHittingEnemy)
         {
-           
-          
             _bulletAnimator.SetBool(BulletAnimID.IS_Hit, true);
-            isHit = true;
-
-
         }
         else
         {
             _bulletAnimator.SetBool(BulletAnimID.IS_Hit, false);
-            isHit = false;
         }
     }
  
