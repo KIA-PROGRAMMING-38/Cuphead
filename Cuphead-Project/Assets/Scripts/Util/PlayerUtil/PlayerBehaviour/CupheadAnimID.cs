@@ -19,4 +19,5 @@ public static class BulletAnimID
 {
   
     public static readonly int IS_LAUNCHED = Animator.StringToHash("IsLaunched");
+    public static readonly int IS_Hit = Animator.StringToHash("IsHit");
 }

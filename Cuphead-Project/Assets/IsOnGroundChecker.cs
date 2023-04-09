@@ -46,10 +46,10 @@ public class IsOnGroundChecker : MonoBehaviour
     public void TurnOffJumpState()
     {
         isOnGround = CheckIfPlayerIsOnGround();
-        Debug.Log(isOnGround);
+        
         if (isOnGround)
         {
-            Debug.Log("PlayerisOnGround");
+           
             _animator.SetBool(CupheadAnimID.IS_JUMPING, false);
             _bulletAnimator.SetBool(CupheadAnimID.IS_ON_GROUND, true);
 

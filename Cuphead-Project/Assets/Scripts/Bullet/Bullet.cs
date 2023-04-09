@@ -12,17 +12,26 @@ public class Bullet : MonoBehaviour
 
     SpriteRenderer _playerSpriteRenderer;
 
-
-
     [SerializeField]
     Vector2 _bulletForce;
 
+    BulletHitChecker bulletHitChecker;
+
+
+
+
+
     public void Update()
     {
-
+        
+        if (bulletHitChecker.CheckBulletHitEnemy() == true)
+        {
+            _bulletRigidbody.velocity = Vector2.zero; 
+        }
     }
     private void OnEnable()
     {
+         bulletHitChecker = GetComponent<BulletHitChecker>();
         _playerSpriteRenderer = CupheadController._playerSpriteRenderer;
         _bulletForce = new Vector2(30f, 0f);
 
@@ -49,6 +58,7 @@ public class Bullet : MonoBehaviour
         CancelInvoke(); //unlike coroutine, using Invoke have to be used with CancelInvoke
     }
 
+ 
 
 
 }

@@ -9,6 +9,7 @@ TagManager:
   - Props
   - Platform
   - Bullet
+  - Enemy
   layers:
   - Default
   - TransparentFX
