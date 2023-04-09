@@ -34,10 +34,6 @@ public class PeashotSpawner : MonoBehaviour
     {
         _elapsedTime += Time.deltaTime;
 
-
-       
-
-
         if (Input.GetKey(KeyCode.X) && _elapsedTime > _spawnCoolTime)
         {
             if (IsOnGroundChecker.isOnGround == true)

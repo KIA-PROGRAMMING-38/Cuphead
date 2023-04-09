@@ -10,6 +10,7 @@ TagManager:
   - Platform
   - Bullet
   - Enemy
+  - PotatoPorjectile
   layers:
   - Default
   - TransparentFX

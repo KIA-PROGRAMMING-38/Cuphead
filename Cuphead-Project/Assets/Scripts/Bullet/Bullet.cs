@@ -17,17 +17,13 @@ public class Bullet : MonoBehaviour
 
     BulletHitChecker bulletHitChecker;
 
-
-
-
-
     public void Update()
     {
-       
+        
         if (bulletHitChecker.CheckBulletIsHit() == true)
         {
             _bulletRigidbody.velocity = Vector2.zero;
-            Invoke(nameof(DeactiveDelay), 0.15f);
+            Invoke(nameof(DeactiveDelay), 0.2f);
         }
     }
     private void OnEnable()

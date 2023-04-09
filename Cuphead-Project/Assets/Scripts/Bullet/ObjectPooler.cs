@@ -164,27 +164,27 @@ public class ObjectPooler : MonoBehaviour
         return obj;
     }
 
-    //void ArrangePool(GameObject obj)
-    //{
-    //    // 추가된 오브젝트 묶어서 정렬
-    //    bool isfind = false;
-    //    for (int i = 0; i < transform.childcount; i++)
-    //    {
-    //        if (i == transform.childcount - 1)
-    //        {
-    //            obj.transform.setsiblingindex(i);
-    //            spawnobjects.insert(i, obj);
-    //            break;
-    //        }
-    //        else if (transform.getchild(i).name == obj.name)
-    //            isfind = true;
-    //        else if (isfind)
-    //        {
-    //            obj.transform.setsiblingindex(i);
-    //            spawnobjects.insert(i, obj);
-    //            break;
-    //        }
-    //    }
-    //}
+    void ArrangePool(GameObject obj)
+    {
+        // 추가된 오브젝트 묶어서 정렬
+        bool isfind = false;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (i == transform.childCount - 1)
+            {
+                obj.transform.SetSiblingIndex(i);
+                spawnObjects.Insert(i, obj);
+                break;
+            }
+            else if (transform.GetChild(i).name == obj.name)
+                isfind = true;
+            else if (isfind)
+            {
+                obj.transform.SetSiblingIndex(i);
+                spawnObjects.Insert(i, obj);
+                break;
+            }
+        }
+    }
 
 }
