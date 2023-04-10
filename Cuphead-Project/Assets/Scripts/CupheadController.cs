@@ -151,6 +151,7 @@ public class CupheadController : MonoBehaviour
     /// </summary>
     [SerializeField]
     Vector2 _jumpForce = new Vector2(0f, 500);
+    private WaitForSeconds waitTime = new WaitForSeconds(2.0f);
     public void JumpPlayer()
     {
 
@@ -160,6 +161,16 @@ public class CupheadController : MonoBehaviour
             {
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _jumpForce.y);
             }
+            else
+            {
+                _animator.SetBool(CupheadAnimID.IS_PARRYING, true);
+                StartCoroutine(StopParry());
+            }
+        }
+        IEnumerator StopParry()
+        {
+            yield return waitTime;
+            _animator.SetBool(CupheadAnimID.IS_PARRYING, false);
         }
 
         if (Input.GetKey(KeyCode.A))

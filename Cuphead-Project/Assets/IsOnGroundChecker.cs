@@ -52,7 +52,7 @@ public class IsOnGroundChecker : MonoBehaviour
            
             _animator.SetBool(CupheadAnimID.IS_JUMPING, false);
             _bulletAnimator.SetBool(CupheadAnimID.IS_ON_GROUND, true);
-
+            _animator.SetBool(CupheadAnimID.IS_PARRYING, false);
 
         }
         else
