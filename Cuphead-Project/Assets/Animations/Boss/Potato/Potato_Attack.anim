@@ -21,53 +21,51 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 40721a77bfa65eb44ae1a7a6c11e373d, type: 3}
-    - time: 0.083333336
+    - time: 0.045454547
       value: {fileID: 21300000, guid: b5a2c3c8fe9889544951ba94b7c215c8, type: 3}
-    - time: 0.16666667
+    - time: 0.09090909
       value: {fileID: 21300000, guid: 2b1f0d0288f25b647988d21e11664f56, type: 3}
-    - time: 0.25
+    - time: 0.13636364
       value: {fileID: 21300000, guid: 749408e89ff3c234db117e3a08271945, type: 3}
-    - time: 0.33333334
+    - time: 0.18181819
       value: {fileID: 21300000, guid: d286bd64375290c44972f161e39bbe07, type: 3}
-    - time: 0.41666666
+    - time: 0.22727273
       value: {fileID: 21300000, guid: 674ca7ee7ad348b49b1426d38c806b41, type: 3}
-    - time: 0.5
+    - time: 0.27272728
       value: {fileID: 21300000, guid: 495054ff5512aeb4b9660e5c10ea8d5c, type: 3}
-    - time: 0.5833333
+    - time: 0.3181818
       value: {fileID: 21300000, guid: 94f65e271a5c18246b669126b5a4b8b9, type: 3}
-    - time: 0.6666667
+    - time: 0.36363637
       value: {fileID: 21300000, guid: 6961e154c7a826947856c1655e35f8c1, type: 3}
-    - time: 0.75
+    - time: 0.4090909
       value: {fileID: 21300000, guid: f2ce38747dd7bf5458f43a743ad967b8, type: 3}
-    - time: 0.8333333
-      value: {fileID: 21300000, guid: 784efaea6745fb54696ea441a11e64f8, type: 3}
-    - time: 0.9166667
+    - time: 0.45454547
       value: {fileID: 21300000, guid: 8326993f43f10da4ca99fb5efed2f116, type: 3}
-    - time: 1
+    - time: 0.5
       value: {fileID: 21300000, guid: da01b63758983a14e83fdca7588cb8c4, type: 3}
-    - time: 1.0833334
+    - time: 0.54545456
       value: {fileID: 21300000, guid: 747a34180b97b1b48a458ed27e600650, type: 3}
-    - time: 1.1666666
+    - time: 0.59090906
       value: {fileID: 21300000, guid: 30fe874a31343cd44b301e9f0f3305d5, type: 3}
-    - time: 1.25
+    - time: 0.6363636
       value: {fileID: 21300000, guid: 3325b4c98ea11aa47b707e132a47bd5e, type: 3}
-    - time: 1.3333334
+    - time: 0.6818182
       value: {fileID: 21300000, guid: 3ef1355c7d679c145a72b197a319ac28, type: 3}
-    - time: 1.4166666
+    - time: 0.72727275
       value: {fileID: 21300000, guid: 9d0ac7cda373a6c4daae097f79fb2f35, type: 3}
-    - time: 1.5
+    - time: 0.77272725
       value: {fileID: 21300000, guid: 3e867d294a3413f48ae23621f719ff8a, type: 3}
-    - time: 1.5833334
+    - time: 0.8181818
       value: {fileID: 21300000, guid: 866bf2c9850ae0e4792bfb6a44700fb0, type: 3}
-    - time: 1.6666666
+    - time: 0.8636364
       value: {fileID: 21300000, guid: c73185e502146314ebddcb0fbddea7d0, type: 3}
-    - time: 1.75
+    - time: 0.90909094
       value: {fileID: 21300000, guid: 852e04ece78bc5444bff0c5f8d1cd729, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 12
+  m_SampleRate: 22
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -92,7 +90,6 @@ AnimationClip:
     - {fileID: 21300000, guid: 94f65e271a5c18246b669126b5a4b8b9, type: 3}
     - {fileID: 21300000, guid: 6961e154c7a826947856c1655e35f8c1, type: 3}
     - {fileID: 21300000, guid: f2ce38747dd7bf5458f43a743ad967b8, type: 3}
-    - {fileID: 21300000, guid: 784efaea6745fb54696ea441a11e64f8, type: 3}
     - {fileID: 21300000, guid: 8326993f43f10da4ca99fb5efed2f116, type: 3}
     - {fileID: 21300000, guid: da01b63758983a14e83fdca7588cb8c4, type: 3}
     - {fileID: 21300000, guid: 747a34180b97b1b48a458ed27e600650, type: 3}
@@ -109,7 +106,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.8333334
+    m_StopTime: 0.9545455
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -128,4 +125,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.4090909
+    functionName: throwProjectile
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
