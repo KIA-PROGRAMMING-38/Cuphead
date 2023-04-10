@@ -3556,6 +3556,10 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6767128761557610349, guid: 92afffe5fca825745b9d72d59a02a16e, type: 3}
+      propertyPath: _exMoveWaitingTime
+      value: 0.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767128761557610349, guid: 92afffe5fca825745b9d72d59a02a16e, type: 3}
       propertyPath: _bulletSparkAnimator
       value: 
       objectReference: {fileID: 677808803}

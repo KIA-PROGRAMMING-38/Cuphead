@@ -16,13 +16,6 @@ public class TimerForAnimation : MonoBehaviour
        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-       
-    }
-
     IEnumerator AnimatorDelayer()
     {
         yield return new WaitForSeconds(_waitingTime);

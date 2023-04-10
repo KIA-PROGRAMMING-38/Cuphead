@@ -10,7 +10,7 @@ public class CupheadController : MonoBehaviour
     public Animator _animator;
     public AudioSource _audioSource;
     public Vector2 _inputVec;
-  
+
 
     public static SpriteRenderer _playerSpriteRenderer;
     Rigidbody2D _playerRigidbody;
@@ -22,8 +22,14 @@ public class CupheadController : MonoBehaviour
     public float _playerMoveSpeed;
     public static bool isDucking;
 
+    [SerializeField]
+    public float _exMoveWaitingTime;
+
+    RigidbodyConstraints2D _playerRigidbodyConstraints;
+
     private void Awake()
     {
+       
         _playerSpriteRenderer = GetComponent<SpriteRenderer>();
         _playerRigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
@@ -41,6 +47,7 @@ public class CupheadController : MonoBehaviour
         DuckPlayer();
         JumpPlayer();
         ShootStanding();
+        ExMove();
     }
     private void LateUpdate()
     {
@@ -61,7 +68,33 @@ public class CupheadController : MonoBehaviour
         }
 
     }
+    Vector2 tempVector;
+    public void ExMove()
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            tempVector = new Vector2(0, _playerRigidbody.velocity.y);
+            
+            _animator.SetBool(CupheadAnimID.IS_EX_MOVING, true);
+            _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+            //gameObject.GetComponent<CupheadController>().enabled = false;
+            StartCoroutine(DelayExMove());
+        }
 
+        IEnumerator DelayExMove()
+        {
+            yield return new WaitForSeconds(_exMoveWaitingTime);
+            _animator.SetBool(CupheadAnimID.IS_EX_MOVING, false);
+           // gameObject.GetComponent<CupheadController>().enabled = true;
+            _playerRigidbody.constraints = RigidbodyConstraints2D.None;
+            _playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+            tempVector = new Vector2(_inputVec.x * _playerMoveSpeed, -_playerRigidbody.velocity.y);
+
+
+
+        }
+    }
+   
     public void MovePlayer()
     {
         _inputVec.x = Input.GetAxisRaw("Horizontal");
@@ -84,14 +117,14 @@ public class CupheadController : MonoBehaviour
     /// <summary>
     /// Flip player's image according to direction of the player's movement.
     /// </summary>
-   
+
     public void FlipPlayer()
     {
-        if(_inputVec.x != 0f)
+        if (_inputVec.x != 0f)
         {
             _playerSpriteRenderer.flipX = _inputVec.x < 0.0f;
         }
-       
+
     }
 
     public void CheckRunning()
@@ -99,7 +132,7 @@ public class CupheadController : MonoBehaviour
         if (_inputVec.x != 0.0f)
         {
             _animator.SetBool(CupheadAnimID.IS_RUNNING, true);
-           
+
         }
 
         if (Math.Abs(_inputVec.x) < 0.1f)
@@ -108,8 +141,6 @@ public class CupheadController : MonoBehaviour
         }
 
     }
-
-   
     public void DuckPlayer()
     {
         if (Input.GetKey(KeyCode.DownArrow))
@@ -125,7 +156,6 @@ public class CupheadController : MonoBehaviour
             //_bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, false);
         }
     }
-
     /// <summary>
     /// The player's jump has three fixed heights, 
     /// rather than a gradual increase in height. 
@@ -139,7 +169,7 @@ public class CupheadController : MonoBehaviour
         {
             if (IsOnGroundChecker.isOnGround == true && isDucking == false)
             {
-                _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _jumpForce.y); 
+                _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _jumpForce.y);
             }
         }
 
@@ -158,7 +188,7 @@ public class CupheadController : MonoBehaviour
 
 
     }
- 
+
     public void ShootStanding()
     {
         if (Input.GetKey(KeyCode.X))
