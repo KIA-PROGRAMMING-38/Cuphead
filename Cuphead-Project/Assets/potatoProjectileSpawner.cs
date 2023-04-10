@@ -11,27 +11,29 @@ public class potatoProjectileSpawner : MonoBehaviour
     public GameObject _gameObject;
     [SerializeField]
     float _spawnCoolTime;
-    float _elapsedTime;
+
 
     [SerializeField]
     GameObject _spawnposition;
 
 
-    void Start()
-    {
-       
-    }
-
-
-    void Update()
-    {
-       
-
-    }
-
+    int count = 0;
+    readonly int bossProjectileCounts = 3;
     GameObject throwProjectile()
     {
-       return ObjectPooler.SpawnFromPool("PotatoProjectile", _spawnposition.transform.position);
+        if (count < bossProjectileCounts)
+        {
+            count++;
+            return ObjectPooler.SpawnFromPool
+                ("PotatoProjectile", _spawnposition.transform.position);
+
+        }
+        else
+        {
+            count = 0;
+            return ObjectPooler.SpawnFromPool
+                ("PotatoProjectileParryable", _spawnposition.transform.position);
+        }
     }
 
 

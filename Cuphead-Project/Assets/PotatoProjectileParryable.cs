@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PotatoProjectile : MonoBehaviour
+public class PotatoProjectileParryable : MonoBehaviour
 {
-
     [SerializeField]
     Rigidbody2D projectileRigidbody;
 
@@ -38,8 +37,4 @@ public class PotatoProjectile : MonoBehaviour
 
         CancelInvoke(); //unlike coroutine, using Invoke has to be used with CancelInvoke
     }
-
-
-
-
 }

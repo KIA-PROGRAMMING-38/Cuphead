@@ -25,6 +25,6 @@ public static class BulletAnimID
 public static class ObjectPoolNameID
 {
 
-    public static readonly string IS_LAUNCHED;
-    public static readonly string IS_Hit;
+    public static readonly string POTATO_PROJECTILE_PARRYABLE = "PotatoProjectileParryable";
+    public static readonly string POTATO_PROJECTILE = "PotatoProjectile";
 }

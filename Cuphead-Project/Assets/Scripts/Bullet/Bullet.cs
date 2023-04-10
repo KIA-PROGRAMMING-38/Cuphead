@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour
 
     public void Update()
     {
-        
+
         if (bulletHitChecker.CheckBulletIsHit() == true)
         {
             _bulletRigidbody.velocity = Vector2.zero;
@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnEnable()
     {
-         bulletHitChecker = GetComponent<BulletHitChecker>();
+        bulletHitChecker = GetComponent<BulletHitChecker>();
         _playerSpriteRenderer = CupheadController._playerSpriteRenderer;
         _bulletForce = new Vector2(30f, 0f);
 
@@ -43,7 +43,6 @@ public class Bullet : MonoBehaviour
 
         }
 
-      
     }
 
     void DeactiveDelay() => gameObject.SetActive(false)
@@ -55,7 +54,7 @@ public class Bullet : MonoBehaviour
         CancelInvoke(); //unlike coroutine, using Invoke have to be used with CancelInvoke
     }
 
- 
+
 
 
 }
