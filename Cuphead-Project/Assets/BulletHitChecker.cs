@@ -32,10 +32,7 @@ public class BulletHitChecker : MonoBehaviour
     {
         return Physics2D.OverlapCircle(transform.position, _radiusSize, whatIsEnemy);
     }
-    //public bool CheckBulletHitsWall()
-    //{
-    //    return Physics2D.OverlapCircle(transform.position, _radiusSize, whatIsWall);
-    //}
+ 
 
 
     /// <summary>

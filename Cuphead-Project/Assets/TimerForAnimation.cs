@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TimerForAnimation : MonoBehaviour
 {
-    [SerializeField] float _timeConditionToDelay;
+    [SerializeField] float _waitingTime;
     public Animator _animator;
     public GameObject _gameObject;
    
@@ -25,7 +25,7 @@ public class TimerForAnimation : MonoBehaviour
 
     IEnumerator AnimatorDelayer()
     {
-        yield return new WaitForSeconds(_timeConditionToDelay);
+        yield return new WaitForSeconds(_waitingTime);
         _animator.enabled = true;
     }
 }
