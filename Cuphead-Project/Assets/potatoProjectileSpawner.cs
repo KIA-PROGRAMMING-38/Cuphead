@@ -8,7 +8,7 @@ public class potatoProjectileSpawner : MonoBehaviour
 
     [SerializeField] float _waitingTime;
     public Animator _animator;
-    public GameObject _gameObject;
+   
     [SerializeField]
     float _spawnCoolTime;
 

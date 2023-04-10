@@ -150,7 +150,7 @@ public class CupheadController : MonoBehaviour
     /// rather than a gradual increase in height. 
     /// </summary>
     [SerializeField]
-    Vector2 _jumpForce = new Vector2(0f, 500);
+    Vector2 _jumpForce = new Vector2(0f, 30);
     private WaitForSeconds waitTime = new WaitForSeconds(2.0f);
     public void JumpPlayer()
     {
