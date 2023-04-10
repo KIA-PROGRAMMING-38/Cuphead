@@ -21,6 +21,7 @@ public class CupheadController : MonoBehaviour
     [SerializeField]
     public float _playerMoveSpeed;
     public static bool isDucking;
+    public static bool isJumping;
 
     [SerializeField]
     public float _exMoveWaitingTime;
@@ -52,7 +53,7 @@ public class CupheadController : MonoBehaviour
     private void LateUpdate()
     {
         FlipPlayer();
-        CheckRunning();
+        //CheckRunning();
     }
     private void FixedUpdate()
     {
@@ -73,23 +74,23 @@ public class CupheadController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            tempVector = new Vector2(0, _playerRigidbody.velocity.y);
+            tempVector = new Vector2(0, -_playerRigidbody.velocity.y);
+            StartCoroutine(DelayExMove());
             
             _animator.SetBool(CupheadAnimID.IS_EX_MOVING, true);
             _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
-            //gameObject.GetComponent<CupheadController>().enabled = false;
-            StartCoroutine(DelayExMove());
+        
+            
         }
 
         IEnumerator DelayExMove()
         {
             yield return new WaitForSeconds(_exMoveWaitingTime);
+
             _animator.SetBool(CupheadAnimID.IS_EX_MOVING, false);
-           // gameObject.GetComponent<CupheadController>().enabled = true;
             _playerRigidbody.constraints = RigidbodyConstraints2D.None;
             _playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            tempVector = new Vector2(_inputVec.x * _playerMoveSpeed, -_playerRigidbody.velocity.y);
-
+            _playerRigidbody.velocity = tempVector;
 
 
         }
@@ -123,24 +124,12 @@ public class CupheadController : MonoBehaviour
         if (_inputVec.x != 0f)
         {
             _playerSpriteRenderer.flipX = _inputVec.x < 0.0f;
-        }
-
-    }
-
-    public void CheckRunning()
-    {
-        if (_inputVec.x != 0.0f)
-        {
             _animator.SetBool(CupheadAnimID.IS_RUNNING, true);
-
         }
-
-        if (Math.Abs(_inputVec.x) < 0.1f)
-        {
-            _animator.SetBool(CupheadAnimID.IS_RUNNING, false);
-        }
+        else { _animator.SetBool(CupheadAnimID.IS_RUNNING, false); }
 
     }
+
     public void DuckPlayer()
     {
         if (Input.GetKey(KeyCode.DownArrow))
