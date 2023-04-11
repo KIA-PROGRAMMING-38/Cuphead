@@ -1497,8 +1497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900aa7338ccf9e4fa537663c58a4f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 0}
-  _jumpPower: {x: 0, y: 500}
+  _jumpPower: 5
 --- !u!1101 &352102729203590253
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

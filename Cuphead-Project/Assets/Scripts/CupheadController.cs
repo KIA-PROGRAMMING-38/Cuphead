@@ -16,17 +16,16 @@ public class CupheadController : MonoBehaviour
     Rigidbody2D _playerRigidbody;
 
     [SerializeField]
-    Animator _bulletSparkAnimator;
+    public Animator _bulletSparkAnimator;
 
     [SerializeField]
     public float _playerMoveSpeed;
     public static bool isDucking;
-    public static bool isJumping;
-
+   
     [SerializeField]
     public float _exMoveWaitingTime;
 
-    RigidbodyConstraints2D _playerRigidbodyConstraints;
+   
 
     private void Awake()
     {
@@ -47,29 +46,29 @@ public class CupheadController : MonoBehaviour
     {
         DuckPlayer();
         JumpPlayer();
-        ShootStanding();
+        Shoot();
         ExMove();
+        Parry();
     }
     private void LateUpdate()
     {
         FlipPlayer();
-        //CheckRunning();
     }
     private void FixedUpdate()
     {
         MovePlayer();
-
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == PLATFORM_LAYER || collision.gameObject.CompareTag("Platform"))
-        {
-            _animator.SetBool(CupheadAnimID.IS_JUMPING, false);
-        }
 
-    }
+
+
     Vector2 tempVector;
+    /// <summary>
+    /// 필살기를 쓰는 함수입니다. 
+    /// 필살기를 쓰는 동안 일정시간 멈춰야 하기때문에
+    /// 일시적으로 플레이어 이동을 멈추고 점프속도를 없애주는
+    /// 코드를 작성했습니다. 
+    /// </summary>
     public void ExMove()
     {
         if (Input.GetKeyDown(KeyCode.V))
@@ -79,8 +78,6 @@ public class CupheadController : MonoBehaviour
             
             _animator.SetBool(CupheadAnimID.IS_EX_MOVING, true);
             _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
-        
-            
         }
 
         IEnumerator DelayExMove()
@@ -96,6 +93,9 @@ public class CupheadController : MonoBehaviour
         }
     }
    
+    /// <summary>
+    /// 플레이어 이동을 위한 입력값을 받아 움직이는 함수입니다.
+    /// </summary>
     public void MovePlayer()
     {
         _inputVec.x = Input.GetAxisRaw("Horizontal");
@@ -108,9 +108,6 @@ public class CupheadController : MonoBehaviour
            (_inputVec.x * _playerMoveSpeed, _playerRigidbody.velocity.y);
         }
 
-
-
-
         FlipPlayer();
 
     }
@@ -118,7 +115,6 @@ public class CupheadController : MonoBehaviour
     /// <summary>
     /// Flip player's image according to direction of the player's movement.
     /// </summary>
-
     public void FlipPlayer()
     {
         if (_inputVec.x != 0f)
@@ -130,6 +126,10 @@ public class CupheadController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 플레이어를 숙이는(ducking) 함수입니다. 점프에 제약이 걸립니다.
+    /// 제약은 FSM 파라미터값 설정으로 구현했습니다. 
+    /// </summary>
     public void DuckPlayer()
     {
         if (Input.GetKey(KeyCode.DownArrow))
@@ -145,13 +145,17 @@ public class CupheadController : MonoBehaviour
             //_bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, false);
         }
     }
-    /// <summary>
-    /// The player's jump has three fixed heights, 
-    /// rather than a gradual increase in height. 
-    /// </summary>
+
+    public static bool isJumping;
     [SerializeField]
-    Vector2 _jumpForce = new Vector2(0f, 30);
+    public Vector2 _jumpForce = new Vector2(0f, 17);
+
     private WaitForSeconds waitTime = new WaitForSeconds(2.0f);
+    /// <summary>
+    /// 점프를 단계별로 구현할 수 있도록, 키를 누르고있는 시간에 따라
+    /// 점프높이가 달라지도록 구현했습니다. 
+    /// </summary>
+    ///  [SerializeField]
     public void JumpPlayer()
     {
 
@@ -161,16 +165,7 @@ public class CupheadController : MonoBehaviour
             {
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _jumpForce.y);
             }
-            else
-            {
-                _animator.SetBool(CupheadAnimID.IS_PARRYING, true);
-                StartCoroutine(StopParry());
-            }
-        }
-        IEnumerator StopParry()
-        {
-            yield return waitTime;
-            _animator.SetBool(CupheadAnimID.IS_PARRYING, false);
+           
         }
 
         if (Input.GetKey(KeyCode.A))
@@ -185,11 +180,32 @@ public class CupheadController : MonoBehaviour
             _playerRigidbody.gravityScale = 2.5f;
         }
 
-
-
     }
 
-    public void ShootStanding()
+    /// <summary>
+    /// 패링을 작동하는 함수입니다. 점프시에만 동작할 수 있으며,
+    /// 업데이트로 isJumping 불린 자료값을 OnGroundChecker.cs에서 반환해줍니다.
+    /// 이 불값을 조건으로 패링을 실행할 지 여부를 정합니다. 
+    /// </summary>
+    public void Parry()
+    {
+        //점프 상태에서 한 번 더 누르면
+        if(isJumping == true && Input.GetKeyDown(KeyCode.A)) 
+        {
+            // 패링상태 실행 
+            _animator.SetBool(CupheadAnimID.IS_PARRYING, true);
+            StartCoroutine(StopParry());
+        }
+
+        //패링 애니메이션 재생을 위해 일정 시간 뒤에 패링상태 중지
+        IEnumerator StopParry()
+        {
+            yield return waitTime;
+            _animator.SetBool(CupheadAnimID.IS_PARRYING, false);
+        }
+    }
+
+    public void Shoot()
     {
         if (Input.GetKey(KeyCode.X))
         {
