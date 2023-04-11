@@ -3712,6 +3712,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 797354669}
     m_Modifications:
+    - target: {fileID: -768038987223653523, guid: 4a5e2f37a78a12646885f86805075bf5, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 97045623231665795, guid: 4a5e2f37a78a12646885f86805075bf5, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -3784,6 +3788,10 @@ PrefabInstance:
       propertyPath: projectileRigidbody
       value: 
       objectReference: {fileID: 8191694599945146320}
+    - target: {fileID: 8191694599945146318, guid: 4a5e2f37a78a12646885f86805075bf5, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 4d56df9e90926a245a1d30018c3d653e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a5e2f37a78a12646885f86805075bf5, type: 3}
 --- !u!1 &8191694599945146317 stripped
