@@ -6,8 +6,8 @@ public class PotatoIntroEvent : MonoBehaviour
 {
     [SerializeField]
     Animator potatoAnimator;
-   
-    
+
+
     void TurnOnPotatoAnimator()
     {
         potatoAnimator.enabled = true;

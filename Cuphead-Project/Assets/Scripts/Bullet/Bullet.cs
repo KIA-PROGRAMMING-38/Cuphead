@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     Renderer render;
 
+    [SerializeField]
     SpriteRenderer _playerSpriteRenderer;
 
     [SerializeField]
@@ -19,7 +20,7 @@ public class Bullet : MonoBehaviour
 
     public void Update()
     {
-        
+
         if (bulletHitChecker.CheckBulletIsHit() == true)
         {
             _bulletRigidbody.velocity = Vector2.zero;
@@ -28,7 +29,9 @@ public class Bullet : MonoBehaviour
     }
     private void OnEnable()
     {
-         bulletHitChecker = GetComponent<BulletHitChecker>();
+        //플레이어의 플립여부 자료를 받아옵니다.
+        //받아온 자료를 조건으로 하여, 총알의 발사 위치를 정합니다.
+        bulletHitChecker = GetComponent<BulletHitChecker>();
         _playerSpriteRenderer = CupheadController._playerSpriteRenderer;
         _bulletForce = new Vector2(30f, 0f);
 
@@ -43,7 +46,6 @@ public class Bullet : MonoBehaviour
 
         }
 
-      
     }
 
     void DeactiveDelay() => gameObject.SetActive(false)
@@ -55,7 +57,7 @@ public class Bullet : MonoBehaviour
         CancelInvoke(); //unlike coroutine, using Invoke have to be used with CancelInvoke
     }
 
- 
+
 
 
 }

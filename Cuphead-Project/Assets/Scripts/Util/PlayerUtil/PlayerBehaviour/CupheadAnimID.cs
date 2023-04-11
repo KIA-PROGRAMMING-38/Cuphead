@@ -21,3 +21,10 @@ public static class BulletAnimID
     public static readonly int IS_LAUNCHED = Animator.StringToHash("IsLaunched");
     public static readonly int IS_Hit = Animator.StringToHash("IsHit");
 }
+
+public static class ObjectPoolNameID
+{
+
+    public static readonly string POTATO_PROJECTILE_PARRYABLE = "PotatoProjectileParryable";
+    public static readonly string POTATO_PROJECTILE = "PotatoProjectile";
+}
