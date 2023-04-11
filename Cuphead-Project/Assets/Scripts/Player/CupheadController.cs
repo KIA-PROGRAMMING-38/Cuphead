@@ -2,40 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Unity.VisualScripting;
-using TMPro;
+
 using UnityEditor;
 
 public class CupheadController : MonoBehaviour
 {
-    public Animator _animator;
-    public AudioSource _audioSource;
-    public Vector2 _inputVec;
-
-
-    public static SpriteRenderer _playerSpriteRenderer;
-    Rigidbody2D _playerRigidbody;
+    public static Animator PlayerAnimator;
+    public static SpriteRenderer PlayerSpriteRenderer;
+    public static Rigidbody2D PlayerRigidbody;
 
     [SerializeField]
-    public Animator _bulletSparkAnimator;
+    public static Animator _bulletSparkAnimator;
 
     [SerializeField]
     public float _playerMoveSpeed;
-    public static bool isDucking;
+    public static bool IsDucking;
+    public Vector2 _inputVec;
 
     [SerializeField]
     public float _exMoveWaitingTime;
+    public AudioSource _audioSource;
 
 
 
     private void Awake()
     {
-        //플레이어 초기 방향 설정..
+        //플레이어 초기 방향 설정
         playerDirection = RIGHT;
 
-        _playerSpriteRenderer = GetComponent<SpriteRenderer>();
-        _playerRigidbody = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
+        PlayerSpriteRenderer = GetComponent<SpriteRenderer>();
+        PlayerRigidbody = GetComponent<Rigidbody2D>();
+        PlayerAnimator = GetComponent<Animator>();
 
     }
     private int PLATFORM_LAYER;
@@ -51,7 +48,8 @@ public class CupheadController : MonoBehaviour
         JumpPlayer();
         Shoot();
         ExMove();
-        Parry();
+        ParryPlayer();
+        MovePlayer();
     }
     private void LateUpdate()
     {
@@ -59,7 +57,7 @@ public class CupheadController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        MovePlayer();
+
     }
 
 
@@ -76,21 +74,21 @@ public class CupheadController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            tempVector = new Vector2(0, -_playerRigidbody.velocity.y);
+            tempVector = new Vector2(0, -PlayerRigidbody.velocity.y);
             StartCoroutine(DelayExMove());
 
-            _animator.SetBool(CupheadAnimID.IS_EX_MOVING, true);
-            _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+            PlayerAnimator.SetBool(CupheadAnimID.IS_EX_MOVING, true);
+            PlayerRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
         }
 
         IEnumerator DelayExMove()
         {
             yield return new WaitForSeconds(_exMoveWaitingTime);
 
-            _animator.SetBool(CupheadAnimID.IS_EX_MOVING, false);
-            _playerRigidbody.constraints = RigidbodyConstraints2D.None;
-            _playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            _playerRigidbody.velocity = tempVector;
+            PlayerAnimator.SetBool(CupheadAnimID.IS_EX_MOVING, false);
+            PlayerRigidbody.constraints = RigidbodyConstraints2D.None;
+            PlayerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+            PlayerRigidbody.velocity = tempVector;
 
 
         }
@@ -105,10 +103,10 @@ public class CupheadController : MonoBehaviour
         _inputVec.y = Input.GetAxisRaw("Vertical");
 
 
-        if (isDucking == false)
+        if (IsDucking == false)
         {
-            _playerRigidbody.velocity = new Vector2
-           (_inputVec.x * _playerMoveSpeed, _playerRigidbody.velocity.y);
+            PlayerRigidbody.velocity = new Vector2
+           (_inputVec.x * _playerMoveSpeed, PlayerRigidbody.velocity.y);
         }
 
         FlipPlayer();
@@ -118,7 +116,7 @@ public class CupheadController : MonoBehaviour
     /// <summary>
     /// Flip player's image according to direction of the player's movement.
     /// </summary>
-    public static bool playerDirection ;
+    public static bool playerDirection;
     public readonly static bool LEFT = false;
     public readonly static bool RIGHT = true;
 
@@ -127,27 +125,28 @@ public class CupheadController : MonoBehaviour
 
         if (_inputVec.x != 0f)
         {
-            _playerSpriteRenderer.flipX = _inputVec.x < 0.0f;
-            if(_inputVec.x < 0.0f)
+            PlayerSpriteRenderer.flipX = _inputVec.x < 0.0f;
+
+            if (_inputVec.x < 0.0f)
             {
-                _playerSpriteRenderer.flipX = true;
-                _animator.SetBool(CupheadAnimID.IS_RUNNING, true);
+                PlayerSpriteRenderer.flipX = true;
+                PlayerAnimator.SetBool(CupheadAnimID.IS_RUNNING, true);
                 playerDirection = LEFT;
             }
             else
             {
-                _playerSpriteRenderer.flipX = false;
-                _animator.SetBool(CupheadAnimID.IS_RUNNING, true);
+                PlayerSpriteRenderer.flipX = false;
+                PlayerAnimator.SetBool(CupheadAnimID.IS_RUNNING, true);
                 playerDirection = RIGHT;
             }
-           
+
         }
 
         else
         {
 
-            _animator.SetBool(CupheadAnimID.IS_RUNNING, false);
-          
+            PlayerAnimator.SetBool(CupheadAnimID.IS_RUNNING, false);
+
         }
 
     }
@@ -160,14 +159,14 @@ public class CupheadController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            isDucking = true;
-            _animator.SetBool(CupheadAnimID.IS_DUCKING, true);
+            IsDucking = true;
+            PlayerAnimator.SetBool(CupheadAnimID.IS_DUCKING, true);
             //_bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, true);
         }
         else if (Input.GetKeyUp(KeyCode.DownArrow))
         {
-            isDucking = false;
-            _animator.SetBool(CupheadAnimID.IS_DUCKING, false);
+            IsDucking = false;
+            PlayerAnimator.SetBool(CupheadAnimID.IS_DUCKING, false);
             //_bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, false);
         }
     }
@@ -176,7 +175,7 @@ public class CupheadController : MonoBehaviour
     [SerializeField]
     public Vector2 _jumpForce = new Vector2(0f, 17);
 
-    private WaitForSeconds waitTime = new WaitForSeconds(2.0f);
+
     /// <summary>
     /// 점프를 단계별로 구현할 수 있도록, 키를 누르고있는 시간에 따라
     /// 점프높이가 달라지도록 구현했습니다. 
@@ -187,9 +186,9 @@ public class CupheadController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            if (IsOnGroundChecker.isOnGround == true && isDucking == false)
+            if (IsOnGroundChecker.isOverlayed == true && IsDucking == false)
             {
-                _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _jumpForce.y);
+                PlayerRigidbody.velocity = new Vector2(PlayerRigidbody.velocity.x, _jumpForce.y);
             }
 
         }
@@ -197,13 +196,13 @@ public class CupheadController : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
 
-            _playerRigidbody.gravityScale = 1.0f;
+            PlayerRigidbody.gravityScale = 1.0f;
         }
 
-        else if (Input.GetKeyUp(KeyCode.A) && _playerRigidbody.velocity.y > 5.0f)
+        else if (Input.GetKeyUp(KeyCode.A) && PlayerRigidbody.velocity.y > 5.0f)
         {
 
-            _playerRigidbody.gravityScale = 2.5f;
+            PlayerRigidbody.gravityScale = 2.5f;
         }
         //master first branch test
 
@@ -214,35 +213,39 @@ public class CupheadController : MonoBehaviour
     /// 업데이트로 isJumping 불린 자료값을 OnGroundChecker.cs에서 반환해줍니다.
     /// 이 불값을 조건으로 패링을 실행할 지 여부를 정합니다. 
     /// </summary>
-    public void Parry()
+    /// 
+    public static bool IsParrying;
+    public void ParryPlayer()
     {
+
         //점프 상태에서 한 번 더 누르면
         if (isJumping == true && Input.GetKeyDown(KeyCode.A))
         {
             // 패링상태 실행 
-            _animator.SetBool(CupheadAnimID.IS_PARRYING, true);
-            StartCoroutine(StopParry());
+            PlayerAnimator.SetBool(CupheadAnimID.IS_PARRYING, true);
+            IsParrying = true;
         }
 
+
         //패링 애니메이션 재생을 위해 일정 시간 뒤에 패링상태 중지
-        IEnumerator StopParry()
-        {
-            yield return waitTime;
-            _animator.SetBool(CupheadAnimID.IS_PARRYING, false);
-        }
+
     }
+
+    
+   
+
+
 
     public void Shoot()
     {
         if (Input.GetKey(KeyCode.X))
         {
-            _animator.SetBool(CupheadAnimID.IS_STANDSHOOTING, true);
+            PlayerAnimator.SetBool(CupheadAnimID.IS_STANDSHOOTING, true);
         }
 
         if (Input.GetKeyUp(KeyCode.X))
         {
-            _animator.SetBool(CupheadAnimID.IS_STANDSHOOTING, false);
-            _bulletSparkAnimator.SetBool(BulletAnimID.IS_LAUNCHED, false);
+            PlayerAnimator.SetBool(CupheadAnimID.IS_STANDSHOOTING, false);
         }
 
 

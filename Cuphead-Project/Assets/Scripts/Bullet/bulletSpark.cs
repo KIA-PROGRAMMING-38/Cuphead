@@ -26,14 +26,14 @@ public class bulletSpark : MonoBehaviour
         
         if (CupheadController.playerDirection == CupheadController.RIGHT)
         {
-            if (CupheadController.isDucking == false)
+            if (CupheadController.IsDucking == false)
                 transform.position = _bulletSparkPositionRight.position;
             else transform.position = _bulletSparkPositionDuckingRight.position;
         }
 
         else if (CupheadController.playerDirection == CupheadController.LEFT)
         {
-            if (CupheadController.isDucking == false)
+            if (CupheadController.IsDucking == false)
                 transform.position = _bulletSparkPositionLeft.position;
             else transform.position = _bulletSparkPositionDuckingLeft.position;
         }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IsOnGroundChecker : MonoBehaviour
+public class IsOnGroundChecker : MonoBehaviour,IChecker
 {
 
     Animator _animator;
@@ -18,17 +18,18 @@ public class IsOnGroundChecker : MonoBehaviour
 
     [SerializeField]
     public LayerMask whatIsGround;
-
+    
 
     void Start()
     {
+        
         _animator = GetComponentInParent<Animator>();
     }
 
 
     void Update()
     {
-        TurnOffJumpState();
+        ControlAnimator();
     }
 
     // 오버레이 서클을 씬 화면에서 볼 수 있도록 기즈모 함수를 작성했습니다.
@@ -39,7 +40,7 @@ public class IsOnGroundChecker : MonoBehaviour
     }
 
     //플레이어가 지면에 닿아있는지 지속적으로 검사합니다. 
-    public bool CheckIfPlayerIsOnGround()
+    public bool CheckOverlaying()
     {
         return Physics2D.OverlapCircle(_transform.position, _radiusSize, whatIsGround);
     }
@@ -48,12 +49,12 @@ public class IsOnGroundChecker : MonoBehaviour
 
     /*검사한 결과를 bool값으로 저장하고, 결과에 맞게 애니메이션
     파라미터 값을 조정해 줍니다.*/
-    public static bool isOnGround;
-    public void TurnOffJumpState()
+    public static bool isOverlayed;
+    public void ControlAnimator()
     {
-        isOnGround = CheckIfPlayerIsOnGround();
+        isOverlayed = CheckOverlaying();
 
-        if (isOnGround)
+        if (isOverlayed)
         {
             _animator.SetBool(CupheadAnimID.IS_JUMPING, false);
             _bulletAnimator.SetBool(CupheadAnimID.IS_ON_GROUND, true);

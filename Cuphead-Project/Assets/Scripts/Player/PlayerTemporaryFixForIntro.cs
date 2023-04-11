@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerTemporaryFixForIntro : MonoBehaviour
 {
     
-    [SerializeField] float _playwaitingTime;
+  
   
 
     /*
@@ -16,15 +16,12 @@ public class PlayerTemporaryFixForIntro : MonoBehaviour
     void Start()
     {
         gameObject.GetComponent<CupheadController>().enabled = false;
-        StartCoroutine(AnimatorDelayer());
-
     }
 
 
-    //_playwatingTime 만큼 스크립트를 비활성화 시킵니다. 
-    IEnumerator AnimatorDelayer()
+    //이벤트 함수를 호출합니다. 
+    void EnableScript() 
     {
-        yield return new WaitForSeconds(_playwaitingTime);
         gameObject.GetComponent<CupheadController>().enabled = true;
     }
 }
