@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using Unity.VisualScripting;
 using TMPro;
+using UnityEditor;
 
 public class CupheadController : MonoBehaviour
 {
@@ -21,15 +22,17 @@ public class CupheadController : MonoBehaviour
     [SerializeField]
     public float _playerMoveSpeed;
     public static bool isDucking;
-   
+
     [SerializeField]
     public float _exMoveWaitingTime;
 
-   
+
 
     private void Awake()
     {
-       
+        //플레이어 초기 방향 설정..
+        playerDirection = RIGHT;
+
         _playerSpriteRenderer = GetComponent<SpriteRenderer>();
         _playerRigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
@@ -75,7 +78,7 @@ public class CupheadController : MonoBehaviour
         {
             tempVector = new Vector2(0, -_playerRigidbody.velocity.y);
             StartCoroutine(DelayExMove());
-            
+
             _animator.SetBool(CupheadAnimID.IS_EX_MOVING, true);
             _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
         }
@@ -92,7 +95,7 @@ public class CupheadController : MonoBehaviour
 
         }
     }
-   
+
     /// <summary>
     /// 플레이어 이동을 위한 입력값을 받아 움직이는 함수입니다.
     /// </summary>
@@ -115,14 +118,37 @@ public class CupheadController : MonoBehaviour
     /// <summary>
     /// Flip player's image according to direction of the player's movement.
     /// </summary>
+    public static bool playerDirection ;
+    public readonly static bool LEFT = false;
+    public readonly static bool RIGHT = true;
+
     public void FlipPlayer()
     {
+
         if (_inputVec.x != 0f)
         {
             _playerSpriteRenderer.flipX = _inputVec.x < 0.0f;
-            _animator.SetBool(CupheadAnimID.IS_RUNNING, true);
+            if(_inputVec.x < 0.0f)
+            {
+                _playerSpriteRenderer.flipX = true;
+                _animator.SetBool(CupheadAnimID.IS_RUNNING, true);
+                playerDirection = LEFT;
+            }
+            else
+            {
+                _playerSpriteRenderer.flipX = false;
+                _animator.SetBool(CupheadAnimID.IS_RUNNING, true);
+                playerDirection = RIGHT;
+            }
+           
         }
-        else { _animator.SetBool(CupheadAnimID.IS_RUNNING, false); }
+
+        else
+        {
+
+            _animator.SetBool(CupheadAnimID.IS_RUNNING, false);
+          
+        }
 
     }
 
@@ -165,7 +191,7 @@ public class CupheadController : MonoBehaviour
             {
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _jumpForce.y);
             }
-           
+
         }
 
         if (Input.GetKey(KeyCode.A))
@@ -191,7 +217,7 @@ public class CupheadController : MonoBehaviour
     public void Parry()
     {
         //점프 상태에서 한 번 더 누르면
-        if(isJumping == true && Input.GetKeyDown(KeyCode.A)) 
+        if (isJumping == true && Input.GetKeyDown(KeyCode.A))
         {
             // 패링상태 실행 
             _animator.SetBool(CupheadAnimID.IS_PARRYING, true);

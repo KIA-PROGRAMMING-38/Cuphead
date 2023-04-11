@@ -23,16 +23,15 @@ public class bulletSpark : MonoBehaviour
 
     public void Update()
     {
-        _playerSpriteRenderer = CupheadController._playerSpriteRenderer;
-
-        if (_playerSpriteRenderer.flipX == false)
+        
+        if (CupheadController.playerDirection == CupheadController.RIGHT)
         {
             if (CupheadController.isDucking == false)
                 transform.position = _bulletSparkPositionRight.position;
             else transform.position = _bulletSparkPositionDuckingRight.position;
         }
 
-        else if (_playerSpriteRenderer.flipX == true)
+        else if (CupheadController.playerDirection == CupheadController.LEFT)
         {
             if (CupheadController.isDucking == false)
                 transform.position = _bulletSparkPositionLeft.position;
