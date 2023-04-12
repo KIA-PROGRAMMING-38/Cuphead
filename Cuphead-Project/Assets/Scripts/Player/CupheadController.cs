@@ -231,8 +231,17 @@ public class CupheadController : MonoBehaviour
 
     }
 
-    
-   
+    /// <summary>
+    /// 애니메이션 이벤트로 실행되는 함수 입니다. 
+    /// 패링 에니메이션이 끝나면 패링상태를 끝내줍니다.
+    /// </summary>
+    public void MakeIsParryingFalse()
+    {
+        Debug.Log("makeIsParryingFalse");
+        IsParrying = false;
+    }
+
+
 
 
 
