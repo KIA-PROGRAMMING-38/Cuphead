@@ -502,14 +502,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9049005205236870895}
+  - component: {fileID: 9049005205236870873}
   - component: {fileID: 9049005205236870875}
   - component: {fileID: 9049005205236870877}
   - component: {fileID: 9049005205236870868}
   - component: {fileID: 9049005205236870872}
   - component: {fileID: 9049005205236870883}
-  - component: {fileID: 9049005205236870873}
-  - component: {fileID: 9049005205236870869}
   - component: {fileID: 2135547241}
+  - component: {fileID: 9049005205236870869}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -535,6 +535,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9049005205236870873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9049005205446640530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9314e73f2d26bc49aea2898eb853f8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &9049005205236870875
 Rigidbody2D:
   serializedVersion: 4
@@ -662,7 +674,7 @@ MonoBehaviour:
   _exMoveWaitingTime: 2
   _audioSource: {fileID: 0}
   _jumpForce: {x: 0, y: 17}
---- !u!114 &9049005205236870873
+--- !u!114 &2135547241
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -671,9 +683,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 9049005205446640530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9314e73f2d26bc49aea2898eb853f8e, type: 3}
+  m_Script: {fileID: 11500000, guid: c77b297ec75edd440a738539a4e1b056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnposition: {fileID: 9049005204347090068}
+  _spawnpositionDucking: {fileID: 9049005205369488456}
+  _bulletSparkAnimator: {fileID: 9049005203879278879}
+  _spawnCoolTime: 0.2
+  _spawnMoveDistance: 0.3
 --- !u!114 &9049005205236870869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,23 +709,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   bounceForce: 6
---- !u!114 &2135547241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9049005205446640530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c77b297ec75edd440a738539a4e1b056, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spawnposition: {fileID: 9049005204347090068}
-  _spawnpositionDucking: {fileID: 9049005205369488456}
-  _bulletSparkAnimator: {fileID: 9049005203879278879}
-  _spawnCoolTime: 0.2
-  _spawnMoveDistance: 0.3
 --- !u!1 &9049005205637166330
 GameObject:
   m_ObjectHideFlags: 0

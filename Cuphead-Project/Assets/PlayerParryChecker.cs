@@ -39,14 +39,6 @@ public class PlayerParryChecker : MonoBehaviour, IChecker
         return false;
     }
 
-
-    bool ParryOver;
-    float playerHoldTimeSeconds;
-    [SerializeField]
-    private WaitForSeconds playerHoldTime = new WaitForSeconds(0.8f);
-
-    
-    IEnumerator stopPlayerCoroutine;
     
     public void ControlAnimator()
     {
@@ -54,7 +46,7 @@ public class PlayerParryChecker : MonoBehaviour, IChecker
 
         hasParried = CheckOverlaying();
 
-        //Debug.Log($"{hasParried}");
+     
 
         if (hasParried && CupheadController.IsParrying)
         {
@@ -77,14 +69,14 @@ public class PlayerParryChecker : MonoBehaviour, IChecker
 
     Vector2 ParryVector;
 
-    [SerializeField] float bounceForce;
-    public void Defreeze()
+    [SerializeField] float parryBounceForce;
+    public void ParryDefreeze()
     {
         ParryVector = Vector2.left + Vector2.up;
-        Debug.Log("Defreeze!");  Debug.Log(ParryVector);
+       
         CupheadController.PlayerRigidbody.constraints = RigidbodyConstraints2D.None;
         CupheadController.PlayerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-        CupheadController.PlayerRigidbody.AddForce(ParryVector * bounceForce, ForceMode2D.Impulse);
+        CupheadController.PlayerRigidbody.AddForce(ParryVector * parryBounceForce, ForceMode2D.Impulse);
         CupheadController.PlayerAnimator.SetBool(CupheadAnimID.IS_PARRYING, false);
         CupheadController.PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, false);
        

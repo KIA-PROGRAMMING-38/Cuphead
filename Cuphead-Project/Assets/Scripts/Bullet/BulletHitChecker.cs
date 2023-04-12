@@ -32,7 +32,7 @@ public class BulletHitChecker : MonoBehaviour
     {
         return Physics2D.OverlapCircle(transform.position, _radiusSize, whatIsEnemy);
     }
- 
+
 
 
     /// <summary>
@@ -48,12 +48,26 @@ public class BulletHitChecker : MonoBehaviour
       
         if (isHittingEnemy)
         {
-            _bulletAnimator.SetBool(BulletAnimID.IS_Hit, true);
+            _bulletAnimator.SetBool(BulletAnimID.IS_HITTING, true);
+           
         }
         else
         {
-            _bulletAnimator.SetBool(BulletAnimID.IS_Hit, false);
+            _bulletAnimator.SetBool(BulletAnimID.IS_HITTING, false);
         }
     }
- 
+
+    Vector2 BounceVector; 
+    [SerializeField] float hitBounceForce;
+    public void HitDefreezeAndBoucnce()
+    {
+        BounceVector =  Vector2.up;
+
+        CupheadController.PlayerRigidbody.constraints = RigidbodyConstraints2D.None;
+        CupheadController.PlayerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        CupheadController.PlayerRigidbody.AddForce(BounceVector * hitBounceForce, ForceMode2D.Impulse);
+        CupheadController.PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
+        isHittingEnemy = false;
+
+    }
 }
