@@ -16,6 +16,7 @@ public class PlayerTemporaryFixForIntro : MonoBehaviour
     void Start()
     {
         gameObject.GetComponent<CupheadController>().enabled = false;
+        gameObject.GetComponent<PeashotSpawner>().enabled = false;
     }
 
 
@@ -23,5 +24,7 @@ public class PlayerTemporaryFixForIntro : MonoBehaviour
     void EnableScript() 
     {
         gameObject.GetComponent<CupheadController>().enabled = true;
+        gameObject.GetComponent<PeashotSpawner>().enabled = true;
     }
 }
+
