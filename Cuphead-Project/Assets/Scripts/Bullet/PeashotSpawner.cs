@@ -48,7 +48,7 @@ public class PeashotSpawner : MonoBehaviour
 
 
 
-            Debug.Log(CupheadController.IsDucking);
+           
 
             // 스폰 시 포지션을 정해줍니다. 
             // 숙인 경우(Ducking) 발사 위치를 밑으로 정해줍니다. 

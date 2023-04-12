@@ -122,11 +122,10 @@ public class CupheadController : MonoBehaviour
 
     public void FlipPlayer()
     {
+        PlayerAnimator.SetBool(CupheadAnimID.IS_RUNNING, false);
 
         if (_inputVec.x != 0f)
         {
-            PlayerSpriteRenderer.flipX = _inputVec.x < 0.0f;
-
             if (_inputVec.x < 0.0f)
             {
                 PlayerSpriteRenderer.flipX = true;
@@ -141,14 +140,6 @@ public class CupheadController : MonoBehaviour
             }
 
         }
-
-        else
-        {
-
-            PlayerAnimator.SetBool(CupheadAnimID.IS_RUNNING, false);
-
-        }
-
     }
 
     /// <summary>

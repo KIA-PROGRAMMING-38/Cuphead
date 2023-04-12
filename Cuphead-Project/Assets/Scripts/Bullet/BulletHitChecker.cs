@@ -57,17 +57,5 @@ public class BulletHitChecker : MonoBehaviour
         }
     }
 
-    Vector2 BounceVector; 
-    [SerializeField] float hitBounceForce;
-    public void HitDefreezeAndBoucnce()
-    {
-        BounceVector =  Vector2.up;
-
-        CupheadController.PlayerRigidbody.constraints = RigidbodyConstraints2D.None;
-        CupheadController.PlayerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-        CupheadController.PlayerRigidbody.AddForce(BounceVector * hitBounceForce, ForceMode2D.Impulse);
-        CupheadController.PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
-        isHittingEnemy = false;
-
-    }
+   
 }

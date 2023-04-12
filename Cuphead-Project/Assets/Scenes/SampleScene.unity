@@ -2594,6 +2594,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5169500623404181287, guid: 66903df03b0091a4b9f9b1866d2b4ab7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66903df03b0091a4b9f9b1866d2b4ab7, type: 3}
 --- !u!1 &1850050421 stripped
@@ -3121,6 +3125,10 @@ PrefabInstance:
       propertyPath: projectileForce.x
       value: -8
       objectReference: {fileID: 0}
+    - target: {fileID: 2237332079909837114, guid: 22676edd7e7637d4bacc22f80e79a4d6, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4709640635069151168, guid: 22676edd7e7637d4bacc22f80e79a4d6, type: 3}
       propertyPath: m_Name
       value: PotatoProjectile
@@ -3190,6 +3198,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 797354669}
     m_Modifications:
+    - target: {fileID: -3109044284388930192, guid: 4a5e2f37a78a12646885f86805075bf5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 97045623231665795, guid: 4a5e2f37a78a12646885f86805075bf5, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -3267,7 +3279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9049005205236870869, guid: 92afffe5fca825745b9d72d59a02a16e, type: 3}
       propertyPath: parryBounceForce
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9049005205236870895, guid: 92afffe5fca825745b9d72d59a02a16e, type: 3}
       propertyPath: m_RootOrder
