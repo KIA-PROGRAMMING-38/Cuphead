@@ -356,7 +356,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9049005204861230143}
-  - component: {fileID: 9049005204861230136}
   m_Layer: 6
   m_Name: IsOnGroundChecker
   m_TagString: Untagged
@@ -379,24 +378,6 @@ Transform:
   m_Father: {fileID: 9049005205058771523}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9049005204861230136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9049005204861230142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53bdaaebec7f01446aba500884a1830d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bulletAnimator: {fileID: 9049005203879278879}
-  _transform: {fileID: 9049005204861230143}
-  _radiusSize: 0.8
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &9049005204985294008
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +490,6 @@ GameObject:
   - component: {fileID: 9049005205236870872}
   - component: {fileID: 9049005205236870883}
   - component: {fileID: 2135547241}
-  - component: {fileID: 9049005205236870869}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -671,9 +651,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerMoveSpeed: 8.5
   _inputVec: {x: 0, y: 0}
+  parrySucceed: 0
   _exMoveWaitingTime: 2
   _audioSource: {fileID: 0}
-  _jumpForce: {x: 0, y: 17}
+  playerOnGround: {fileID: 0}
 --- !u!114 &2135547241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,24 +672,6 @@ MonoBehaviour:
   _bulletSparkAnimator: {fileID: 9049005203879278879}
   _spawnCoolTime: 0.2
   _spawnMoveDistance: 0.3
---- !u!114 &9049005205236870869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9049005205446640530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dad3c7fe9d812094c9559d81da288ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transform: {fileID: 9049005204593030572}
-  _radiusSize: 0.8
-  LayerToCheck:
-    serializedVersion: 2
-    m_Bits: 1024
-  bounceForce: 6
 --- !u!1 &9049005205637166330
 GameObject:
   m_ObjectHideFlags: 0

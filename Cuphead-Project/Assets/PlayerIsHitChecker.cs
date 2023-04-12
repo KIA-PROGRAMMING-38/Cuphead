@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerIsHitChecker : MonoBehaviour, IChecker
 {
     [SerializeField]
-    Transform _transform;
+    public Transform _transform;
 
     [SerializeField]
     float _radiusSize;

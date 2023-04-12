@@ -43,12 +43,8 @@ public class PeashotSpawner : MonoBehaviour
         // 총알 발사시간을 제한하는 조건을 넣어, 지나치게 많은 총알이 생성되는 것을 방지합니다. 
         if (Input.GetKey(KeyCode.X) && _elapsedTime > _spawnCoolTime)
         {
-            if (IsOnGroundChecker.isOverlayed == true)
-            { _bulletSparkAnimator.SetBool(BulletAnimID.IS_LAUNCHED, true); }
-
-
-
-           
+          
+             _bulletSparkAnimator.SetBool(BulletAnimID.IS_LAUNCHED, true);
 
             // 스폰 시 포지션을 정해줍니다. 
             // 숙인 경우(Ducking) 발사 위치를 밑으로 정해줍니다. 

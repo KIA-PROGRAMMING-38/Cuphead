@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - PotatoPorjectile
   - PotatoProjectileParryable
+  - Parryable
   layers:
   - Default
   - TransparentFX

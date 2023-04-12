@@ -32,7 +32,7 @@ public class potatoProjectileSpawner : MonoBehaviour
         {
             count = 0;
             return ObjectPooler.SpawnFromPool
-                ("PotatoProjectileParryable", _spawnposition.transform.position);
+                ("Parryable", _spawnposition.transform.position);
         }
     }
 

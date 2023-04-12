@@ -1,12 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 using UnityEditor;
+using UnityEngine.Events;
+using System.Collections;
 
 public class CupheadController : MonoBehaviour
 {
+    public delegate void ParryEvent();
+
+
     public static Animator PlayerAnimator;
     public static SpriteRenderer PlayerSpriteRenderer;
     public static Rigidbody2D PlayerRigidbody;
@@ -16,31 +18,41 @@ public class CupheadController : MonoBehaviour
 
     [SerializeField]
     public float _playerMoveSpeed;
+
+    //플레이어 고유 상태 여부를 스태틱으로 저장했습니다.
     public static bool IsDucking;
+    public static bool IsJumping;
+    public static bool IsParrying;
     public Vector2 _inputVec;
+    public bool parrySucceed;
 
     [SerializeField]
+
     public float _exMoveWaitingTime;
     public AudioSource _audioSource;
 
+    Try_Parrying_Behaviour try_Parrying_Behaviour;
 
-
+     [SerializeField]
+     Collider2D playerOnGround;
+    ParrySuccessBehaviour parrySuccessBehaviour;
     private void Awake()
     {
+       
+        
         //플레이어 초기 방향 설정
         playerDirection = RIGHT;
-
         PlayerSpriteRenderer = GetComponent<SpriteRenderer>();
         PlayerRigidbody = GetComponent<Rigidbody2D>();
         PlayerAnimator = GetComponent<Animator>();
 
     }
-    private int PLATFORM_LAYER;
+
 
 
     void Start()
     {
-        PLATFORM_LAYER = LayerMask.NameToLayer("Platform");
+        parrySuccessBehaviour = new ParrySuccessBehaviour();
     }
     private void Update()
     {
@@ -48,16 +60,11 @@ public class CupheadController : MonoBehaviour
         JumpPlayer();
         Shoot();
         ExMove();
-        ParryPlayer();
         MovePlayer();
     }
     private void LateUpdate()
     {
         FlipPlayer();
-    }
-    private void FixedUpdate()
-    {
-
     }
 
 
@@ -162,9 +169,8 @@ public class CupheadController : MonoBehaviour
         }
     }
 
-    public static bool isJumping;
-    [SerializeField]
-    public Vector2 _jumpForce = new Vector2(0f, 17);
+
+
 
 
     /// <summary>
@@ -172,31 +178,30 @@ public class CupheadController : MonoBehaviour
     /// 점프높이가 달라지도록 구현했습니다. 
     /// </summary>
     ///  [SerializeField]
+    ///  
+    public readonly int GET_KEY_COUNT_JUMP = 1;
+    public readonly int GET_KEY_COUNT_PARRY = 2;
+    public static int GetKeyCount = 0;
     public void JumpPlayer()
     {
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            if (IsOnGroundChecker.isOverlayed == true && IsDucking == false)
-            {
-                PlayerRigidbody.velocity = new Vector2(PlayerRigidbody.velocity.x, _jumpForce.y);
-            }
-
+         
+          PlayerAnimator.SetBool(CupheadAnimID.IS_JUMPING, true);
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-
             PlayerRigidbody.gravityScale = 1.0f;
         }
 
         else if (Input.GetKeyUp(KeyCode.A) && PlayerRigidbody.velocity.y > 5.0f)
         {
-
+            
             PlayerRigidbody.gravityScale = 2.5f;
         }
         //master first branch test
-
     }
 
     /// <summary>
@@ -205,22 +210,8 @@ public class CupheadController : MonoBehaviour
     /// 이 불값을 조건으로 패링을 실행할 지 여부를 정합니다. 
     /// </summary>
     /// 
-    public static bool IsParrying;
-    public void ParryPlayer()
-    {
-
-        //점프 상태에서 한 번 더 누르면
-        if (isJumping == true && Input.GetKeyDown(KeyCode.A))
-        {
-            // 패링상태 실행 
-            PlayerAnimator.SetBool(CupheadAnimID.IS_PARRYING, true);
-            IsParrying = true;
-        }
-
-
-        //패링 애니메이션 재생을 위해 일정 시간 뒤에 패링상태 중지
-
-    }
+   
+   
 
     /// <summary>
     /// 애니메이션 이벤트로 실행되는 함수 입니다. 
@@ -250,6 +241,59 @@ public class CupheadController : MonoBehaviour
 
 
     }
+
+    
+   
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (IsPlatformCollision(collision))
+        {
+            Debug.Log("Jump Off");
+            PlayerAnimator.SetBool(CupheadAnimID.IS_JUMPING, false);
+            PlayerAnimator.SetBool(CupheadAnimID.IS_PARRYING, false);
+            IsJumping = false;
+            Debug.Log(IsJumping);
+        }
+      
+    }
+
+    private bool IsPlatformCollision(Collider2D collision)
+    {
+        return collision.CompareTag(LayerNames.PLATFORM);
+    }
+
+   
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        
+
+       
+    }
+
+  
+   
+  
+
+
+
+    //public void OnSucceedParry()
+    //{
+    //    Debug.Log($"parrySucced?:{parrySucceed}");
+    //    if (parrySucceed == true)
+    //    {
+    //        Debug.Log("Parry On");
+    //        PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, true);
+    //    }
+
+
+    //}
+
+
 }
+ 
+
+
 
 
