@@ -15,27 +15,27 @@ public class ParrySuccessBehaviour : StateMachineBehaviour
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-      
+        CupheadController.TryParrying = false;
         playerAnimator = animator.GetComponent<Animator>();
         playerRigidbody = animator.GetComponent<Rigidbody2D>();
-        playerRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
-        ParryVector = Vector2.left + Vector2.up;
-        
-        
+        animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+       
     }
 
-    Vector2 ParryVector;
-    [SerializeField] float StopTime = 0.8f;
-    [SerializeField] float parryBounceForce;
+
+    [SerializeField] Vector2 ParryVector;
+    [SerializeField] float StopTime = 0.4f;
     float elapsedTime = 0;
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        elapsedTime += Time.deltaTime;
-        if(elapsedTime > StopTime)
+        //일정시간 플레이를 멈추고, 플레이 재개 후 플레이어 반동
+        elapsedTime += Time.time;
+        if(elapsedTime > StopTime && CupheadController.HasParried == false)
         {
-            playerRigidbody.constraints = RigidbodyConstraints2D.None;
-            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            playerRigidbody.AddForce(ParryVector * parryBounceForce, ForceMode2D.Impulse);
+            CupheadController.HasParried = true;
+            
+            animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            playerRigidbody.velocity = ParryVector;
             playerAnimator.SetBool(CupheadAnimID.IS_PARRYING, false);
             playerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, false);
         }
@@ -44,7 +44,9 @@ public class ParrySuccessBehaviour : StateMachineBehaviour
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       
+        //시간 관련 변수 초기화 작업
+        elapsedTime = 0f;
+        Time.timeScale = 1.0f;
     }
 
 }

@@ -13,6 +13,7 @@ TagManager:
   - PotatoPorjectile
   - PotatoProjectileParryable
   - Parryable
+  - Projectile
   layers:
   - Default
   - TransparentFX

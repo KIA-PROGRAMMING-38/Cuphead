@@ -4,14 +4,25 @@ using UnityEditor;
 using UnityEngine.Events;
 using System.Collections;
 
+public class CupheadStateInfo
+{
+    public static readonly int IS_NOT_MOVING = 0;
+    public static readonly int IS_MOVING = 1;
+}
+
 public class CupheadController : MonoBehaviour
 {
-    public delegate void ParryEvent();
+
+    [SerializeField]
+    GameObject PlayerGameObject;
+
+    public delegate void 
+        Event();
 
 
     public static Animator PlayerAnimator;
     public static SpriteRenderer PlayerSpriteRenderer;
-    public static Rigidbody2D PlayerRigidbody;
+    public static Rigidbody2D playerRigidbody;
 
     [SerializeField]
     public static Animator _bulletSparkAnimator;
@@ -19,31 +30,42 @@ public class CupheadController : MonoBehaviour
     [SerializeField]
     public float _playerMoveSpeed;
 
+    [SerializeField]
+    public Vector2 ExmoveBounceForce;
+
+
+
+
+    #region//각 동작을 한 번만 실행되도록 하기위해 아래와 같은 조건값을 사용합니다. 
     //플레이어 고유 상태 여부를 스태틱으로 저장했습니다.
+    //다른 객체와 구별됨에 주의합니다. 
     public static bool IsDucking;
     public static bool IsJumping;
-    public static bool IsParrying;
-    public Vector2 _inputVec;
-    public bool parrySucceed;
+    public static bool HasParried;
+    public static bool TryParrying;
+    public static bool IsEXMoving;
+    public static bool IsOnGround;
+    public static bool IsJumpEXMoving;
+    public static bool HasBeenHit;
+    #endregion
 
-    [SerializeField]
+    //인풋벡터 (스태틱으로 만들어 EXMOVE에서 정지 시 사용)
+    static Vector2 _inputVec;
+     bool parrySucceed;
 
-    public float _exMoveWaitingTime;
     public AudioSource _audioSource;
 
     Try_Parrying_Behaviour try_Parrying_Behaviour;
 
-     [SerializeField]
-     Collider2D playerOnGround;
+    [SerializeField]
+    Collider2D playerOnGround;
     ParrySuccessBehaviour parrySuccessBehaviour;
     private void Awake()
     {
-       
-        
         //플레이어 초기 방향 설정
-        playerDirection = RIGHT;
+        playerDirection = PLAYER_DIRECTION_RIGHT;
         PlayerSpriteRenderer = GetComponent<SpriteRenderer>();
-        PlayerRigidbody = GetComponent<Rigidbody2D>();
+        playerRigidbody = GetComponent<Rigidbody2D>();
         PlayerAnimator = GetComponent<Animator>();
 
     }
@@ -77,29 +99,7 @@ public class CupheadController : MonoBehaviour
     /// 일시적으로 플레이어 이동을 멈추고 점프속도를 없애주는
     /// 코드를 작성했습니다. 
     /// </summary>
-    public void ExMove()
-    {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            tempVector = new Vector2(0, -PlayerRigidbody.velocity.y);
-            StartCoroutine(DelayExMove());
 
-            PlayerAnimator.SetBool(CupheadAnimID.IS_EX_MOVING, true);
-            PlayerRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
-        }
-
-        IEnumerator DelayExMove()
-        {
-            yield return new WaitForSeconds(_exMoveWaitingTime);
-
-            PlayerAnimator.SetBool(CupheadAnimID.IS_EX_MOVING, false);
-            PlayerRigidbody.constraints = RigidbodyConstraints2D.None;
-            PlayerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            PlayerRigidbody.velocity = tempVector;
-
-
-        }
-    }
 
     /// <summary>
     /// 플레이어 이동을 위한 입력값을 받아 움직이는 함수입니다.
@@ -112,42 +112,51 @@ public class CupheadController : MonoBehaviour
 
         if (IsDucking == false)
         {
-            PlayerRigidbody.velocity = new Vector2
-           (_inputVec.x * _playerMoveSpeed, PlayerRigidbody.velocity.y);
+            playerRigidbody.velocity = new Vector2
+           (_inputVec.x * _playerMoveSpeed, playerRigidbody.velocity.y);
         }
 
         FlipPlayer();
 
     }
 
-    /// <summary>
-    /// Flip player's image according to direction of the player's movement.
-    /// </summary>
-    public static bool playerDirection;
-    public readonly static bool LEFT = false;
-    public readonly static bool RIGHT = true;
 
+
+    #region  플레이어의 이동방향에 맞게 애니메이터 스프라이터를 x축방향으로 플립합니다. 
+    /// <summary>
+    /// 플레이어의 이동방향에 맞게 애니메이터 스프라이터를 x축방향으로 플립합니다. 
+    /// </summary>
+    public static int playerDirection;
+    public readonly static int PLAYER_DIRECTION_LEFT = 1;
+    public readonly static int PLAYER_DIRECTION_RIGHT = 2;
     public void FlipPlayer()
     {
         PlayerAnimator.SetBool(CupheadAnimID.IS_RUNNING, false);
 
         if (_inputVec.x != 0f)
         {
+            PlayerAnimator.SetBool(CupheadAnimID.IS_RUNNING, true);
+
             if (_inputVec.x < 0.0f)
             {
                 PlayerSpriteRenderer.flipX = true;
-                PlayerAnimator.SetBool(CupheadAnimID.IS_RUNNING, true);
-                playerDirection = LEFT;
+                playerDirection = PLAYER_DIRECTION_LEFT;
             }
             else
             {
                 PlayerSpriteRenderer.flipX = false;
-                PlayerAnimator.SetBool(CupheadAnimID.IS_RUNNING, true);
-                playerDirection = RIGHT;
+                playerDirection = PLAYER_DIRECTION_RIGHT;
             }
 
         }
     }
+    #endregion 
+
+
+
+
+
+
 
     /// <summary>
     /// 플레이어를 숙이는(ducking) 함수입니다. 점프에 제약이 걸립니다.
@@ -179,39 +188,33 @@ public class CupheadController : MonoBehaviour
     /// </summary>
     ///  [SerializeField]
     ///  
-    public readonly int GET_KEY_COUNT_JUMP = 1;
-    public readonly int GET_KEY_COUNT_PARRY = 2;
-    public static int GetKeyCount = 0;
     public void JumpPlayer()
     {
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Z)
+            && IsJumping == false 
+            && IsJumpEXMoving == false)
         {
-         
-          PlayerAnimator.SetBool(CupheadAnimID.IS_JUMPING, true);
+            PlayerAnimator.SetBool(CupheadAnimID.IS_JUMPING, true);
         }
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.Z))
         {
-            PlayerRigidbody.gravityScale = 1.0f;
+            playerRigidbody.gravityScale = 1.0f;
         }
 
-        else if (Input.GetKeyUp(KeyCode.A) && PlayerRigidbody.velocity.y > 5.0f)
+        else if (Input.GetKeyUp(KeyCode.Z) && playerRigidbody.velocity.y > 5.0f)
         {
-            
-            PlayerRigidbody.gravityScale = 2.5f;
+
+            playerRigidbody.gravityScale = 2.5f;
         }
         //master first branch test
     }
 
-    /// <summary>
-    /// 패링을 작동하는 함수입니다. 점프시에만 동작할 수 있으며,
-    /// 업데이트로 isJumping 불린 자료값을 OnGroundChecker.cs에서 반환해줍니다.
-    /// 이 불값을 조건으로 패링을 실행할 지 여부를 정합니다. 
-    /// </summary>
-    /// 
-   
-   
+
+  
+
+
 
     /// <summary>
     /// 애니메이션 이벤트로 실행되는 함수 입니다. 
@@ -219,13 +222,9 @@ public class CupheadController : MonoBehaviour
     /// </summary>
     public void MakeIsParryingFalse()
     {
-        Debug.Log("makeIsParryingFalse");
-        IsParrying = false;
+       
+        TryParrying = false;
     }
-
-
-
-
 
     public void Shoot()
     {
@@ -237,62 +236,152 @@ public class CupheadController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.X))
         {
             PlayerAnimator.SetBool(CupheadAnimID.IS_STANDSHOOTING, false);
+            
         }
 
 
     }
 
-    
-   
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    /// <summary>
+    /// EXMOVE 발동 시 애니메이션 이벤트를 통해 작동 될 함수 입니다.
+    /// 애니메이터 파라미터 값만 수정하고 나머지 행동은 FSM에서 구현됩니다. 
+    /// </summary>
+    Vector2 BounceVector;
+    [SerializeField] float hitBounceForce;
+
+  
+    public void ExMove()
+    {
+        if (Input.GetKeyDown(KeyCode.V) && IsEXMoving == false)
+        {
+            //플레이어 이동방향의 음수방향으로 플레이어를 밀어내야 하므로 데이터를 임시저장합니다. 
+            PlayerAnimator.SetBool(CupheadAnimID.IS_EX_MOVING, true);
+        }
+
+    }
+
+
+
+    #region // 애니메이션 이벤트로 동작할 함수들의 목록입니다. 
+
+
+    public void AddForceRightAfterDefreezeExMove()
+    {
+        playerRigidbody.bodyType = RigidbodyType2D.Dynamic;
+        if (playerDirection == PLAYER_DIRECTION_RIGHT)
+        {
+            playerRigidbody.AddForce(-ExmoveBounceForce, ForceMode2D.Impulse);
+        }
+
+        else
+        {
+            playerRigidbody.AddForce(ExmoveBounceForce, ForceMode2D.Impulse);
+        }
+
+
+    }
+
+    public void SetFalseExmove()
+    {
+       
+        StartCoroutine(DelayMakingIsJumpEXMobingFalse());
+
+        PlayerAnimator.SetBool(CupheadAnimID.IS_EX_MOVING, false);
+        
+    }
+
+    public void SetFalseHasParried()
+    {
+
+        StartCoroutine(DelayMakingIsJumpEXMobingFalse());
+
+        HasParried = false;
+        PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, false);
+
+    }
+    public void SetFalseHasBeenHit()
+    {
+
+        StartCoroutine(DelayMakingHasBeenHitFalse());
+        PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
+        HasBeenHit = true;
+
+    }
+
+
+    //아래는 코루틴 함수 사용 부분입니다
+
+    public static readonly WaitForSeconds _waitTime = new WaitForSeconds(0.8f);
+    IEnumerator DelayMakingIsJumpEXMobingFalse()
+    {
+        yield return _waitTime;
+        IsJumpEXMoving = false;
+        IsEXMoving = false;
+      
+    }
+    IEnumerator DelayMakingHasBeenHitFalse()
+    {
+        yield return _waitTime;
+        HasBeenHit = false;
+
+    }
+    #endregion
+
+
+
+    #region // 플레이어가, 플랫폼, 투사체등에 맞는 경우를 감지합니다. 
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (IsPlatformCollision(collision))
         {
-            Debug.Log("Jump Off");
+
             PlayerAnimator.SetBool(CupheadAnimID.IS_JUMPING, false);
             PlayerAnimator.SetBool(CupheadAnimID.IS_PARRYING, false);
             IsJumping = false;
-            Debug.Log(IsJumping);
+            IsOnGround = true;
         }
-      
-    }
 
+        if (IsProjectileCollision(collision))
+        {
+            BounceVector = Vector2.up;
+            playerRigidbody.AddForce(BounceVector * hitBounceForce, ForceMode2D.Impulse);
+        }
+        
+        if (HasBeenHitCollision(collision))
+        {
+            PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, true);
+        }
+    }
+    #endregion
+
+
+    /// <summary>
+    /// OnTriggerStay2D 내부 조건을 간단하게 만들기 위한 충돌감지 태그 함수 목록입니다. 
+    /// </summary>
+    /// <param name="collision"></param>
+    /// <returns></returns>
     private bool IsPlatformCollision(Collider2D collision)
     {
         return collision.CompareTag(LayerNames.PLATFORM);
     }
 
-   
 
-    private void OnTriggerStay2D(Collider2D other)
+    private bool IsProjectileCollision(Collider2D collision)
     {
-        
-
-       
+        return collision.CompareTag(TagNames.PROJECTILE);
     }
 
-  
+    private bool HasBeenHitCollision(Collider2D collision)
+    {
+        return collision.CompareTag(TagNames.PROJECTILE);
+    }
    
-  
-
-
-
-    //public void OnSucceedParry()
-    //{
-    //    Debug.Log($"parrySucced?:{parrySucceed}");
-    //    if (parrySucceed == true)
-    //    {
-    //        Debug.Log("Parry On");
-    //        PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, true);
-    //    }
-
-
-    //}
 
 
 }
- 
+
 
 
 

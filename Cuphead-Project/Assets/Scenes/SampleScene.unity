@@ -2283,10 +2283,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2135547219}
   - component: {fileID: 2135547237}
-  - component: {fileID: 2135547239}
-  - component: {fileID: 2135547233}
-  - component: {fileID: 2135547240}
   - component: {fileID: 2135547236}
+  - component: {fileID: 2135547233}
+  - component: {fileID: 2135547239}
+  - component: {fileID: 2135547240}
   - component: {fileID: 2135547231}
   - component: {fileID: 9049005205236870869}
   - component: {fileID: 2135547249}
@@ -2894,7 +2894,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710108546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.33999982, y: -1.063, z: 0}
+  m_LocalPosition: {x: -0.344, y: -1.094, z: 0}
   m_LocalScale: {x: 1.1326, y: 1.1326, z: 1.1326}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2916,7 +2916,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.23
+  m_Radius: 0.05
 --- !u!114 &1710108549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2993,6 +2993,10 @@ PrefabInstance:
       propertyPath: _playerSpriteRenderer
       value: 
       objectReference: {fileID: 2135547233}
+    - target: {fileID: 2074460489, guid: 66903df03b0091a4b9f9b1866d2b4ab7, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5169500623404181285, guid: 66903df03b0091a4b9f9b1866d2b4ab7, type: 3}
       propertyPath: m_Name
       value: Bullet
@@ -3056,6 +3060,10 @@ PrefabInstance:
     - target: {fileID: 5169500623404181287, guid: 66903df03b0091a4b9f9b1866d2b4ab7, type: 3}
       propertyPath: m_SortingOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492351603932396510, guid: 66903df03b0091a4b9f9b1866d2b4ab7, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66903df03b0091a4b9f9b1866d2b4ab7, type: 3}
@@ -3673,12 +3681,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0faf1b4ad0114f74b94e6af38ddf2b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerGameObject: {fileID: 1254813742}
   _playerMoveSpeed: 8.5
-  _inputVec: {x: 0, y: 0}
-  parrySucceed: 0
-  _exMoveWaitingTime: 2
+  ExmoveBounceForce: {x: 22.24, y: 5.7}
   _audioSource: {fileID: 0}
-  playerOnGround: {fileID: 0}
+  playerOnGround: {fileID: 2135547240}
+  hitBounceForce: 0
 --- !u!212 &2135547233
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3818,7 +3826,6 @@ MonoBehaviour:
   LayerToCheck:
     serializedVersion: 2
     m_Bits: 256
-  hitBounceForce: 7
 --- !u!1001 &5546490494283921538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3849,6 +3856,10 @@ PrefabInstance:
     - target: {fileID: 4709640635069151168, guid: 22676edd7e7637d4bacc22f80e79a4d6, type: 3}
       propertyPath: m_Name
       value: PotatoProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709640635069151168, guid: 22676edd7e7637d4bacc22f80e79a4d6, type: 3}
+      propertyPath: m_TagString
+      value: Projectile
       objectReference: {fileID: 0}
     - target: {fileID: 6928116702894385910, guid: 22676edd7e7637d4bacc22f80e79a4d6, type: 3}
       propertyPath: m_RootOrder
@@ -3921,11 +3932,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 97045623231665795, guid: 4a5e2f37a78a12646885f86805075bf5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.54
+      value: -8.71
       objectReference: {fileID: 0}
     - target: {fileID: 97045623231665795, guid: 4a5e2f37a78a12646885f86805075bf5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.33
+      value: 1.76
       objectReference: {fileID: 0}
     - target: {fileID: 97045623231665795, guid: 4a5e2f37a78a12646885f86805075bf5, type: 3}
       propertyPath: m_LocalPosition.z

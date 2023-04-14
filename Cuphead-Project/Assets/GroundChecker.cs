@@ -10,7 +10,7 @@ public class GroundChecker : MonoBehaviour
     {
         if (IsPlatformCollision(collision))
         {
-            Debug.Log("Jump and Parry Off");
+            
             PlayerAnimator.SetBool(CupheadAnimID.IS_JUMPING, false);
             PlayerAnimator.SetBool(CupheadAnimID.IS_PARRYING, false);
             CupheadController.IsJumping = false;

@@ -14,7 +14,7 @@ public static class CupheadAnimID
     public static readonly int HAS_PARRIED = Animator.StringToHash("HasParried");
     public static readonly int IS_EX_MOVING = Animator.StringToHash("ExMoving");
     public static readonly int IS_ON_GROUND = Animator.StringToHash("IsOnGround");
-    public static readonly int HAS_BEEN_HIT = Animator.StringToHash("HasHit");
+    public static readonly int HAS_BEEN_HIT = Animator.StringToHash("HasBeenHit");
 }
 
 public static class BulletAnimID
@@ -33,12 +33,13 @@ public static class ObjectPoolNameID
 
 public static class LayerNames
 {
-
     public static readonly string PLATFORM = "Platform";
 }
 
 public static class TagNames
 {
+    public static readonly string BULLET = "Bullet";
+    public static readonly string PROJECTILE = "Projectile";
     public static readonly string POTATO_PROJECTILE_PARRYABLE = "PotatoProjectileParryable";
     public static readonly string PLATFROM = "Platform";
 }

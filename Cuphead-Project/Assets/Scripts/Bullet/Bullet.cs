@@ -36,12 +36,12 @@ public class Bullet : MonoBehaviour
         _bulletForce = new Vector2(30f, 0f);
        
 
-        if (CupheadController.playerDirection == CupheadController.RIGHT)
+        if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT)
         {
             _bulletRigidbody.velocity = _bulletForce;
 
         }
-        else if (CupheadController.playerDirection == CupheadController.LEFT)
+        else if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_LEFT)
         {
             _bulletRigidbody.velocity = -_bulletForce;
 

@@ -22,7 +22,7 @@ public abstract class Checker : IChecker
     }
     public virtual bool CheckOverlaying()
     {
-        if (CupheadController.IsParrying == true)
+        if (CupheadController.HasParried == true)
         {
 
             return Physics2D.OverlapCircle(_transform.position, _radiusSize, LayerToCheck);

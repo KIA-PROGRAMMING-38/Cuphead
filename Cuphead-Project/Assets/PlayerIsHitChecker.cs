@@ -46,14 +46,12 @@ public class PlayerIsHitChecker : MonoBehaviour, IChecker
         Gizmos.DrawWireSphere(_transform.position, _radiusSize);
     }
 
-    Vector2 BounceVector;
-    [SerializeField] float hitBounceForce;
+   
     public void HitDefreezeAndBoucnce()
     {
-        BounceVector = Vector2.up;
-        CupheadController.PlayerRigidbody.constraints = RigidbodyConstraints2D.None;
-        CupheadController.PlayerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-        CupheadController.PlayerRigidbody.AddForce(BounceVector * hitBounceForce, ForceMode2D.Impulse);
+       
+        CupheadController.playerRigidbody.constraints = RigidbodyConstraints2D.None;
+        CupheadController.playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
         
         CupheadController.PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
         hasHit = false;
