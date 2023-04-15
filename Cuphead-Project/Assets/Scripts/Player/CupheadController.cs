@@ -16,7 +16,7 @@ public class CupheadController : MonoBehaviour
     [SerializeField]
     GameObject PlayerGameObject;
 
-    public delegate void 
+    public delegate void
         Event();
 
 
@@ -51,7 +51,7 @@ public class CupheadController : MonoBehaviour
 
     //인풋벡터 (스태틱으로 만들어 EXMOVE에서 정지 시 사용)
     static Vector2 _inputVec;
-     bool parrySucceed;
+    bool parrySucceed;
 
     public AudioSource _audioSource;
 
@@ -78,6 +78,7 @@ public class CupheadController : MonoBehaviour
     }
     private void Update()
     {
+     
         DuckPlayer();
         JumpPlayer();
         Shoot();
@@ -131,7 +132,7 @@ public class CupheadController : MonoBehaviour
     public readonly static int PLAYER_DIRECTION_RIGHT = 2;
     public void FlipPlayer()
     {
-        PlayerAnimator.SetBool(CupheadAnimID.IS_RUNNING, false);
+
 
         if (_inputVec.x != 0f)
         {
@@ -149,6 +150,8 @@ public class CupheadController : MonoBehaviour
             }
 
         }
+        else { PlayerAnimator.SetBool(CupheadAnimID.IS_RUNNING, false); }
+
     }
     #endregion 
 
@@ -188,14 +191,17 @@ public class CupheadController : MonoBehaviour
     /// </summary>
     ///  [SerializeField]
     ///  
+    [SerializeField]
+    public Vector2 _jumpForce = new Vector2(0f, 17);
     public void JumpPlayer()
     {
 
-        if (Input.GetKeyDown(KeyCode.Z)
-            && IsJumping == false 
-            && IsJumpEXMoving == false)
+        if (Input.GetKeyDown(KeyCode.Z) && IsJumping == false)
         {
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, _jumpForce.y);
             PlayerAnimator.SetBool(CupheadAnimID.IS_JUMPING, true);
+            IsJumping = true;
+
         }
 
         if (Input.GetKey(KeyCode.Z))
@@ -212,7 +218,7 @@ public class CupheadController : MonoBehaviour
     }
 
 
-  
+
 
 
 
@@ -220,11 +226,7 @@ public class CupheadController : MonoBehaviour
     /// 애니메이션 이벤트로 실행되는 함수 입니다. 
     /// 패링 에니메이션이 끝나면 패링상태를 끝내줍니다.
     /// </summary>
-    public void MakeIsParryingFalse()
-    {
-       
-        TryParrying = false;
-    }
+
 
     public void Shoot()
     {
@@ -236,7 +238,7 @@ public class CupheadController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.X))
         {
             PlayerAnimator.SetBool(CupheadAnimID.IS_STANDSHOOTING, false);
-            
+
         }
 
 
@@ -251,7 +253,7 @@ public class CupheadController : MonoBehaviour
     Vector2 BounceVector;
     [SerializeField] float hitBounceForce;
 
-  
+
     public void ExMove()
     {
         if (Input.GetKeyDown(KeyCode.V) && IsEXMoving == false)
@@ -266,7 +268,7 @@ public class CupheadController : MonoBehaviour
 
     #region // 애니메이션 이벤트로 동작할 함수들의 목록입니다. 
 
-
+    //AddForce에서 vel로 바꿀예정
     public void AddForceRightAfterDefreezeExMove()
     {
         playerRigidbody.bodyType = RigidbodyType2D.Dynamic;
@@ -285,31 +287,44 @@ public class CupheadController : MonoBehaviour
 
     public void SetFalseExmove()
     {
-       
+
         StartCoroutine(DelayMakingIsJumpEXMobingFalse());
 
         PlayerAnimator.SetBool(CupheadAnimID.IS_EX_MOVING, false);
-        
+
     }
-
+    public void SetFalseTryParrying() => PlayerAnimator.SetBool(CupheadAnimID.TRY_PARRYING, false);
     public void SetFalseHasParried()
-    {
-
-        StartCoroutine(DelayMakingIsJumpEXMobingFalse());
-
-        HasParried = false;
+    {       
         PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, false);
 
     }
     public void SetFalseHasBeenHit()
     {
-
-        StartCoroutine(DelayMakingHasBeenHitFalse());
         PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
-        HasBeenHit = true;
-
+        StartCoroutine(DelayMakingHasBeenHitFalse());
     }
 
+    [SerializeField]
+    private float _parryingPauseTime = 0.3f;
+    private float _elapsedTime = 0f;
+    private float _pausedTime;
+
+
+    public void PauseAndResumeGame()
+    {
+        StartCoroutine(ResumeGame());
+        Time.timeScale = 0f;
+       
+    }
+    IEnumerator ResumeGame()
+    {
+        yield return new WaitForSecondsRealtime(0.2f);
+        Time.timeScale = 1f;
+    }
+
+    public void TemporaryPause() => isPaused = true;
+ 
 
     //아래는 코루틴 함수 사용 부분입니다
 
@@ -319,7 +334,7 @@ public class CupheadController : MonoBehaviour
         yield return _waitTime;
         IsJumpEXMoving = false;
         IsEXMoving = false;
-      
+
     }
     IEnumerator DelayMakingHasBeenHitFalse()
     {
@@ -334,24 +349,17 @@ public class CupheadController : MonoBehaviour
     #region // 플레이어가, 플랫폼, 투사체등에 맞는 경우를 감지합니다. 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (IsPlatformCollision(collision))
-        {
 
-            PlayerAnimator.SetBool(CupheadAnimID.IS_JUMPING, false);
-            PlayerAnimator.SetBool(CupheadAnimID.IS_PARRYING, false);
-            IsJumping = false;
-            IsOnGround = true;
-        }
 
-        if (IsProjectileCollision(collision))
-        {
-            BounceVector = Vector2.up;
-            playerRigidbody.AddForce(BounceVector * hitBounceForce, ForceMode2D.Impulse);
-        }
-        
         if (HasBeenHitCollision(collision))
         {
             PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, true);
+        }
+
+        if (HitParryableCollision(collision))
+        {
+           
+            PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, true);
         }
     }
     #endregion
@@ -367,18 +375,21 @@ public class CupheadController : MonoBehaviour
         return collision.CompareTag(LayerNames.PLATFORM);
     }
 
-
-    private bool IsProjectileCollision(Collider2D collision)
-    {
-        return collision.CompareTag(TagNames.PROJECTILE);
-    }
-
     private bool HasBeenHitCollision(Collider2D collision)
     {
         return collision.CompareTag(TagNames.PROJECTILE);
+
     }
+    private bool HitParryableCollision(Collider2D collision)
+    {
+        return collision.CompareTag(TagNames.POTATO_PROJECTILE_PARRYABLE);
+    }
+
+    private bool isPaused = false;
+    
    
 
+    public static readonly WaitForSeconds _pauseTime = new WaitForSeconds(1);
 
 }
 

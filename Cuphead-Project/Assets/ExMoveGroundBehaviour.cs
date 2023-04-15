@@ -10,14 +10,14 @@ public class ExMoveGroundBehaviour : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
        
-        if (CupheadController.IsEXMoving == false && CupheadController.IsJumping == false)
-        {
+       //if (CupheadController.IsEXMoving == false && CupheadController.IsJumping == false)
+        
             playerRigidbody = animator.GetComponent<Rigidbody2D>();
             animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             playerAnimator = animator.GetComponent<Animator>();
             CupheadController.IsEXMoving = true;
 
-        }
+        
       
 
     }

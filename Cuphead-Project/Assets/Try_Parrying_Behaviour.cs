@@ -30,9 +30,9 @@ public class Try_Parrying_Behaviour : StateMachineBehaviour
         Debug.Log($"CheckOverlaying(playerTransform):  {SucceedInParry}");
         Debug.Log(SucceedInParry);
 
-        if (SucceedInParry == true && CupheadController.TryParrying == false)
+        if (SucceedInParry == true)
         {
-            CupheadController.HasParried = true;
+           
             Debug.Log("parry overlayed!");
             animator.SetBool(CupheadAnimID.HAS_PARRIED, true);
         }
@@ -44,10 +44,6 @@ public class Try_Parrying_Behaviour : StateMachineBehaviour
         /// </summary>
         /// <param name="animator"></param>
         /// <returns></returns>
-
-
-
-
     }
 
     public bool CheckOverlaying(Transform playerTransform)

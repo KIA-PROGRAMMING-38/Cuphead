@@ -12,21 +12,30 @@ public class PotatoProjectileParryable : MonoBehaviour
     [SerializeField]
     Vector2 projectileForce;
 
-    BulletHitChecker bulletHitChecker;
+    [SerializeField]
+    Animator animator;
 
+    BulletHitChecker bulletHitChecker;
+    [SerializeField]
+    Collider2D childProjectileCollider;
     float _spawnMoveDistance;
 
 
 
     private void OnEnable()
     {
+        ShowParry();
         //이후 패링객체 플레이어 상호작용 시 사용할 함수를 미리 작성했습니다.
         //bulletHitChecker = GetComponent<BulletHitChecker>();
         projectileRigidbody.velocity = projectileForce;
         Invoke(nameof(DeactiveDelay), 1.5f);
-
+        animator = GetComponent<Animator>();
     }
 
+    private void Awake()
+    {
+      
+    }
     //특정 시간이 지나면 비활성화가 되도록 합니다. 
     void DeactiveDelay() => gameObject.SetActive(false)
 ;
@@ -37,4 +46,27 @@ public class PotatoProjectileParryable : MonoBehaviour
 
         CancelInvoke();
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (HasBeenHitCollision(collision))
+        {
+            DisableProjectileCollider();
+            animator.SetBool(ProjectileAnimID.PARRIED, true);
+         
+        }
+    }
+
+    private bool HasBeenHitCollision(Collider2D collision)
+    {
+        return collision.CompareTag(TagNames.PLAYER);
+    }
+    public void DisableProjectileCollider() => childProjectileCollider.enabled = false;
+    public void ShowParry() => gameObject?.SetActive(true);
+    public void HideParry() => gameObject?.SetActive(false);
+   
+
+
 }
+   
+  

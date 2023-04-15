@@ -9,12 +9,12 @@ public class PotatoProjectile : MonoBehaviour
     Rigidbody2D projectileRigidbody;
 
     SpriteRenderer projectile;
-
+    Animator animator;
     [SerializeField]
     Vector2 projectileForce;
 
     BulletHitChecker bulletHitChecker;
-
+    Collider2D collider;
     float _spawnMoveDistance;
 
 
@@ -24,6 +24,8 @@ public class PotatoProjectile : MonoBehaviour
     }
     private void OnEnable()
     {
+        animator = GetComponent<Animator>();    
+        collider = GetComponent<Collider2D>();
         bulletHitChecker = GetComponent<BulletHitChecker>();
         projectileRigidbody.velocity = projectileForce;
         Invoke(nameof(DeactiveDelay), 1.5f);
@@ -39,7 +41,21 @@ public class PotatoProjectile : MonoBehaviour
         CancelInvoke(); //unlike coroutine, using Invoke has to be used with CancelInvoke
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (HasBeenHitCollision(collision))
+        {
+            animator.SetBool(ProjectileAnimID.HIT_PLAYER, true);
+        }
+    }
 
+    private bool HasBeenHitCollision(Collider2D collision)
+    {
+        return collision.CompareTag(TagNames.PLAYER);
+    }
 
+    public void ShowProjectile() => gameObject?.SetActive(true);
+    public void HideProjectile() => gameObject?.SetActive(false);
+    public void DeactivatieProjectileCollider() => collider.enabled = false;
 
 }

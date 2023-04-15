@@ -48,12 +48,12 @@ public class BulletHitChecker : MonoBehaviour
       
         if (isHittingEnemy)
         {
-            _bulletAnimator.SetBool(BulletAnimID.IS_HITTING, true);
+            _bulletAnimator.SetBool(BulletAnimID.HIT_ENEMY_OR_ITS_PROJECTILES, true);
            
         }
         else
         {
-            _bulletAnimator.SetBool(BulletAnimID.IS_HITTING, false);
+            _bulletAnimator.SetBool(BulletAnimID.HIT_ENEMY_OR_ITS_PROJECTILES, false);
         }
     }
 

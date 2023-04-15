@@ -18,7 +18,6 @@ public class ExMoveJumpingBehaviour : StateMachineBehaviour
             animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             playerAnimator = animator.GetComponent<Animator>();
             CupheadController.IsJumpEXMoving = true;
-
         }
 
 
