@@ -12,5 +12,6 @@ public class PotatoIntroEvent : MonoBehaviour
     {
         potatoAnimator.enabled = true;
         //test
+        //test2
     }
 }
