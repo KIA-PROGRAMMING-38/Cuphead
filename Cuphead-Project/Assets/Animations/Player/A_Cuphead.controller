@@ -2159,8 +2159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasParried: 0
-  ParryVector: {x: 0.02, y: 9.71}
-  StopTime: 1.37
+  parrybounce: 12.49
 --- !u!1101 &4570811907110918347
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

@@ -11,7 +11,7 @@ public class Try_Parrying_Behaviour : StateMachineBehaviour
     //패리 성공을 의미
 
 
-    public bool SucceedInParry;
+    private bool SucceedInParry;
     [SerializeField]
     public LayerMask LayerToCheck;
     Transform playerTransform;
@@ -20,21 +20,18 @@ public class Try_Parrying_Behaviour : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
      
-        
         playerTransform =  animator.GetComponent<Transform>();
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
         SucceedInParry = CheckOverlaying(playerTransform);
-        Debug.Log($"CheckOverlaying(playerTransform):  {SucceedInParry}");
-        Debug.Log(SucceedInParry);
+       
 
         if (SucceedInParry == true)
         {
-           
-            Debug.Log("parry overlayed!");
             animator.SetBool(CupheadAnimID.HAS_PARRIED, true);
+            CupheadController.TryParrying = false;
         }
 
         /// <summary>

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.Events;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class CupheadStateInfo
 {
@@ -60,8 +61,11 @@ public class CupheadController : MonoBehaviour
     [SerializeField]
     Collider2D playerOnGround;
     ParrySuccessBehaviour parrySuccessBehaviour;
+        
     private void Awake()
     {
+    
+      
         //플레이어 초기 방향 설정
         playerDirection = PLAYER_DIRECTION_RIGHT;
         PlayerSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -356,11 +360,8 @@ public class CupheadController : MonoBehaviour
             PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, true);
         }
 
-        if (HitParryableCollision(collision))
-        {
-           
-            PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, true);
-        }
+     
+
     }
     #endregion
 
@@ -375,20 +376,45 @@ public class CupheadController : MonoBehaviour
         return collision.CompareTag(LayerNames.PLATFORM);
     }
 
+    private bool hasParried; 
     private bool HasBeenHitCollision(Collider2D collision)
     {
-        return collision.CompareTag(TagNames.PROJECTILE);
+      
+        if (HitParryableCollision(collision) && TryParrying)
+        {
+            hasParried = true; //패링상태면 충돌처리 무시하기 위해
+            Debug.Log(hasParried);
+        }
+        else
+        {
+            hasParried = false;
+        }
 
+
+        Collider2D[] childColliders
+             = collision.gameObject.GetComponentsInChildren<Collider2D>();
+        foreach (Collider2D childCollider in childColliders)
+        {
+            if (childCollider.CompareTag(TagNames.PROJECTILE)
+                && hasParried == false)
+            {
+                return true;
+            }
+          
+        }
+       
+
+        return false;
     }
+
     private bool HitParryableCollision(Collider2D collision)
     {
-        return collision.CompareTag(TagNames.POTATO_PROJECTILE_PARRYABLE);
+        return collision.CompareTag(TagNames.PARRYABLE);
     }
-
     private bool isPaused = false;
     
    
-
+  
     public static readonly WaitForSeconds _pauseTime = new WaitForSeconds(1);
 
 }

@@ -38,6 +38,10 @@ public static class ObjectPoolNameID
     public static readonly string POTATO_PROJECTILE = "PotatoProjectile";
 }
 
+public static class EffectNames
+{
+    public static readonly string PLAYER_DUST_ON = "PlayerJumpDustOn";
+}
 public static class LayerNames
 {
     public static readonly string PLATFORM = "Platform";
@@ -47,7 +51,7 @@ public static class TagNames
 {
     public static readonly string BULLET = "Bullet";
     public static readonly string PROJECTILE = "Projectile";
-    public static readonly string POTATO_PROJECTILE_PARRYABLE = "Parryable";
+    public static readonly string PARRYABLE = "Parryable";
     public static readonly string PLATFROM = "Platform";
     public static readonly string PLAYER = "Player";
 }

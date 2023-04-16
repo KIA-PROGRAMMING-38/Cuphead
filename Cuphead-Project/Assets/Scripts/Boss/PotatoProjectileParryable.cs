@@ -19,6 +19,7 @@ public class PotatoProjectileParryable : MonoBehaviour
     [SerializeField]
     Collider2D childProjectileCollider;
     float _spawnMoveDistance;
+   
 
 
 
@@ -34,7 +35,7 @@ public class PotatoProjectileParryable : MonoBehaviour
 
     private void Awake()
     {
-      
+        
     }
     //특정 시간이 지나면 비활성화가 되도록 합니다. 
     void DeactiveDelay() => gameObject.SetActive(false)

@@ -33,8 +33,20 @@ public class potatoProjectileSpawner : MonoBehaviour
             count = 0;
             return ObjectPooler.SpawnFromPool
                 ("Parryable", _spawnposition.transform.position);
+            
         }
     }
 
+    /// <summary>
+    /// 애니메이션 이벤트로 중복재생 할 함수 재생
+    /// </summary>
+    /// <returns></returns>
+    protected GameObject throwParryable()
+    {
+        return ObjectPooler.SpawnFromPool
+                ("Parryable", _spawnposition.transform.position);
+    }
 
 }
+
+
