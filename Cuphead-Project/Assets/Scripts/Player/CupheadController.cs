@@ -393,23 +393,28 @@ public class CupheadController : MonoBehaviour
             return false;
         }
 
-        else
+        if (collision.CompareTag(TagNames.PROJECTILE))
         {
-            Collider2D[] childColliders
-            = collision.gameObject.GetComponentsInChildren<Collider2D>();
-            foreach (Collider2D childCollider in childColliders)
-            {
-                if (childCollider.CompareTag(TagNames.PROJECTILE))
-                {
-                    return true;
-                }
-            }
-
-
-            return false;
+            return true;
         }
-        
-       
+
+
+
+        Collider2D[] childColliders
+        = collision.gameObject.GetComponentsInChildren<Collider2D>();
+        foreach (Collider2D childCollider in childColliders)
+        {
+            if (childCollider.CompareTag(TagNames.PROJECTILE))
+            {
+                return true;
+            }
+        }
+
+
+        return false;
+
+
+
     }
 
     private bool HitParryableCollision(Collider2D collision)
@@ -425,7 +430,7 @@ public class CupheadController : MonoBehaviour
     private void DecreaseHP() => playerHP -= 1;
     private void CheckPlayerAlive()
     {
-        if (playerHP == 0)
+        if (playerHP < 0)
         {
             PlayerAnimator.SetBool(CupheadAnimID.DIED, true);
         }
