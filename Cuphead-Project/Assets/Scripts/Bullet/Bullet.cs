@@ -32,15 +32,16 @@ public class Bullet : MonoBehaviour
         //플레이어의 플립여부 자료를 받아옵니다.
         //받아온 자료를 조건으로 하여, 총알의 발사 위치를 정합니다.
         bulletHitChecker = GetComponent<BulletHitChecker>();
-        _playerSpriteRenderer = CupheadController._playerSpriteRenderer;
-        _bulletForce = new Vector2(30f, 0f);
 
-        if (_playerSpriteRenderer.flipX == false)
+        _bulletForce = new Vector2(30f, 0f);
+       
+
+        if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT)
         {
             _bulletRigidbody.velocity = _bulletForce;
 
         }
-        else if (_playerSpriteRenderer.flipX == true)
+        else if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_LEFT)
         {
             _bulletRigidbody.velocity = -_bulletForce;
 

@@ -21,25 +21,23 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: d1aa4391883ff2e419656a7aaf8677a5, type: 3}
-    - time: 0.083333336
+    - time: 0.0625
       value: {fileID: 21300000, guid: a41d644d6ae802b409fd49d18936b2a2, type: 3}
-    - time: 0.16666667
+    - time: 0.125
       value: {fileID: 21300000, guid: 3795e1cd924d33945a93e64849f90c0b, type: 3}
-    - time: 0.25
+    - time: 0.1875
       value: {fileID: 21300000, guid: 8421d9ce14594c8429525645b2b6c433, type: 3}
-    - time: 0.33333334
+    - time: 0.25
       value: {fileID: 21300000, guid: e19b7ed1bf8571f4e8abde64b2bdc27d, type: 3}
-    - time: 0.41666666
-      value: {fileID: 21300000, guid: a8c48f7525177b247a727eabe46ed96d, type: 3}
-    - time: 0.5
+    - time: 0.3125
       value: {fileID: 21300000, guid: 8be1a9f321204914fa69ee9df8a5ac3f, type: 3}
-    - time: 0.5833333
+    - time: 0.375
       value: {fileID: 21300000, guid: 582dcb609577d5b40bfdfe130d990f97, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 12
+  m_SampleRate: 16
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -59,7 +57,6 @@ AnimationClip:
     - {fileID: 21300000, guid: 3795e1cd924d33945a93e64849f90c0b, type: 3}
     - {fileID: 21300000, guid: 8421d9ce14594c8429525645b2b6c433, type: 3}
     - {fileID: 21300000, guid: e19b7ed1bf8571f4e8abde64b2bdc27d, type: 3}
-    - {fileID: 21300000, guid: a8c48f7525177b247a727eabe46ed96d, type: 3}
     - {fileID: 21300000, guid: 8be1a9f321204914fa69ee9df8a5ac3f, type: 3}
     - {fileID: 21300000, guid: 582dcb609577d5b40bfdfe130d990f97, type: 3}
   m_AnimationClipSettings:
@@ -67,7 +64,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6666666
+    m_StopTime: 0.4375
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -86,4 +83,18 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0
+    functionName: PauseAndResumeGame
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.375
+    functionName: SetFalseHasParried
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
