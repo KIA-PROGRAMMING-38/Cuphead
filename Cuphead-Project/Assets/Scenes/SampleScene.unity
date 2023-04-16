@@ -938,6 +938,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &495153885 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5557486048927872653, guid: 052ecb6ee2a448b4193b374be4f795c3, type: 3}
+  m_PrefabInstance: {fileID: 4583865685338875499}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &518613003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,7 +1781,7 @@ MonoBehaviour:
     prefab: {fileID: 2095169083}
     size: 5
   - tag: Parryable
-    prefab: {fileID: 0}
+    prefab: {fileID: 495153885}
     size: 1
   - tag: JumpDust
     prefab: {fileID: 5727857019416522242}
@@ -3986,6 +3991,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 797354669}
     m_Modifications:
+    - target: {fileID: 2159432647405238640, guid: 052ecb6ee2a448b4193b374be4f795c3, type: 3}
+      propertyPath: m_Radius
+      value: 0.43
+      objectReference: {fileID: 0}
     - target: {fileID: 5557486048927872653, guid: 052ecb6ee2a448b4193b374be4f795c3, type: 3}
       propertyPath: m_Name
       value: Parryable
@@ -4038,6 +4047,10 @@ PrefabInstance:
       propertyPath: childProjectileCollider
       value: 
       objectReference: {fileID: 296236492}
+    - target: {fileID: 6086794399910016269, guid: 052ecb6ee2a448b4193b374be4f795c3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6423325702035680788, guid: 052ecb6ee2a448b4193b374be4f795c3, type: 3}
       propertyPath: m_Layer
       value: 7

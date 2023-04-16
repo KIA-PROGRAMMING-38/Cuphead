@@ -1564,9 +1564,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: HasParried
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: TryParrying
-    m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: HasBeenHit
     m_EventTreshold: 0
@@ -2966,7 +2963,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93cbde50aae2f7545ae87802e661e120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SucceedInParry: 0
   LayerToCheck:
     serializedVersion: 2
     m_Bits: 1024
