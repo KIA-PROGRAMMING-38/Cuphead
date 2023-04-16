@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class CupheadAnimID
 {
-
+    public static readonly int DIED = Animator.StringToHash("Died");
     public static readonly int IS_RUNNING = Animator.StringToHash("Running");
     public static readonly int IS_JUMPING = Animator.StringToHash("Jumping");
     public static readonly int IS_JUMPING_AND_SHOOTING = Animator.StringToHash("JumpingAndShooting");

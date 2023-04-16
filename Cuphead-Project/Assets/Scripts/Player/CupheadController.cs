@@ -11,6 +11,8 @@ public class CupheadStateInfo
     public static readonly int IS_MOVING = 1;
 }
 
+
+
 public class CupheadController : MonoBehaviour
 {
 
@@ -20,6 +22,7 @@ public class CupheadController : MonoBehaviour
     public delegate void
         Event();
 
+    GameManager gameManager;
 
     public static Animator PlayerAnimator;
     public static SpriteRenderer PlayerSpriteRenderer;
@@ -34,6 +37,7 @@ public class CupheadController : MonoBehaviour
     [SerializeField]
     public Vector2 ExmoveBounceForce;
 
+    private int playerHP = 3; 
 
 
 
@@ -61,17 +65,21 @@ public class CupheadController : MonoBehaviour
     [SerializeField]
     Collider2D playerOnGround;
     ParrySuccessBehaviour parrySuccessBehaviour;
+
+
+
+    private void OnEnable()
+    {
         
+
+    }
     private void Awake()
     {
-    
-      
         //플레이어 초기 방향 설정
         playerDirection = PLAYER_DIRECTION_RIGHT;
         PlayerSpriteRenderer = GetComponent<SpriteRenderer>();
         playerRigidbody = GetComponent<Rigidbody2D>();
         PlayerAnimator = GetComponent<Animator>();
-
     }
 
 
@@ -376,35 +384,32 @@ public class CupheadController : MonoBehaviour
         return collision.CompareTag(LayerNames.PLATFORM);
     }
 
-    private bool hasParried; 
+    
     private bool HasBeenHitCollision(Collider2D collision)
     {
-      
-        if (HitParryableCollision(collision) && TryParrying)
+        Debug.Log("감지중");
+        if(HitParryableCollision(collision) && TryParrying)
         {
-            hasParried = true; //패링상태면 충돌처리 무시하기 위해
-            Debug.Log(hasParried);
+            return false;
         }
+
         else
         {
-            hasParried = false;
-        }
-
-
-        Collider2D[] childColliders
-             = collision.gameObject.GetComponentsInChildren<Collider2D>();
-        foreach (Collider2D childCollider in childColliders)
-        {
-            if (childCollider.CompareTag(TagNames.PROJECTILE)
-                && hasParried == false)
+            Collider2D[] childColliders
+            = collision.gameObject.GetComponentsInChildren<Collider2D>();
+            foreach (Collider2D childCollider in childColliders)
             {
-                return true;
+                if (childCollider.CompareTag(TagNames.PROJECTILE))
+                {
+                    return true;
+                }
             }
-          
-        }
-       
 
-        return false;
+
+            return false;
+        }
+        
+       
     }
 
     private bool HitParryableCollision(Collider2D collision)
@@ -416,6 +421,15 @@ public class CupheadController : MonoBehaviour
    
   
     public static readonly WaitForSeconds _pauseTime = new WaitForSeconds(1);
+
+    private void DecreaseHP() => playerHP -= 1;
+    private void CheckPlayerAlive()
+    {
+        if (playerHP == 0)
+        {
+            PlayerAnimator.SetBool(CupheadAnimID.DIED, true);
+        }
+    }
 
 }
 
