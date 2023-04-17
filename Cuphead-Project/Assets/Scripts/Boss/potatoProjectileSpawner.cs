@@ -16,6 +16,9 @@ public class potatoProjectileSpawner : MonoBehaviour
     [SerializeField]
     GameObject _spawnposition;
 
+    [SerializeField]
+    GameObject onion;
+
 
     int count = 0;
     readonly int bossProjectileCounts = 3;
@@ -47,6 +50,18 @@ public class potatoProjectileSpawner : MonoBehaviour
                 ("Parryable", _spawnposition.transform.position);
     }
 
+
+    void Ondie()
+    {
+        StartCoroutine(SetActiveOnion());
+    }
+
+    WaitForSeconds waitTime = new WaitForSeconds(1);
+    IEnumerator SetActiveOnion()
+    {
+        yield return waitTime;
+        onion.SetActive(true);
+    }
 }
 
 
