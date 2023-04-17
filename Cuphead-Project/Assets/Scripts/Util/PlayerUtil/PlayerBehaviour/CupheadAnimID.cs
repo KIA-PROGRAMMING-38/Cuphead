@@ -27,7 +27,7 @@ public static class BulletAnimID
 
 public static class ProjectileAnimID
 {
-
+    public static readonly int DEAD = Animator.StringToHash("Dead");
     public static readonly int PARRIED = Animator.StringToHash("Parried");
     public static readonly int HIT_PLAYER = Animator.StringToHash("HitPlayer");
 }
@@ -36,6 +36,8 @@ public static class ObjectPoolNameID
 
     public static readonly string POTATO_PROJECTILE_PARRYABLE = "PotatoProjectileParryable";
     public static readonly string POTATO_PROJECTILE = "PotatoProjectile";
+    public static readonly string ONION_TEARS = "NormalTear";
+    public static readonly string ONION_TEARS_PARRYABLE = "ParryableTear";
 }
 
 public static class EffectNames
@@ -55,4 +57,6 @@ public static class TagNames
     public static readonly string PLATFROM = "Platform";
     public static readonly string PLAYER = "Player";
 }
+
+
 

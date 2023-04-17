@@ -17,12 +17,15 @@ public class potatoProjectileSpawner : MonoBehaviour
 
     private static int PotatoHp = 10;
 
-    private void Awake()
+    [SerializeField]
+    SpriteRenderer PotatoSpriteRenderer;
+    private void OnEnable()
     {
-
+        PotatoSpriteRenderer = GetComponent<SpriteRenderer>();
     }
     [SerializeField]
     GameObject _spawnposition;
+   
 
     [SerializeField]
     OnionBackgroundController onionBackgroundController;
@@ -72,14 +75,15 @@ public class potatoProjectileSpawner : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
 
     {
-        if (IsPlatformCollision(collision))
+        if (IsBulletCollision(collision))
         {
             DecreaseHP();
             CheckPlayerAlive();
+            changeMaterial();
         }
 
     }
-    private bool IsPlatformCollision(Collider2D collision)
+    private bool IsBulletCollision(Collider2D collision)
     {
         return collision.CompareTag(TagNames.BULLET);
     }
@@ -94,6 +98,23 @@ public class potatoProjectileSpawner : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+
+    [SerializeField] Material _hitMaterial;
+    [SerializeField] Material _defaultMaterial;
+    public void changeMaterial()
+    {
+        PotatoSpriteRenderer.material = _hitMaterial;
+        StartCoroutine(TurnBackToOriginalMaterial());
+    }
+    WaitForSeconds _waitTimeForMaterial = new WaitForSeconds(0.2f);
+    IEnumerator TurnBackToOriginalMaterial()
+    {
+        yield return _waitTimeForMaterial;
+
+        PotatoSpriteRenderer.material = _defaultMaterial; 
+    }
+
+
     /// <summary>
     /// 포테이터 사망 애니메이션 후, 양파 호출 함수 
     /// </summary>
@@ -104,6 +125,7 @@ public class potatoProjectileSpawner : MonoBehaviour
     Animator onionAnimator;
     [SerializeField]
     GameObject onionBackground;
+   
 
     public void SetActiveOnionBackground()
     {
