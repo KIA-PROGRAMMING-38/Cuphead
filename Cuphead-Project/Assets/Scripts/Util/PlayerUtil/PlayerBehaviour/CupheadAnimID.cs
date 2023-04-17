@@ -38,6 +38,7 @@ public static class ObjectPoolNameID
     public static readonly string POTATO_PROJECTILE = "PotatoProjectile";
     public static readonly string ONION_TEARS = "NormalTear";
     public static readonly string ONION_TEARS_PARRYABLE = "ParryableTear";
+    public static readonly string EX_MOVE = "ExMove";
 }
 
 public static class EffectNames

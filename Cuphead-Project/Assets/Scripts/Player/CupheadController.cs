@@ -94,7 +94,7 @@ public class CupheadController : MonoBehaviour
         DuckPlayer();
         JumpPlayer();
         Shoot();
-        ExMove();
+        
         MovePlayer();
     }
     private void LateUpdate()
@@ -203,14 +203,12 @@ public class CupheadController : MonoBehaviour
     /// </summary>
     ///  [SerializeField]
     ///  
-    [SerializeField]
-    public Vector2 _jumpForce = new Vector2(0f, 17);
+   
     public void JumpPlayer()
     {
 
         if (Input.GetKeyDown(KeyCode.Z) && IsJumping == false)
         {
-            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, _jumpForce.y);
             PlayerAnimator.SetBool(CupheadAnimID.IS_JUMPING, true);
             IsJumping = true;
 
@@ -266,45 +264,30 @@ public class CupheadController : MonoBehaviour
     [SerializeField] float hitBounceForce;
 
 
-    public void ExMove()
-    {
-        if (Input.GetKeyDown(KeyCode.V) && IsEXMoving == false)
-        {
-            //플레이어 이동방향의 음수방향으로 플레이어를 밀어내야 하므로 데이터를 임시저장합니다. 
-            PlayerAnimator.SetBool(CupheadAnimID.IS_EX_MOVING, true);
-        }
-
-    }
+ 
 
 
 
     #region // 애니메이션 이벤트로 동작할 함수들의 목록입니다. 
 
     //AddForce에서 vel로 바꿀예정
-    public void AddForceRightAfterDefreezeExMove()
-    {
-        playerRigidbody.bodyType = RigidbodyType2D.Dynamic;
-        if (playerDirection == PLAYER_DIRECTION_RIGHT)
-        {
-            playerRigidbody.AddForce(-ExmoveBounceForce, ForceMode2D.Impulse);
-        }
+    //public void AddForceRightAfterDefreezeExMove()
+    //{
+    //    playerRigidbody.bodyType = RigidbodyType2D.Dynamic;
+    //    if (playerDirection == PLAYER_DIRECTION_RIGHT)
+    //    {
+    //        playerRigidbody.AddForce(-ExmoveBounceForce, ForceMode2D.Impulse);
+    //    }
 
-        else
-        {
-            playerRigidbody.AddForce(ExmoveBounceForce, ForceMode2D.Impulse);
-        }
+    //    else
+    //    {
+    //        playerRigidbody.AddForce(ExmoveBounceForce, ForceMode2D.Impulse);
+    //    }
 
 
-    }
+    //}
 
-    public void SetFalseExmove()
-    {
 
-        StartCoroutine(DelayMakingIsJumpEXMobingFalse());
-
-        PlayerAnimator.SetBool(CupheadAnimID.IS_EX_MOVING, false);
-
-    }
     public void SetFalseTryParrying() => PlayerAnimator.SetBool(CupheadAnimID.TRY_PARRYING, false);
     public void SetFalseHasParried()
     {       
