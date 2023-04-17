@@ -12,20 +12,20 @@ public class potatoProjectileSpawner : MonoBehaviour
     [SerializeField]
     PotatoIntroEvent potatoIntroEvent;
 
-     [SerializeField]
+    [SerializeField]
     float _spawnCoolTime;
 
     private static int PotatoHp = 10;
 
     private void Awake()
     {
-       
+
     }
     [SerializeField]
     GameObject _spawnposition;
 
     [SerializeField]
-    GameObject onion;
+    OnionBackgroundController onionBackgroundController;
 
 
     int count = 0;
@@ -44,7 +44,7 @@ public class potatoProjectileSpawner : MonoBehaviour
             count = 0;
             return ObjectPooler.SpawnFromPool
                 ("Parryable", _spawnposition.transform.position);
-            
+
         }
     }
 
@@ -59,16 +59,7 @@ public class potatoProjectileSpawner : MonoBehaviour
     }
 
 
-    void Ondie()
-    {
-        StartCoroutine(SetActiveOnion());
-    }
 
-    WaitForSeconds waitTime = new WaitForSeconds(1);
-    IEnumerator SetActiveOnion()
-    {
-        yield return waitTime;
-        onion.SetActive(true);
     private static void DecreaseHP() => PotatoHp -= 1;
     private void CheckPlayerAlive()
     {
@@ -101,6 +92,36 @@ public class potatoProjectileSpawner : MonoBehaviour
     public void Deactive()
     {
         gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// 포테이터 사망 애니메이션 후, 양파 호출 함수 
+    /// </summary>
+    /// 
+    [SerializeField]
+    Renderer onionRenderer;
+    [SerializeField]
+    Animator onionAnimator;
+    [SerializeField]
+    GameObject onionBackground;
+
+    public void SetActiveOnionBackground()
+    {
+        StartCoroutine(SetActiveOnion());
+    }
+
+    WaitForSeconds waitTime = new WaitForSeconds(1.0f);
+    IEnumerator SetActiveOnion()
+    {
+        yield return waitTime;
+        ActivateOnionAndBackground();
+    }
+
+    public void ActivateOnionAndBackground()
+    {
+        onionBackground.SetActive(true);
+        onionAnimator.enabled = true;
+        onionRenderer.enabled = true;
     }
 }
 

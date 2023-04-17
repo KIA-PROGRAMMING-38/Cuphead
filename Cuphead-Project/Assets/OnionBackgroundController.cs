@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class OnionBackgroundController : MonoBehaviour
 {
-    [SerializeField]
-    Renderer onionRenderer;
-    [SerializeField]
-    Animator onionAnimator;
-    // Start is called before the first frame update
+    [SerializeField] GameObject onionBody;
+   
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
     }
-    void SetActive()
+   
+    public void ActivateOnion()
     {
-        onionAnimator.enabled = true;
-        onionRenderer.enabled = true;
+        onionBody.SetActive(true);
     }
 }
