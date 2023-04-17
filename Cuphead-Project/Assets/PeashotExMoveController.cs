@@ -9,13 +9,13 @@ public class PeashotExMoveController : MonoBehaviour
     [SerializeField]
     Transform _rangePosition;
     [SerializeField]
-    Renderer render;
+    SpriteRenderer ExMoveSpriteRenderer;
 
     [SerializeField]
     SpriteRenderer _playerSpriteRenderer;
 
     [SerializeField]
-    Vector2 _bulletForce;
+    Vector2 _exMoveForce;
 
 
 
@@ -27,12 +27,15 @@ public class PeashotExMoveController : MonoBehaviour
 
         if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT)
         {
-            _bulletRigidbody.velocity = _bulletForce;
+            ExMoveSpriteRenderer.flipX = false;
+            _bulletRigidbody.velocity = _exMoveForce;
+         
 
         }
         else if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_LEFT)
         {
-            _bulletRigidbody.velocity = -_bulletForce;
+            ExMoveSpriteRenderer.flipX = true;
+            _bulletRigidbody.velocity = -_exMoveForce;
 
         }
 
