@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &805784
 Transform:
   m_ObjectHideFlags: 0
@@ -2646,6 +2646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2135547219}
   - component: {fileID: 2135547237}
+  - component: {fileID: 2135547249}
   - component: {fileID: 2135547236}
   - component: {fileID: 2135547233}
   - component: {fileID: 2135547239}
@@ -3443,6 +3444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potatoAnimator: {fileID: 1924356911}
+  potatoSpriteRenderer: {fileID: 1924356909}
 --- !u!1 &1710108546
 GameObject:
   m_ObjectHideFlags: 0

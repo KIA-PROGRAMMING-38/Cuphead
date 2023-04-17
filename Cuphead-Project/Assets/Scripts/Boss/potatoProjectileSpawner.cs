@@ -8,11 +8,19 @@ public class potatoProjectileSpawner : MonoBehaviour
 
     [SerializeField] float _waitingTime;
     public Animator _animator;
-   
+
     [SerializeField]
+    PotatoIntroEvent potatoIntroEvent;
+
+     [SerializeField]
     float _spawnCoolTime;
 
+    private static int PotatoHp = 10;
 
+    private void Awake()
+    {
+       
+    }
     [SerializeField]
     GameObject _spawnposition;
 
@@ -61,6 +69,38 @@ public class potatoProjectileSpawner : MonoBehaviour
     {
         yield return waitTime;
         onion.SetActive(true);
+    private static void DecreaseHP() => PotatoHp -= 1;
+    private void CheckPlayerAlive()
+    {
+        if (PotatoHp == 0)
+        {
+            _animator.SetBool(CupheadAnimID.DIED, true);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+
+    {
+        if (IsPlatformCollision(collision))
+        {
+            DecreaseHP();
+            CheckPlayerAlive();
+        }
+
+    }
+    private bool IsPlatformCollision(Collider2D collision)
+    {
+        return collision.CompareTag(TagNames.BULLET);
+    }
+
+    void TurnOffBackround()
+    {
+        potatoIntroEvent.Deactive();
+        Deactive();
+    }
+    public void Deactive()
+    {
+        gameObject.SetActive(false);
     }
 }
 
