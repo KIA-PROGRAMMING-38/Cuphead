@@ -15,7 +15,7 @@ public class potatoProjectileSpawner : MonoBehaviour
     [SerializeField]
     float _spawnCoolTime;
 
-    private static int PotatoHp = 10;
+    private static int PotatoHp = 30;
 
     [SerializeField]
     SpriteRenderer PotatoSpriteRenderer;
@@ -64,9 +64,9 @@ public class potatoProjectileSpawner : MonoBehaviour
 
 
     private static void DecreaseHP() => PotatoHp -= 1;
-    private void CheckPlayerAlive()
+    private void CheckPotatoAlive()
     {
-        if (PotatoHp == 0)
+        if (PotatoHp < 0)
         {
             _animator.SetBool(CupheadAnimID.DIED, true);
         }
@@ -78,7 +78,7 @@ public class potatoProjectileSpawner : MonoBehaviour
         if (IsBulletCollision(collision))
         {
             DecreaseHP();
-            CheckPlayerAlive();
+            CheckPotatoAlive();
             changeMaterial();
         }
 
@@ -106,7 +106,7 @@ public class potatoProjectileSpawner : MonoBehaviour
         PotatoSpriteRenderer.material = _hitMaterial;
         StartCoroutine(TurnBackToOriginalMaterial());
     }
-    WaitForSeconds _waitTimeForMaterial = new WaitForSeconds(0.2f);
+    WaitForSeconds _waitTimeForMaterial = new WaitForSeconds(0.15f);
     IEnumerator TurnBackToOriginalMaterial()
     {
         yield return _waitTimeForMaterial;

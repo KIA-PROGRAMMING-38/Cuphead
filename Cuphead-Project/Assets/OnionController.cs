@@ -4,18 +4,65 @@ using UnityEngine;
 
 public class OnionController : MonoBehaviour
 {
-   
-    // Start is called before the first frame update
-    void Start()
+
+
+    SpriteRenderer OnionSprtieRenderer;
+
+    [SerializeField] Material _hitMaterial;
+    [SerializeField] Material _defaultMaterial;
+    [SerializeField] float _waitingTime;
+    [SerializeField] public Animator _animator;
+
+    private static int OnionHP = 30;
+    private void OnEnable()
     {
-        
+        OnionSprtieRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void OnTriggerEnter2D(Collider2D collision)
+
     {
-        
+        if (IsBulletCollision(collision))
+        {
+            DecreaseHP();
+            CheckOnionAlive();
+            changeMaterial();
+        }
+
+    }
+    private void CheckPotatoAlive()
+    {
+        if (OnionHP < 0)
+        {
+            _animator.SetBool(CupheadAnimID.DIED, true);
+        }
     }
 
-   
+    private static void DecreaseHP() => OnionHP -= 1;
+    private void CheckOnionAlive()
+    {
+        if (OnionHP < 0)
+        {
+            _animator.SetBool(CupheadAnimID.DIED, true);
+        }
+    }
+    private bool IsBulletCollision(Collider2D collision)
+    {
+        return collision.CompareTag(TagNames.BULLET);
+    }
+    public void changeMaterial()
+    {
+        OnionSprtieRenderer.material = _hitMaterial;
+        StartCoroutine(TurnBackToOriginalMaterial());
+    }
+    WaitForSeconds _waitTimeForMaterial = new WaitForSeconds(0.15f);
+    IEnumerator TurnBackToOriginalMaterial()
+    {
+        yield return _waitTimeForMaterial;
+
+        OnionSprtieRenderer.material = _defaultMaterial;
+    }
+
+
 }
