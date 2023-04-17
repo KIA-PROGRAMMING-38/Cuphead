@@ -5,11 +5,11 @@ using UnityEngine;
 public class OnionTearParryableController : MonoBehaviour
 {
 
-    Rigidbody2D projectileRigidbody;
+    private Rigidbody2D projectileRigidbody;
 
-    SpriteRenderer projectile;
-    Animator animator;
-    Collider2D collider;
+    private SpriteRenderer projectile;
+    private Animator animator;
+    private Collider2D collider;
 
 
 
@@ -26,7 +26,7 @@ public class OnionTearParryableController : MonoBehaviour
     {
         ObjectPooler.ReturnToPool(gameObject);
         CancelInvoke();
-        projectileRigidbody.gravityScale = Random.Range(0.2f, 0.8f);
+        projectileRigidbody.gravityScale = Random.Range(0.1f, 0.4f);
     }
     private void OnTriggerStay2D(Collider2D collision)
     {

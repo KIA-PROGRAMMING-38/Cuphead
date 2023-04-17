@@ -12,14 +12,17 @@ public class OnionTearsSpawner : MonoBehaviour
 
 
     private int spawnPosition = 0;
-    private readonly int SPAWN_POSITION_MIN = 0;
-    private readonly int SPAWN_POSITION_MAX = 10;
+    private readonly int SPAWN_POSITION_LEFT = 0;
+    private readonly int SPAWN_POSITION_RIGHT = 10;
 
     private int tearDecider = 0;
-    private readonly float PARRYABLE_TEAR = 85;
+    private readonly float PARRYABLE_TEAR = 90;
     private readonly float NORMAL_TEAR = 0;
 
     Vector3 spawnPositionMove;
+
+    Vector3 _decidedpawnpositionLeft;
+    Vector3 _decidedpawnpositionRight;
 
 
     /// <summary>
@@ -29,31 +32,36 @@ public class OnionTearsSpawner : MonoBehaviour
     GameObject throwProjectile()
     {
 
-        spawnPosition = Random.Range(SPAWN_POSITION_MIN, SPAWN_POSITION_MAX);
+        spawnPosition = Random.Range(SPAWN_POSITION_LEFT, SPAWN_POSITION_RIGHT);
         tearDecider = Random.Range(0, 100);
+
+        //기준값 초기화.
+        _decidedpawnpositionLeft = Vector3.zero;
+        _decidedpawnpositionRight = Vector3.zero;
 
         Debug.Log(spawnPosition);
 
         if (spawnPosition < 5)
         {
-           
-            spawnPositionMove = new Vector3(spawnPosition, 0, 0);
+            float rangeToMovespawnPosition = Random.Range(0,7);
+            spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
 
-            _spawnpositionLeft.transform.position =
+            // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
+            _decidedpawnpositionLeft =
             _spawnpositionLeft.transform.position + spawnPositionMove;
 
-           
+            Debug.Log(tearDecider);
 
             if (tearDecider >= PARRYABLE_TEAR)
             {
                 return ObjectPooler.SpawnFromPool
-                (ObjectPoolNameID.ONION_TEARS_PARRYABLE, _spawnpositionLeft.transform.position);
+                (ObjectPoolNameID.ONION_TEARS_PARRYABLE, _decidedpawnpositionLeft);
             }
 
             else
             {
                 return ObjectPooler.SpawnFromPool
-                (ObjectPoolNameID.ONION_TEARS, _spawnpositionLeft.transform.position);
+                (ObjectPoolNameID.ONION_TEARS, _decidedpawnpositionLeft);
             }
 
 
@@ -61,25 +69,28 @@ public class OnionTearsSpawner : MonoBehaviour
 
         else
         {
-            spawnPositionMove = new Vector3(spawnPosition, 0, 0);
+            float rangeToMovespawnPosition = Random.Range(0, 7);
+            spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
 
-            _spawnpositionRight.transform.position =
+            // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
+            _decidedpawnpositionRight =
             _spawnpositionRight.transform.position + spawnPositionMove;
 
-          
 
+
+            Debug.Log(tearDecider);
 
 
 
             if (tearDecider >= PARRYABLE_TEAR)
             {
                 return ObjectPooler.SpawnFromPool
-                (ObjectPoolNameID.ONION_TEARS_PARRYABLE, _spawnpositionRight.transform.position);
+                (ObjectPoolNameID.ONION_TEARS_PARRYABLE, _decidedpawnpositionRight);
             }
             else
             {
                 return ObjectPooler.SpawnFromPool
-                (ObjectPoolNameID.ONION_TEARS, _spawnpositionRight.transform.position);
+                (ObjectPoolNameID.ONION_TEARS, _decidedpawnpositionRight);
             }
 
         }

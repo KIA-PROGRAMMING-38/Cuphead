@@ -384,10 +384,14 @@ public class CupheadController : MonoBehaviour
         return collision.CompareTag(LayerNames.PLATFORM);
     }
 
-    
+    /// <summary>
+    /// 플레이어 데미지 피해 관련 함수 
+    /// </summary>
+    /// <param name="collision"></param>
+    /// <returns></returns>
     private bool HasBeenHitCollision(Collider2D collision)
     {
-        Debug.Log("감지중");
+      
         if(HitParryableCollision(collision) && TryParrying)
         {
             return false;
