@@ -6,21 +6,20 @@ public class potatoProjectileSpawner : MonoBehaviour
 {
 
 
-    [SerializeField] float _waitingTime;
-    public Animator _animator;
+
+    Animator _animator;
 
     [SerializeField]
     PotatoIntroEvent potatoIntroEvent;
 
-    [SerializeField]
-    float _spawnCoolTime;
 
     private static int PotatoHp = 30;
 
-    [SerializeField]
+    
     SpriteRenderer PotatoSpriteRenderer;
     private void OnEnable()
     {
+        _animator = GetComponent<Animator>();
         PotatoSpriteRenderer = GetComponent<SpriteRenderer>();
     }
     [SerializeField]
@@ -99,11 +98,11 @@ public class potatoProjectileSpawner : MonoBehaviour
     }
 
 
-    [SerializeField] Material _hitMaterial;
+    [SerializeField] Material _MaterialDuringDamaged;
     [SerializeField] Material _defaultMaterial;
     public void changeMaterial()
     {
-        PotatoSpriteRenderer.material = _hitMaterial;
+        PotatoSpriteRenderer.material = _MaterialDuringDamaged;
         StartCoroutine(TurnBackToOriginalMaterial());
     }
     WaitForSeconds _waitTimeForMaterial = new WaitForSeconds(0.15f);

@@ -28,11 +28,11 @@ public class PotatoProjectile : MonoBehaviour
         collider = GetComponent<Collider2D>();
         bulletHitChecker = GetComponent<BulletHitChecker>();
         projectileRigidbody.velocity = projectileForce;
-        Invoke(nameof(DeactiveDelay), 1.5f);
+        Invoke(nameof(DeactivateDelay), 1.5f);
 
     }
 
-    void DeactiveDelay() => gameObject.SetActive(false)
+    void DeactivateDelay() => gameObject.SetActive(false)
 ;
     private void OnDisable()
     {
