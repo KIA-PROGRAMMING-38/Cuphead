@@ -41,10 +41,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 28dbc520352910a438ee9b8ccedfdcd6, type: 3}
   - {fileID: 21300000, guid: 72038950e9c6c3d49aaa2c799ea39c1d, type: 3}
   - {fileID: 21300000, guid: 4ac0e5d0260cd7644999058800768057, type: 3}
-  - {fileID: 21300000, guid: be9ed8f0335ed784b8a1cce6d3abe0d0, type: 3}
   - {fileID: 21300000, guid: b7160aa1000378041ae295ecd014bae1, type: 3}
   - {fileID: 21300000, guid: a3d86df12539af34e866ca3100e1a0b0, type: 3}
-  - {fileID: 21300000, guid: edaa123267bc1c34cbf73c28379040c6, type: 3}
   - {fileID: 21300000, guid: 8931be3215b4e3549a6ba5b2c510569e, type: 3}
   - {fileID: 21300000, guid: e99bf4721b81a2949a0237e0fe5fb5d5, type: 3}
   - {fileID: 21300000, guid: cf060a827a783a14295f4de6842b4931, type: 3}
@@ -57,6 +55,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e728fc772fb4f204bb09ed7290766cc8, type: 3}
   - {fileID: 21300000, guid: b02ed7c7d7507344fa4a3ac25085ecad, type: 3}
   - {fileID: 21300000, guid: f567b719d1b41014a9d146c1221dba35, type: 3}
+  - {fileID: 21300000, guid: 62fe8e59506d40049bb00b986bbdd646, type: 3}
   - {fileID: 21300000, guid: 8f7d48e9e3992ff43b3bb5fc5e45cf25, type: 3}
   - {fileID: 21300000, guid: 5125683ad69b7104d9a5515f0c252ca4, type: 3}
   - {fileID: 21300000, guid: 24bc8d6ab83723e4ea020fb3b9f86d47, type: 3}
@@ -74,10 +73,8 @@ SpriteAtlas:
   - veggie_onion_death_leave_0004
   - veggie_onion_death_leave_0028
   - veggie_onion_death_leave_0007
-  - veggie_onion_death_leave_0006
   - veggie_onion_death_leave_0011
   - veggie_onion_death_leave_0027
-  - veggie_onion_death_leave_0032
   - veggie_onion_death_leave_0017
   - veggie_onion_death_leave_0015
   - veggie_onion_death_leave_0020
@@ -90,6 +87,7 @@ SpriteAtlas:
   - veggie_onion_death_leave_0023
   - veggie_onion_death_leave_0031
   - veggie_onion_death_leave_0005
+  - veggie_onion_death_0006
   - veggie_onion_death_leave_0030
   - veggie_onion_death_leave_0022
   - veggie_onion_death_leave_0018
