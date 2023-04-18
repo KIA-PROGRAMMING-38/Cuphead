@@ -4434,7 +4434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potatoAnimator: {fileID: 1924356911}
-  potatoSpriteRenderer: {fileID: 0}
+  potatoSpriteRenderer: {fileID: 1924356909}
 --- !u!1 &1710108546
 GameObject:
   m_ObjectHideFlags: 0
