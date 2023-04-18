@@ -24,7 +24,7 @@ public class PotatoProjectile : MonoBehaviour
     }
     private void OnEnable()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();    
         collider = GetComponent<Collider2D>();
         bulletHitChecker = GetComponent<BulletHitChecker>();
         projectileRigidbody.velocity = projectileForce;
@@ -38,7 +38,7 @@ public class PotatoProjectile : MonoBehaviour
     {
         ObjectPooler.ReturnToPool(gameObject);
 
-        CancelInvoke(); //코루틴과 다르게 반드시 해제해주어야 합니다. 
+        CancelInvoke(); //unlike coroutine, using Invoke has to be used with CancelInvoke
     }
 
     private void OnTriggerStay2D(Collider2D collision)

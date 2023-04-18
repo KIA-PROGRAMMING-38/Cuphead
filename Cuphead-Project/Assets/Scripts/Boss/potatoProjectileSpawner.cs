@@ -8,27 +8,13 @@ public class potatoProjectileSpawner : MonoBehaviour
 
     [SerializeField] float _waitingTime;
     public Animator _animator;
-
-    [SerializeField]
-    PotatoIntroEvent potatoIntroEvent;
-
+   
     [SerializeField]
     float _spawnCoolTime;
 
-    private static int PotatoHp = 30;
 
-    [SerializeField]
-    SpriteRenderer PotatoSpriteRenderer;
-    private void OnEnable()
-    {
-        PotatoSpriteRenderer = GetComponent<SpriteRenderer>();
-    }
     [SerializeField]
     GameObject _spawnposition;
-   
-
-    [SerializeField]
-    OnionBackgroundController onionBackgroundController;
 
 
     int count = 0;
@@ -47,7 +33,7 @@ public class potatoProjectileSpawner : MonoBehaviour
             count = 0;
             return ObjectPooler.SpawnFromPool
                 ("Parryable", _spawnposition.transform.position);
-
+            
         }
     }
 
@@ -61,90 +47,6 @@ public class potatoProjectileSpawner : MonoBehaviour
                 ("Parryable", _spawnposition.transform.position);
     }
 
-
-
-    private static void DecreaseHP() => PotatoHp -= 1;
-    private void CheckPotatoAlive()
-    {
-        if (PotatoHp < 0)
-        {
-            _animator.SetBool(CupheadAnimID.DIED, true);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-
-    {
-        if (IsBulletCollision(collision))
-        {
-            DecreaseHP();
-            CheckPotatoAlive();
-            changeMaterial();
-        }
-
-    }
-    private bool IsBulletCollision(Collider2D collision)
-    {
-        return collision.CompareTag(TagNames.BULLET);
-    }
-
-    void TurnOffBackround()
-    {
-        potatoIntroEvent.Deactive();
-        Deactive();
-    }
-    public void Deactive()
-    {
-        gameObject.SetActive(false);
-    }
-
-
-    [SerializeField] Material _hitMaterial;
-    [SerializeField] Material _defaultMaterial;
-    public void changeMaterial()
-    {
-        PotatoSpriteRenderer.material = _hitMaterial;
-        StartCoroutine(TurnBackToOriginalMaterial());
-    }
-    WaitForSeconds _waitTimeForMaterial = new WaitForSeconds(0.15f);
-    IEnumerator TurnBackToOriginalMaterial()
-    {
-        yield return _waitTimeForMaterial;
-
-        PotatoSpriteRenderer.material = _defaultMaterial; 
-    }
-
-
-    /// <summary>
-    /// 포테이터 사망 애니메이션 후, 양파 호출 함수 
-    /// </summary>
-    /// 
-    [SerializeField]
-    Renderer onionRenderer;
-    [SerializeField]
-    Animator onionAnimator;
-    [SerializeField]
-    GameObject onionBackground;
-   
-
-    public void SetActiveOnionBackground()
-    {
-        StartCoroutine(SetActiveOnion());
-    }
-
-    WaitForSeconds waitTime = new WaitForSeconds(1.0f);
-    IEnumerator SetActiveOnion()
-    {
-        yield return waitTime;
-        ActivateOnionAndBackground();
-    }
-
-    public void ActivateOnionAndBackground()
-    {
-        onionBackground.SetActive(true);
-        onionAnimator.enabled = true;
-        onionRenderer.enabled = true;
-    }
 }
 
 

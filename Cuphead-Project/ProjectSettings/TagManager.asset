@@ -15,8 +15,6 @@ TagManager:
   - Parryable
   - Projectile
   - JumpDust
-  - NormalTear
-  - ParryableTear
   layers:
   - Default
   - TransparentFX

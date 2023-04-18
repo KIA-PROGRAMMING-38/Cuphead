@@ -12,7 +12,6 @@ public class ParrySuccessBehaviour : StateMachineBehaviour
 
 
     public bool hasParried;
-    [SerializeField] float parrybounce;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -25,7 +24,7 @@ public class ParrySuccessBehaviour : StateMachineBehaviour
     }
 
 
-  
+    [SerializeField] float parrybounce;
 
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
