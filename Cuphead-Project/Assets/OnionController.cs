@@ -11,12 +11,19 @@ public class OnionController : MonoBehaviour
     [SerializeField] Material _hitMaterial;
     [SerializeField] Material _defaultMaterial;
     [SerializeField] float _waitingTime;
-    [SerializeField] public Animator _animator;
+    [SerializeField] Animator _animator;
+
+    [SerializeField] Animator _cryAnimatorLeft;
+    [SerializeField] Animator _cryAnimatorRight;
 
     private static int OnionHP = 30;
+    float durationOfHitMaterial = 0.15f;
+    [SerializeField]
+    WaitForSeconds _waitTimeForMaterial;
     private void OnEnable()
     {
         OnionSprtieRenderer = GetComponent<SpriteRenderer>();
+        _waitTimeForMaterial = new WaitForSeconds(durationOfHitMaterial);
     }
 
 
@@ -56,7 +63,10 @@ public class OnionController : MonoBehaviour
         OnionSprtieRenderer.material = _hitMaterial;
         StartCoroutine(TurnBackToOriginalMaterial());
     }
-    WaitForSeconds _waitTimeForMaterial = new WaitForSeconds(0.15f);
+
+
+    
+   
     IEnumerator TurnBackToOriginalMaterial()
     {
         yield return _waitTimeForMaterial;
@@ -65,4 +75,8 @@ public class OnionController : MonoBehaviour
     }
 
 
+    public void SetLeftCryAnimActive() => _cryAnimatorLeft.enabled= true;
+    public void SetRightCryAnimActive() => _cryAnimatorRight.enabled = true;
+    public void SetLeftCryAnimDeactivate() => _cryAnimatorLeft.enabled = false;
+    public void SetRightCryAnimDeactivate() => _cryAnimatorRight.enabled = false;
 }
