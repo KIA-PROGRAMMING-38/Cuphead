@@ -11,7 +11,7 @@ public class Jump_Dust_Spawner_Remade : MonoBehaviour
     {
         if (IsPlatformCollision(collision))
         {
-            Debug.Log("먼지생성");
+          
             throwProjectile();
         }
 

@@ -11,6 +11,8 @@ public class CupheadStateInfo
     public static readonly int IS_MOVING = 1;
 }
 
+
+
 public class CupheadController : MonoBehaviour
 {
 
@@ -20,6 +22,7 @@ public class CupheadController : MonoBehaviour
     public delegate void
         Event();
 
+    GameManager gameManager;
 
     public static Animator PlayerAnimator;
     public static SpriteRenderer PlayerSpriteRenderer;
@@ -34,6 +37,7 @@ public class CupheadController : MonoBehaviour
     [SerializeField]
     public Vector2 ExmoveBounceForce;
 
+    private int playerHP = 3; 
 
 
 
@@ -61,17 +65,21 @@ public class CupheadController : MonoBehaviour
     [SerializeField]
     Collider2D playerOnGround;
     ParrySuccessBehaviour parrySuccessBehaviour;
+
+
+
+    private void OnEnable()
+    {
         
+
+    }
     private void Awake()
     {
-    
-      
         //플레이어 초기 방향 설정
         playerDirection = PLAYER_DIRECTION_RIGHT;
         PlayerSpriteRenderer = GetComponent<SpriteRenderer>();
         playerRigidbody = GetComponent<Rigidbody2D>();
         PlayerAnimator = GetComponent<Animator>();
-
     }
 
 
@@ -86,7 +94,7 @@ public class CupheadController : MonoBehaviour
         DuckPlayer();
         JumpPlayer();
         Shoot();
-        ExMove();
+        
         MovePlayer();
     }
     private void LateUpdate()
@@ -195,14 +203,12 @@ public class CupheadController : MonoBehaviour
     /// </summary>
     ///  [SerializeField]
     ///  
-    [SerializeField]
-    public Vector2 _jumpForce = new Vector2(0f, 17);
+   
     public void JumpPlayer()
     {
 
         if (Input.GetKeyDown(KeyCode.Z) && IsJumping == false)
         {
-            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, _jumpForce.y);
             PlayerAnimator.SetBool(CupheadAnimID.IS_JUMPING, true);
             IsJumping = true;
 
@@ -258,45 +264,30 @@ public class CupheadController : MonoBehaviour
     [SerializeField] float hitBounceForce;
 
 
-    public void ExMove()
-    {
-        if (Input.GetKeyDown(KeyCode.V) && IsEXMoving == false)
-        {
-            //플레이어 이동방향의 음수방향으로 플레이어를 밀어내야 하므로 데이터를 임시저장합니다. 
-            PlayerAnimator.SetBool(CupheadAnimID.IS_EX_MOVING, true);
-        }
-
-    }
+ 
 
 
 
     #region // 애니메이션 이벤트로 동작할 함수들의 목록입니다. 
 
     //AddForce에서 vel로 바꿀예정
-    public void AddForceRightAfterDefreezeExMove()
-    {
-        playerRigidbody.bodyType = RigidbodyType2D.Dynamic;
-        if (playerDirection == PLAYER_DIRECTION_RIGHT)
-        {
-            playerRigidbody.AddForce(-ExmoveBounceForce, ForceMode2D.Impulse);
-        }
+    //public void AddForceRightAfterDefreezeExMove()
+    //{
+    //    playerRigidbody.bodyType = RigidbodyType2D.Dynamic;
+    //    if (playerDirection == PLAYER_DIRECTION_RIGHT)
+    //    {
+    //        playerRigidbody.AddForce(-ExmoveBounceForce, ForceMode2D.Impulse);
+    //    }
 
-        else
-        {
-            playerRigidbody.AddForce(ExmoveBounceForce, ForceMode2D.Impulse);
-        }
+    //    else
+    //    {
+    //        playerRigidbody.AddForce(ExmoveBounceForce, ForceMode2D.Impulse);
+    //    }
 
 
-    }
+    //}
 
-    public void SetFalseExmove()
-    {
 
-        StartCoroutine(DelayMakingIsJumpEXMobingFalse());
-
-        PlayerAnimator.SetBool(CupheadAnimID.IS_EX_MOVING, false);
-
-    }
     public void SetFalseTryParrying() => PlayerAnimator.SetBool(CupheadAnimID.TRY_PARRYING, false);
     public void SetFalseHasParried()
     {       
@@ -376,35 +367,41 @@ public class CupheadController : MonoBehaviour
         return collision.CompareTag(LayerNames.PLATFORM);
     }
 
-    private bool hasParried; 
+    /// <summary>
+    /// 플레이어 데미지 피해 관련 함수 
+    /// </summary>
+    /// <param name="collision"></param>
+    /// <returns></returns>
     private bool HasBeenHitCollision(Collider2D collision)
     {
       
-        if (HitParryableCollision(collision) && TryParrying)
+        if(HitParryableCollision(collision) && TryParrying)
         {
-            hasParried = true; //패링상태면 충돌처리 무시하기 위해
-            Debug.Log(hasParried);
+            return false;
         }
-        else
+
+        if (collision.CompareTag(TagNames.PROJECTILE))
         {
-            hasParried = false;
+            return true;
         }
+
 
 
         Collider2D[] childColliders
-             = collision.gameObject.GetComponentsInChildren<Collider2D>();
+        = collision.gameObject.GetComponentsInChildren<Collider2D>();
         foreach (Collider2D childCollider in childColliders)
         {
-            if (childCollider.CompareTag(TagNames.PROJECTILE)
-                && hasParried == false)
+            if (childCollider.CompareTag(TagNames.PROJECTILE))
             {
                 return true;
             }
-          
         }
-       
+
 
         return false;
+
+
+
     }
 
     private bool HitParryableCollision(Collider2D collision)
@@ -416,6 +413,15 @@ public class CupheadController : MonoBehaviour
    
   
     public static readonly WaitForSeconds _pauseTime = new WaitForSeconds(1);
+
+    private void DecreaseHP() => playerHP -= 1;
+    private void CheckPlayerAlive()
+    {
+        if (playerHP < 0)
+        {
+            PlayerAnimator.SetBool(CupheadAnimID.DIED, true);
+        }
+    }
 
 }
 

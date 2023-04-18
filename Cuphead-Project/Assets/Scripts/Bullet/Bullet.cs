@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     Rigidbody2D _bulletRigidbody;
 
     [SerializeField]
-    Renderer render;
+    SpriteRenderer peashotSpriteRenderer;
 
     [SerializeField]
     SpriteRenderer _playerSpriteRenderer;
@@ -38,11 +38,13 @@ public class Bullet : MonoBehaviour
 
         if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT)
         {
+            peashotSpriteRenderer.flipX = false;
             _bulletRigidbody.velocity = _bulletForce;
 
         }
         else if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_LEFT)
         {
+            peashotSpriteRenderer.flipX = true;
             _bulletRigidbody.velocity = -_bulletForce;
 
         }
