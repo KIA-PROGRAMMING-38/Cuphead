@@ -1,0 +1,150 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: New Sprite Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 6d5896ff40c1bc64a971898d79f9e9f3, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 28dbc520352910a438ee9b8ccedfdcd6, type: 3}
+  - {fileID: 21300000, guid: 72038950e9c6c3d49aaa2c799ea39c1d, type: 3}
+  - {fileID: 21300000, guid: 75515c900a028c1468bd66c43dbb63e5, type: 3}
+  - {fileID: 21300000, guid: 4ac0e5d0260cd7644999058800768057, type: 3}
+  - {fileID: 21300000, guid: c9edd08179e2f324fab7626b0991146a, type: 3}
+  - {fileID: 21300000, guid: b7160aa1000378041ae295ecd014bae1, type: 3}
+  - {fileID: 21300000, guid: b4a393c1a0f20b546a8f5644713ef0b0, type: 3}
+  - {fileID: 21300000, guid: a3d86df12539af34e866ca3100e1a0b0, type: 3}
+  - {fileID: 21300000, guid: 8931be3215b4e3549a6ba5b2c510569e, type: 3}
+  - {fileID: 21300000, guid: e99bf4721b81a2949a0237e0fe5fb5d5, type: 3}
+  - {fileID: 21300000, guid: cf060a827a783a14295f4de6842b4931, type: 3}
+  - {fileID: 21300000, guid: 83bcb5c2343d2f44aaa74deefc960d25, type: 3}
+  - {fileID: 21300000, guid: 26a8b8c2acda1d04bbdb8c7f99b3509e, type: 3}
+  - {fileID: 21300000, guid: a6acd8437ed92a34b85afb6257427136, type: 3}
+  - {fileID: 21300000, guid: 38ae44d309d55004e98c472ab1daf6a8, type: 3}
+  - {fileID: 21300000, guid: b46d0db47ac2d204face919c36b2dd95, type: 3}
+  - {fileID: 21300000, guid: d474bdb4958aad846aa6b9593f231dd0, type: 3}
+  - {fileID: 21300000, guid: 7c5d3235366fcdf4082674272f1f5998, type: 3}
+  - {fileID: 21300000, guid: 69ec678553526894b95833a05c89b8a0, type: 3}
+  - {fileID: 21300000, guid: b67b70c54556d3244913bdeef208e978, type: 3}
+  - {fileID: 21300000, guid: 0b9e914610cb4f348b4e586840d981b8, type: 3}
+  - {fileID: 21300000, guid: 67b960a63c2f7974f8c525e5be24052d, type: 3}
+  - {fileID: 21300000, guid: 8085ca3713774644ba0c6993c8273030, type: 3}
+  - {fileID: 21300000, guid: 926f1b776cfe6784dbe34f57e1acad9d, type: 3}
+  - {fileID: 21300000, guid: e728fc772fb4f204bb09ed7290766cc8, type: 3}
+  - {fileID: 21300000, guid: 93181aa7fd685f64d966ae5bac13ddd5, type: 3}
+  - {fileID: 21300000, guid: b02ed7c7d7507344fa4a3ac25085ecad, type: 3}
+  - {fileID: 21300000, guid: 60561ac727b92cc40af3198e90f44a2a, type: 3}
+  - {fileID: 21300000, guid: f567b719d1b41014a9d146c1221dba35, type: 3}
+  - {fileID: 21300000, guid: 62fe8e59506d40049bb00b986bbdd646, type: 3}
+  - {fileID: 21300000, guid: 820ab379279e55141ac256cc49d59e42, type: 3}
+  - {fileID: 21300000, guid: 8f7d48e9e3992ff43b3bb5fc5e45cf25, type: 3}
+  - {fileID: 21300000, guid: 5125683ad69b7104d9a5515f0c252ca4, type: 3}
+  - {fileID: 21300000, guid: 2a8e406a8d7fc8a409bc0465e3aa5633, type: 3}
+  - {fileID: 21300000, guid: 24bc8d6ab83723e4ea020fb3b9f86d47, type: 3}
+  - {fileID: 21300000, guid: 5d12df8a3b7f6144a90f9273c647a4c2, type: 3}
+  - {fileID: 21300000, guid: 477712eab82287d42a74b2a3e7d7f2d7, type: 3}
+  - {fileID: 21300000, guid: d612480b87f553242a2319965f8763f5, type: 3}
+  - {fileID: 21300000, guid: 70241c4ba8a7b624981d06c04f5ffc27, type: 3}
+  - {fileID: 21300000, guid: 7f41ea4c81f57ba42a4381f75d77a87a, type: 3}
+  - {fileID: 21300000, guid: fb1048ec7e445a248a371d9597115789, type: 3}
+  - {fileID: 21300000, guid: fe34bb7d4ea54a14a837412cdc666e1b, type: 3}
+  - {fileID: 21300000, guid: 2041899d4aebd004595c291bc4350b46, type: 3}
+  - {fileID: 21300000, guid: 965c56ad017fb9140933f5b86544c7de, type: 3}
+  - {fileID: 21300000, guid: fed449bd2a445aa4fa4ffb59595eb182, type: 3}
+  - {fileID: 21300000, guid: f5baf8fd990154247b228043618455ff, type: 3}
+  - {fileID: 21300000, guid: e851013e3e2c7e241ac8c7c69c3e67c7, type: 3}
+  - {fileID: 21300000, guid: 8075e46e26b89b8488d8760aa251bde7, type: 3}
+  - {fileID: 21300000, guid: c495a9dea8d85e941a9e4bf7ff1f5bac, type: 3}
+  - {fileID: 21300000, guid: e27bcffe2f1626c45aaa77a93cff027b, type: 3}
+  - {fileID: 21300000, guid: 41612f3fe7a3aa74bb6de6362f219be2, type: 3}
+  - {fileID: 21300000, guid: 2361fc9f397fabc45a8dde124cbb45f2, type: 3}
+  - {fileID: 21300000, guid: 857305dfb00d1a047af4e4b4dc5674f9, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - veggie_onion_death_leave_0004
+  - veggie_onion_death_leave_0028
+  - veggie_onion_cry_0012
+  - veggie_onion_death_leave_0007
+  - veggie_onion_cry_0018
+  - veggie_onion_death_leave_0011
+  - veggie_onion_cry_0001
+  - veggie_onion_death_leave_0027
+  - veggie_onion_death_leave_0017
+  - veggie_onion_death_leave_0015
+  - veggie_onion_death_leave_0020
+  - veggie_onion_death_leave_0024
+  - veggie_onion_death_leave_0003
+  - veggie_onion_death_leave_0025
+  - veggie_onion_cry_0021
+  - veggie_onion_cry_0022
+  - veggie_onion_cry_0020
+  - veggie_onion_death_leave_0012
+  - veggie_onion_death_leave_0013
+  - veggie_onion_cry_0011
+  - veggie_onion_death_leave_0009
+  - veggie_onion_cry_0002
+  - veggie_onion_cry_0013
+  - veggie_onion_cry_0014
+  - veggie_onion_death_leave_0023
+  - veggie_onion_cry_0009
+  - veggie_onion_death_leave_0031
+  - veggie_onion_cry_0015
+  - veggie_onion_death_leave_0005
+  - veggie_onion_death_0006
+  - veggie_onion_cry_0019
+  - veggie_onion_death_leave_0030
+  - veggie_onion_death_leave_0022
+  - veggie_onion_cry_0010
+  - veggie_onion_death_leave_0018
+  - veggie_onion_death_leave_0008
+  - veggie_onion_cry_0003
+  - veggie_onion_death_leave_0016
+  - veggie_onion_death_leave_0029
+  - veggie_onion_cry_0008
+  - veggie_onion_death_leave_0001
+  - veggie_onion_death_leave_0021
+  - veggie_onion_cry_0005
+  - veggie_onion_death_leave_0019
+  - veggie_onion_cry_0006
+  - veggie_onion_cry_0004
+  - veggie_onion_death_leave_0010
+  - veggie_onion_cry_0017
+  - veggie_onion_cry_0016
+  - veggie_onion_cry_0007
+  - veggie_onion_death_leave_0014
+  - veggie_onion_death_leave_0026
+  - veggie_onion_death_leave_0002
+  m_RenderDataMap: {}
+  m_Tag: New Sprite Atlas
+  m_IsVariant: 0

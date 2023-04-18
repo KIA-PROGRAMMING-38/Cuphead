@@ -1,18 +1,37 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField] private GameObject _player;
+    public delegate void PlayerDied();
+    public static event PlayerDied playerDied;
+
+    public static event Action OnGameEnded;
+
+    private bool _isGameOver = false;
+    void OnEnable()
     {
-        
+        playerDied?.Invoke();
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
-        
+        if(_isGameOver == false && _player.activeSelf == false)
+        {
+            SetGameOver();
+        }
+    }
+
+    public void SetGameOver()
+    {
+        _isGameOver = true;
+        OnGameEnded?.Invoke();
+
+
     }
 }

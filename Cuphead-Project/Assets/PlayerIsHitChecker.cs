@@ -1,60 +1,60 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
 
-public class PlayerIsHitChecker : MonoBehaviour, IChecker
-{
-    [SerializeField]
-    public Transform _transform;
+//public class PlayerIsHitChecker : MonoBehaviour, IChecker
+//{
+//    [SerializeField]
+//    public Transform _transform;
 
-    [SerializeField]
-    float _radiusSize;
+//    [SerializeField]
+//    float _radiusSize;
 
-    [SerializeField]
-    public LayerMask LayerToCheck;
+//    [SerializeField]
+//    public LayerMask LayerToCheck;
 
-    Gizmos gizmo;
+//    Gizmos gizmo;
 
-    public static bool hasHit;
+//    public static bool hasHit;
 
-    void Update()
-    {
-        ControlAnimator();
-    }
+//    void Update()
+//    {
+//        ControlAnimator();
+//    }
 
-    public void ControlAnimator()
-    {
-        hasHit = CheckOverlaying();
-        if (hasHit)
-        {
-            CupheadController.PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, true);
-        }
-        else
-        {
-            CupheadController.PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
-        }
-    }
+//    public void ControlAnimator()
+//    {
+//        hasHit = CheckOverlaying();
+//        if (hasHit)
+//        {
+//            CupheadController.PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, true);
+//        }
+//        else
+//        {
+//            CupheadController.PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
+//        }
+//    }
 
-    public bool CheckOverlaying() 
-    {
-        return Physics2D.OverlapCircle(_transform.position, _radiusSize, LayerToCheck);
-    }
+//    public bool CheckOverlaying() 
+//    {
+//        return Physics2D.OverlapCircle(_transform.position, _radiusSize, LayerToCheck);
+//    }
 
-    public void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(_transform.position, _radiusSize);
-    }
+//    public void OnDrawGizmos()
+//    {
+//        Gizmos.color = Color.blue;
+//        Gizmos.DrawWireSphere(_transform.position, _radiusSize);
+//    }
 
    
-    public void HitDefreezeAndBoucnce()
-    {
+//    public void HitDefreezeAndBoucnce()
+//    {
        
-        CupheadController.playerRigidbody.constraints = RigidbodyConstraints2D.None;
-        CupheadController.playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+//        CupheadController.playerRigidbody.constraints = RigidbodyConstraints2D.None;
+//        CupheadController.playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
         
-        CupheadController.PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
-        hasHit = false;
+//        CupheadController.PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
+//        hasHit = false;
 
-    }
-}
+//    }
+//}
