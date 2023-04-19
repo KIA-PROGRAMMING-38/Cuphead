@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class CarrotProjectileController : MonoBehaviour
 {
@@ -22,33 +23,47 @@ public class CarrotProjectileController : MonoBehaviour
 
     [SerializeField]
     float _playerTrackingSpeed;
-    private static float hitMaterialDurationTime = 0.15f;
-
+   
     SpriteRenderer _spriteRenderer;
 
-
+    private bool died = false;
     private void FixedUpdate()
     {
-        carrotRigidbody.position = Vector2.Lerp
+        if (!died)
+        {
+            RotateProjectileTowardsPlayer();
+            carrotRigidbody.position = Vector2.Lerp
             (transform.position, _playerTransform.position, _playerTrackingSpeed * Time.deltaTime);
-        transform.LookAt(_playerTransform);
+        }
+   
     }
+    private void Update()
+    {
+       
+    }
+
+
     private void OnEnable()
     {
+
+         died = false;
         _spriteRenderer =GetComponent<SpriteRenderer>();
         _waitTimeForMaterial = new WaitForSeconds(hitMaterialDurationTime);
         _animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
         carrotRigidbody = GetComponent<Rigidbody2D>();
+      
+        carrotRigidbody.constraints = RigidbodyConstraints2D.None;
         carrotRigidbody.velocity = _initialProjectileSpeed * Vector2.down;
         Invoke(nameof(DeactivateDelay), 5f); //
-
+        carrotRigidbody.bodyType = RigidbodyType2D.Dynamic;
     }
 
     void DeactivateDelay() => gameObject.SetActive(false)
 ;
     private void OnDisable()
     {
+       
         ObjectPooler.ReturnToPool(gameObject);
         CancelInvoke(); //코루틴과 다르게 반드시 해제해주어야 합니다. 
     }
@@ -57,7 +72,7 @@ public class CarrotProjectileController : MonoBehaviour
     {
         if (HasBeenHitCollision(collision))
         {
-            _animator.SetBool(ProjectileAnimID.HIT_PLAYER, true);
+            FreezeAndDie();
         }
     }
 
@@ -71,7 +86,7 @@ public class CarrotProjectileController : MonoBehaviour
     public void DeactivatieProjectileCollider() => collider.enabled = false;
 
     WaitForSeconds _waitTimeForMaterial;
-   
+    private static float hitMaterialDurationTime = 0.15f;
     [SerializeField] Material _MaterialDuringDamaged;
     [SerializeField] Material _defaultMaterial;
  
@@ -81,7 +96,7 @@ public class CarrotProjectileController : MonoBehaviour
     {
         if (CarrotProjectileHP < 0)
         {
-            _animator.SetBool(CupheadAnimID.DIED, true);
+            FreezeAndDie();
         }
     }
 
@@ -90,6 +105,7 @@ public class CarrotProjectileController : MonoBehaviour
     {
         if (IsBulletCollision(collision))
         {
+            FreezeAndDie();
             DecreaseHP();
             CheckCarrotAlive();
             changeMaterial();
@@ -116,11 +132,29 @@ public class CarrotProjectileController : MonoBehaviour
 
     void TurnOffBackround()
     {
-        
         Deactivate();
     }
     public void Deactivate()
     {
         gameObject.SetActive(false);
     }
+
+
+    public void RotateProjectileTowardsPlayer()
+    {
+        Vector3 difference = _playerTransform.position - transform.position;
+        difference.Normalize();
+        float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, rotation_z + 90f );
+    }
+   
+
+    public void FreezeAndDie()
+    {
+        died = true;
+       
+        carrotRigidbody.bodyType = RigidbodyType2D.Static;
+        _animator.SetBool(ProjectileAnimID.DEAD, true);
+    }
+
 }

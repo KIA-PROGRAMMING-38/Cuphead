@@ -656,7 +656,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 742483257}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &296236492 stripped
 CircleCollider2D:
@@ -1262,7 +1262,7 @@ MonoBehaviour:
   finalBlitToCameraTarget: 0
   antialiasingMode: 3
   temporalAntialiasing:
-    jitterSpread: 0.723
+    jitterSpread: 0.1
     sharpness: 0.25
     stationaryBlending: 0.891
     motionBlending: 0.738
@@ -1320,37 +1320,6 @@ MonoBehaviour:
   offset: {x: -9.3, y: -2.65, z: -10}
   followSpeed: 2
   platformLength: 15
---- !u!1 &540115538
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 540115539}
-  m_Layer: 7
-  m_Name: CarrotThirdEye_LaserSpawnPosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &540115539
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540115538}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.14, y: 3.24, z: -0.41921097}
-  m_LocalScale: {x: 1.01639, y: 1.01639, z: 1.01639}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 742483257}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &594100217
 GameObject:
   m_ObjectHideFlags: 0
@@ -1925,13 +1894,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742483256}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.663793, y: -2.137357, z: 0.4192109}
+  m_LocalPosition: {x: -9.663793, y: -2.137357, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1117418489}
   - {fileID: 1477016584}
-  - {fileID: 540115539}
   - {fileID: 904715126}
   - {fileID: 1914370826}
   - {fileID: 296094356}
@@ -2317,7 +2285,7 @@ GameObject:
   - component: {fileID: 904715127}
   - component: {fileID: 904715129}
   m_Layer: 7
-  m_Name: CarrotThirdEye_EffectPosition
+  m_Name: CarrotThirdEye_LaserSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2336,7 +2304,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 742483257}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &904715127
 Animator:
@@ -2423,6 +2391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1caca21c5a28047b7174b7377cb9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerTransform: {fileID: 2135547219}
 --- !u!1 &929681381
 GameObject:
   m_ObjectHideFlags: 0
@@ -4175,8 +4144,10 @@ MonoBehaviour:
   potatoIntroEvent: {fileID: 0}
   _LeftSpawnPositionOfCarrotProjectile: {fileID: 1914370826}
   _RightSpawnPositionOfCarrotProjectile: {fileID: 296094356}
-  _LaserSpawnPosition: {fileID: 540115539}
+  _LaserSpawnPosition: {fileID: 0}
   onionBackgroundController: {fileID: 0}
+  _MaterialDuringDamaged: {fileID: 2100000, guid: ce387163aadcbf44ab9f4ecb84f0460b, type: 2}
+  _defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   _carrotEyeSpriteRenderer: {fileID: 1579543805}
 --- !u!95 &1477016590
 Animator:
@@ -4903,7 +4874,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 742483257}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1923554764
 GameObject:
@@ -6159,17 +6130,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1780025056151872066, guid: 85e90343ef47090409ac5b288bb9fa89, type: 3}
-      propertyPath: _laserSpeed
-      value: 2
-      objectReference: {fileID: 0}
+      propertyPath: laserSpawner
+      value: 
+      objectReference: {fileID: 904715129}
     - target: {fileID: 1780025056151872066, guid: 85e90343ef47090409ac5b288bb9fa89, type: 3}
       propertyPath: _playerTransform
       value: 
       objectReference: {fileID: 2135547219}
-    - target: {fileID: 1780025056151872066, guid: 85e90343ef47090409ac5b288bb9fa89, type: 3}
-      propertyPath: _initialProjectileSpeed
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1780025056151872078, guid: 85e90343ef47090409ac5b288bb9fa89, type: 3}
       propertyPath: m_Name
       value: CarrotLaser
@@ -6186,7 +6153,7 @@ PrefabInstance:
     - target: {fileID: 3719218236378251410, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
       propertyPath: _playerTransform
       value: 
-      objectReference: {fileID: 2135547219}
+      objectReference: {fileID: 134336124}
     - target: {fileID: 3719218236378251500, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
       propertyPath: m_Name
       value: CarrotProjectile
@@ -6209,7 +6176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3719218236378251503, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.73328894
       objectReference: {fileID: 0}
     - target: {fileID: 3719218236378251503, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
       propertyPath: m_LocalRotation.x
@@ -6221,7 +6188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3719218236378251503, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.6799172
       objectReference: {fileID: 0}
     - target: {fileID: 3719218236378251503, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6233,7 +6200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3719218236378251503, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -85.674
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}

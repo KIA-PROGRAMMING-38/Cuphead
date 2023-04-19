@@ -25,7 +25,7 @@ public class CarrotLaserController : MonoBehaviour
 
 
 
-    Vector2 _lastlyDetectedPlayerPosition;
+    
     private void OnEnable()
     {
         projectileSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -33,16 +33,21 @@ public class CarrotLaserController : MonoBehaviour
         collider = GetComponent<Collider2D>();
         carrotRigidbody = GetComponent<Rigidbody2D>();
         Invoke(nameof(DeactivateDelay), 5f);
-
-        _lastlyDetectedPlayerPosition = _playerTransform.position;
     }
 
+  
     private void FixedUpdate()
     {
         carrotRigidbody.position = Vector2.Lerp
-        (transform.position, _lastlyDetectedPlayerPosition, _laserSpeed * Time.deltaTime);
+        (transform.position, _lastlyDetectedPlayerPosition + (2 * Vector2.down), _laserSpeed * Time.deltaTime);
     }
+   
+    
+    public static Vector2 _lastlyDetectedPlayerPosition;
 
+    [SerializeField]
+    LaserSpawner laserSpawner;
+    
   
     void DeactivateDelay() => gameObject.SetActive(false)
 ;
@@ -57,7 +62,7 @@ public class CarrotLaserController : MonoBehaviour
     {
         if (HasBeenHitCollision(collision))
         {
-            animator.SetBool(ProjectileAnimID.HIT_PLAYER, true);
+            animator.SetBool(ProjectileAnimID.DEAD, true);
         }
     }
 

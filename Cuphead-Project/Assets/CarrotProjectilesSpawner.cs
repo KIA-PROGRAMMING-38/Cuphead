@@ -24,15 +24,16 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     private readonly int SPAWN_POSITION_RIGHT = 10;
 
     private int PositionDeciderOfCarrotProjectile = 0;
-   
-  
-   
-    SpriteRenderer PotatoSpriteRenderer;
+    float durationOfHitMaterial = 0.15f;
+
+
+    SpriteRenderer CarrotSpriteRenderer;
     
     private void OnEnable()
     {
+        _waitTimeForMaterial = new WaitForSeconds(durationOfHitMaterial);
         _animator = GetComponent<Animator>();
-        PotatoSpriteRenderer = GetComponent<SpriteRenderer>();
+        CarrotSpriteRenderer = GetComponent<SpriteRenderer>();
       
     }
 
@@ -96,13 +97,47 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     /// </summary>
     /// <returns></returns>
 
- 
-    GameObject throwLaserProjectile()
+    [SerializeField] Material _MaterialDuringDamaged;
+    [SerializeField] Material _defaultMaterial;
+
+    WaitForSeconds _waitTimeForMaterial;
+    private static float hitMaterialDurationTime = 0.18f;
+    public void changeMaterial()
     {
-        return ObjectPooler.SpawnFromPool
-                (ObjectPoolNameID.CARROT_LASER, transform.position);
+        CarrotSpriteRenderer.material = _MaterialDuringDamaged;
+        StartCoroutine(TurnBackToOriginalMaterial());
     }
 
+
+    IEnumerator TurnBackToOriginalMaterial()
+    {
+        yield return _waitTimeForMaterial;
+        CarrotSpriteRenderer.material = _defaultMaterial;
+    }
+
+  
+
+    private static void DecreaseHP() => CarrotHP -= 1;
+    private void CheckCarrotAlive()
+    {
+        if (CarrotHP < 0)
+        {
+            _animator.SetBool(ProjectileAnimID.DEAD, true);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+
+    {
+        if (IsBulletCollision(collision))
+        {
+            
+            DecreaseHP();
+            CheckCarrotAlive();
+            changeMaterial();
+        }
+
+    }
     [SerializeField]
     SpriteRenderer _carrotEyeSpriteRenderer;
     void ActivateCarrotEyeDuringLaserShoot()
@@ -113,7 +148,13 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     {
         _carrotEyeSpriteRenderer.enabled = false;
     }
+    private bool IsBulletCollision(Collider2D collision)
+    {
+        return collision.CompareTag(TagNames.BULLET);
+    }
 
+  
+   
     /// <summary>
     /// 레이저는 다른 투사체와 다르게,
     /// 플랫폼에 부딫혀야 사라지는 애니메이션이 재생됩니다.
@@ -122,16 +163,6 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     /// <param name="collision"></param>
     /// <returns></returns>
 
-    public void SetActiveOnionBackground()
-    {
-    }
 
-
-
-
-    public void ActivateOnionAndBackground()
-    {
-
-    }
 }
 
