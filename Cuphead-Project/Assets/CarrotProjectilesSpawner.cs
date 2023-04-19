@@ -19,23 +19,21 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     Transform _LaserSpawnPosition;
 
     private static int CarrotHP = 30;
-
     private int spawnPosition = 0;
     private readonly int SPAWN_POSITION_LEFT = 0;
     private readonly int SPAWN_POSITION_RIGHT = 10;
 
-    private int tearDecider = 0;
-    private readonly float PARRYABLE_TEAR = 90;
-    private readonly float NORMAL_TEAR = 0;
-    private static float hitMaterialDurationTime = 0.15f;
-    WaitForSeconds _waitTimeForMaterial;
+    private int PositionDeciderOfCarrotProjectile = 0;
+   
+  
+   
     SpriteRenderer PotatoSpriteRenderer;
-
+    
     private void OnEnable()
     {
         _animator = GetComponent<Animator>();
         PotatoSpriteRenderer = GetComponent<SpriteRenderer>();
-        _waitTimeForMaterial = new WaitForSeconds(hitMaterialDurationTime);
+      
     }
 
     Vector3 _decidedSpawnpositionLeft;
@@ -46,8 +44,8 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     OnionBackgroundController onionBackgroundController;
 
 
-    int count = 0;
-    readonly int bossProjectileCounts = 3;
+    
+  
     Vector3 spawnPositionMove;
 
     /// <summary>
@@ -56,111 +54,73 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     /// <returns></returns>
     GameObject throwCarrotProjectile()
     {
-        spawnPosition = Random.Range(SPAWN_POSITION_LEFT, SPAWN_POSITION_RIGHT);
-        tearDecider = Random.Range(0, 100); // 백분위로 랜덤함수 판별.
+       
+        // 백분위로 랜덤함수 판별.
 
-        //기준값 초기화.
-        _RightSpawnPositionOfCarrotProjectile.position = Vector3.zero;
-        _LeftSpawnPositionOfCarrotProjectile.position = Vector3.zero;
+       
+       
 
-        Debug.Log(spawnPosition);
+        PositionDeciderOfCarrotProjectile = Random.Range(0, 100);
 
-        if (spawnPosition < 5)
+        Debug.Log(PositionDeciderOfCarrotProjectile);
+
+        if (PositionDeciderOfCarrotProjectile < 50)
         {
-            float rangeToMovespawnPosition = Random.Range(0, 7);
+            float rangeToMovespawnPosition = Random.Range(0, 3);
             spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
-
+            Debug.Log("당근 왼쪽");
             // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
-            _decidedSpawnpositionLeft =
-            _LeftSpawnPositionOfCarrotProjectile.position + spawnPositionMove;
+          
+            _LeftSpawnPositionOfCarrotProjectile.position += spawnPositionMove;
 
             return ObjectPooler.SpawnFromPool
-            (ObjectPoolNameID.CARROT_PROJECTILE, _decidedSpawnpositionLeft);
+            (ObjectPoolNameID.CARROT_PROJECTILE, _LeftSpawnPositionOfCarrotProjectile.position);
         }
 
         else
         {
-            float rangeToMovespawnPosition = Random.Range(0, 7);
+            float rangeToMovespawnPosition = Random.Range(0, 3);
             spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
-
+            Debug.Log("당근 오른쪽");
             // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
-            _decidedSpawnpositionRight =
-            _RightSpawnPositionOfCarrotProjectile.transform.position + spawnPositionMove;
-
+          
+            _RightSpawnPositionOfCarrotProjectile.position += spawnPositionMove;
 
             return ObjectPooler.SpawnFromPool
-            (ObjectPoolNameID.CARROT_PROJECTILE, _decidedSpawnpositionRight);
+            (ObjectPoolNameID.CARROT_PROJECTILE, _RightSpawnPositionOfCarrotProjectile.position);
         }
     }
 
     /// <summary>
-    /// 애니메이션 이벤트로 중복재생 할 함수 재생
+    /// 애니메이션 이벤트로 재생 할 함수들
     /// </summary>
     /// <returns></returns>
+
+ 
     GameObject throwLaserProjectile()
     {
         return ObjectPooler.SpawnFromPool
-                (ObjectPoolNameID.CARROT_LASER, _LaserSpawnPosition.transform.position);
+                (ObjectPoolNameID.CARROT_LASER, transform.position);
     }
 
-
-
-    private static void DecreaseHP() => CarrotHP -= 1;
-    private void CheckPotatoAlive()
+    [SerializeField]
+    SpriteRenderer _carrotEyeSpriteRenderer;
+    void ActivateCarrotEyeDuringLaserShoot()
     {
-        if (CarrotHP < 0)
-        {
-            _animator.SetBool(CupheadAnimID.DIED, true);
-        }
+        _carrotEyeSpriteRenderer.enabled = true;
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-
+    void DectivateCarrotEyeDuringLaserShoot()
     {
-        if (IsBulletCollision(collision))
-        {
-            DecreaseHP();
-            CheckPotatoAlive();
-            changeMaterial();
-        }
-
+        _carrotEyeSpriteRenderer.enabled = false;
     }
-    private bool IsBulletCollision(Collider2D collision)
-    {
-        return collision.CompareTag(TagNames.BULLET);
-    }
-
-    void TurnOffBackround()
-    {
-        potatoIntroEvent.Deactive();
-        Deactive();
-    }
-    public void Deactive()
-    {
-        gameObject.SetActive(false);
-    }
-
-
-    [SerializeField] Material _MaterialDuringDamaged;
-    [SerializeField] Material _defaultMaterial;
-    public void changeMaterial()
-    {
-        PotatoSpriteRenderer.material = _MaterialDuringDamaged;
-        StartCoroutine(TurnBackToOriginalMaterial());
-    }
-
-    IEnumerator TurnBackToOriginalMaterial()
-    {
-        yield return _waitTimeForMaterial;
-        PotatoSpriteRenderer.material = _defaultMaterial;
-    }
-
 
     /// <summary>
-    /// 캐롯 사망 씬 후 게임매니져 호출
-    /// </summary>
+    /// 레이저는 다른 투사체와 다르게,
+    /// 플랫폼에 부딫혀야 사라지는 애니메이션이 재생됩니다.
     /// 
-
+    /// </summary>
+    /// <param name="collision"></param>
+    /// <returns></returns>
 
     public void SetActiveOnionBackground()
     {

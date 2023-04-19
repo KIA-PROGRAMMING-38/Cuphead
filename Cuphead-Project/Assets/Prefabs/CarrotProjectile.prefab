@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 3719218236378251502}
   - component: {fileID: 3719218236378251410}
   - component: {fileID: 3719218236378251411}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CarrotProjectile
-  m_TagString: Untagged
+  m_TagString: CarrotProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3719218236378251500}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.1294384, y: 3.1747777, z: 0.58012915}
   m_LocalScale: {x: 1.189202, y: 1.189202, z: 1.189202}
   m_ConstrainProportionsScale: 0
@@ -46,10 +46,10 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.04, y: -0.12}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
 --- !u!95 &3719218236378251409
@@ -88,7 +88,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -106,6 +106,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f549d3eec896ac642a1f0b1660dcbf04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _initialProjectileSpeed: 0.5
+  _playerTransform: {fileID: 0}
+  _playerTrackingSpeed: 0.5
+  _MaterialDuringDamaged: {fileID: 2100000, guid: ce387163aadcbf44ab9f4ecb84f0460b, type: 2}
+  _defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!212 &3719218236378251411
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -147,14 +152,14 @@ SpriteRenderer:
   m_SortingLayerID: 432366789
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e5827d8b27a10aa4fb3aee096d702252, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.97, y: 1.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

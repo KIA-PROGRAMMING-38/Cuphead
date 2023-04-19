@@ -17,6 +17,8 @@ TagManager:
   - JumpDust
   - NormalTear
   - ParryableTear
+  - CarrotProjectile
+  - CarrotLaser
   layers:
   - Default
   - TransparentFX

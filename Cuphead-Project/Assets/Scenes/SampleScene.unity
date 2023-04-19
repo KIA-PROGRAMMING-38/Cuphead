@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &805784
 Transform:
   m_ObjectHideFlags: 0
@@ -651,12 +651,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296094355}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 1.55, y: 5.38, z: 0}
   m_LocalScale: {x: 1.01639, y: 1.01639, z: 1.01639}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2059785863}
-  m_RootOrder: 2
+  m_Father: {fileID: 742483257}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &296236492 stripped
 CircleCollider2D:
@@ -1344,12 +1344,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540115538}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.31000042, y: 2.68, z: -0.41921097}
+  m_LocalPosition: {x: -0.14, y: 3.24, z: -0.41921097}
   m_LocalScale: {x: 1.01639, y: 1.01639, z: 1.01639}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 742483257}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &594100217
 GameObject:
@@ -1929,11 +1929,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1117418489}
   - {fileID: 1477016584}
   - {fileID: 540115539}
   - {fileID: 904715126}
+  - {fileID: 1914370826}
+  - {fileID: 296094356}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &744882107
 GameObject:
@@ -2058,7 +2061,7 @@ Transform:
   - {fileID: 2044330814}
   - {fileID: 1431648472}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &797354670
 MonoBehaviour:
@@ -2312,6 +2315,7 @@ GameObject:
   - component: {fileID: 904715126}
   - component: {fileID: 904715128}
   - component: {fileID: 904715127}
+  - component: {fileID: 904715129}
   m_Layer: 7
   m_Name: CarrotThirdEye_EffectPosition
   m_TagString: Untagged
@@ -2327,12 +2331,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904715125}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.095, y: 2.766, z: -0.41921097}
+  m_LocalPosition: {x: -0.14, y: 3.18, z: -0.41921097}
   m_LocalScale: {x: 1.01639, y: 1.01639, z: 1.01639}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 742483257}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &904715127
 Animator:
@@ -2407,6 +2411,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &904715129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904715125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e1caca21c5a28047b7174b7377cb9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &929681381
 GameObject:
   m_ObjectHideFlags: 0
@@ -2844,6 +2860,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1117418488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1117418489}
+  - component: {fileID: 1117418490}
+  m_Layer: 0
+  m_Name: CreatBackground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1117418489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117418488}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 742483257}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1117418490
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117418488}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1168275276
 GameObject:
   m_ObjectHideFlags: 0
@@ -3567,7 +3636,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328174062}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.74, y: -2.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3973,13 +4042,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1477016584}
+  - component: {fileID: 1477016590}
   - component: {fileID: 1477016588}
   - component: {fileID: 1477016587}
   - component: {fileID: 1477016585}
   - component: {fileID: 1477016589}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CarrotBody
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3999,7 +4069,7 @@ Transform:
   - {fileID: 2104366781}
   - {fileID: 1579543803}
   m_Father: {fileID: 742483257}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1477016585
 CapsuleCollider2D:
@@ -4011,11 +4081,11 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Offset: {x: -0.06, y: 0.38}
+  m_Size: {x: 1.51, y: 3.07}
   m_Direction: 0
 --- !u!50 &1477016587
 Rigidbody2D:
@@ -4102,6 +4172,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f43f2e584ee940d4e9ad04470175c873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  potatoIntroEvent: {fileID: 0}
+  _LeftSpawnPositionOfCarrotProjectile: {fileID: 1914370826}
+  _RightSpawnPositionOfCarrotProjectile: {fileID: 296094356}
+  _LaserSpawnPosition: {fileID: 540115539}
+  onionBackgroundController: {fileID: 0}
+  _carrotEyeSpriteRenderer: {fileID: 1579543805}
+--- !u!95 &1477016590
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477016583}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7d68615939fb6c5499f51c4e670fd9c1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1498627932
 GameObject:
   m_ObjectHideFlags: 0
@@ -4291,7 +4388,7 @@ GameObject:
   - component: {fileID: 1579543803}
   - component: {fileID: 1579543805}
   - component: {fileID: 1579543804}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CarrotEyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4801,12 +4898,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914370825}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: 5, z: 0}
+  m_LocalPosition: {x: -7.08, y: 5.31, z: 0}
   m_LocalScale: {x: 1.01639, y: 1.01639, z: 1.01639}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2059785863}
-  m_RootOrder: 1
+  m_Father: {fileID: 742483257}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1923554764
 GameObject:
@@ -4819,7 +4916,6 @@ GameObject:
   - component: {fileID: 1923554765}
   - component: {fileID: 1923554770}
   - component: {fileID: 1923554769}
-  - component: {fileID: 1923554768}
   - component: {fileID: 1923554767}
   - component: {fileID: 1923554766}
   m_Layer: 0
@@ -4917,18 +5013,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1923554768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1923554764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 399d3f48d434dd149bfa76c3f4606abd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &1923554769
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -5539,10 +5623,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1923554765}
-  - {fileID: 1914370826}
-  - {fileID: 296094356}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2093800389
 GameObject:
@@ -5576,7 +5658,7 @@ Transform:
   m_Children:
   - {fileID: 1168275277}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2093800391
 Animator:
@@ -5672,7 +5754,7 @@ GameObject:
   - component: {fileID: 2104366781}
   - component: {fileID: 2104366783}
   - component: {fileID: 2104366782}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CarrotBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5732,8 +5814,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1213404363
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5756,7 +5838,7 @@ Animator:
   m_GameObject: {fileID: 2104366780}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2d902a1aa8fb17a4eab67e83e7c1c045, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -6076,6 +6158,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1780025056151872066, guid: 85e90343ef47090409ac5b288bb9fa89, type: 3}
+      propertyPath: _laserSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1780025056151872066, guid: 85e90343ef47090409ac5b288bb9fa89, type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 2135547219}
+    - target: {fileID: 1780025056151872066, guid: 85e90343ef47090409ac5b288bb9fa89, type: 3}
+      propertyPath: _initialProjectileSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1780025056151872078, guid: 85e90343ef47090409ac5b288bb9fa89, type: 3}
       propertyPath: m_Name
       value: CarrotLaser
@@ -6093,14 +6187,6 @@ PrefabInstance:
       propertyPath: _playerTransform
       value: 
       objectReference: {fileID: 2135547219}
-    - target: {fileID: 3719218236378251410, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
-      propertyPath: _playerTrackingSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3719218236378251410, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
-      propertyPath: _initialProjectileSpeed
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 3719218236378251500, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
       propertyPath: m_Name
       value: CarrotProjectile
@@ -6111,15 +6197,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3719218236378251503, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.1294384
+      value: -6.99
       objectReference: {fileID: 0}
     - target: {fileID: 3719218236378251503, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.1747777
+      value: 7.86
       objectReference: {fileID: 0}
     - target: {fileID: 3719218236378251503, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.58012915
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3719218236378251503, guid: 28f54130a58a5234fb0da1d09e19d9ee, type: 3}
       propertyPath: m_LocalRotation.w
