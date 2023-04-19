@@ -29,7 +29,7 @@ public class CupheadController : MonoBehaviour
     public static Rigidbody2D playerRigidbody;
 
     [SerializeField]
-    public static Animator _bulletSparkAnimator;
+    public  Animator _bulletSparkAnimator;
 
     [SerializeField]
     public float _playerMoveSpeed;
@@ -55,7 +55,7 @@ public class CupheadController : MonoBehaviour
     #endregion
 
     //인풋벡터 (스태틱으로 만들어 EXMOVE에서 정지 시 사용)
-    static Vector2 _inputVec;
+    public static Vector2 _inputVec;
     bool parrySucceed;
 
     public AudioSource _audioSource;
@@ -119,17 +119,32 @@ public class CupheadController : MonoBehaviour
     /// </summary>
     public void MovePlayer()
     {
-        _inputVec.x = Input.GetAxisRaw("Horizontal");
-        _inputVec.y = Input.GetAxisRaw("Vertical");
-
-
-        if (IsDucking == false)
+        if (!Input.GetKeyUp(KeyCode.C))
         {
-            playerRigidbody.velocity = new Vector2
-           (_inputVec.x * _playerMoveSpeed, playerRigidbody.velocity.y);
+            _bulletSparkAnimator.SetBool(BulletAnimID.IS_LAUNCHED, false);
+
+            _inputVec.x = Input.GetAxisRaw("Horizontal");
+            _inputVec.y = Input.GetAxisRaw("Vertical");
+
+
+            if (IsDucking == false)
+            {
+                playerRigidbody.velocity = new Vector2
+               (_inputVec.x * _playerMoveSpeed, playerRigidbody.velocity.y);
+            }
+
+            FlipPlayer();
         }
 
-        FlipPlayer();
+        else if (Input.GetKey(KeyCode.C))
+        {
+            playerRigidbody.velocity = Vector2.zero;
+        }
+
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            playerRigidbody.velocity = Vector2.zero;
+        }
 
     }
 
@@ -148,7 +163,7 @@ public class CupheadController : MonoBehaviour
 
         if (_inputVec.x != 0f)
         {
-            PlayerAnimator.SetBool(CupheadAnimID.IS_RUNNING, true);
+            PlayerAnimator.SetBool(CupheadAnimID.RUN, true);
 
             if (_inputVec.x < 0.0f)
             {
@@ -162,7 +177,7 @@ public class CupheadController : MonoBehaviour
             }
 
         }
-        else { PlayerAnimator.SetBool(CupheadAnimID.IS_RUNNING, false); }
+        else { PlayerAnimator.SetBool(CupheadAnimID.RUN, false); }
 
     }
     #endregion 
@@ -182,13 +197,13 @@ public class CupheadController : MonoBehaviour
         if (Input.GetKey(KeyCode.DownArrow))
         {
             IsDucking = true;
-            PlayerAnimator.SetBool(CupheadAnimID.IS_DUCKING, true);
+            PlayerAnimator.SetBool(CupheadAnimID.DUCK, true);
             //_bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, true);
         }
         else if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             IsDucking = false;
-            PlayerAnimator.SetBool(CupheadAnimID.IS_DUCKING, false);
+            PlayerAnimator.SetBool(CupheadAnimID.DUCK, false);
             //_bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, false);
         }
     }
@@ -209,7 +224,7 @@ public class CupheadController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z) && IsJumping == false)
         {
-            PlayerAnimator.SetBool(CupheadAnimID.IS_JUMPING, true);
+            PlayerAnimator.SetBool(CupheadAnimID.JUMP, true);
             IsJumping = true;
 
         }
@@ -242,12 +257,12 @@ public class CupheadController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.X))
         {
-            PlayerAnimator.SetBool(CupheadAnimID.IS_STANDSHOOTING, true);
+            PlayerAnimator.SetBool(CupheadAnimID.STAND_SHOOT, true);
         }
 
         if (Input.GetKeyUp(KeyCode.X))
         {
-            PlayerAnimator.SetBool(CupheadAnimID.IS_STANDSHOOTING, false);
+            PlayerAnimator.SetBool(CupheadAnimID.STAND_SHOOT, false);
 
         }
 

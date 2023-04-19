@@ -26,7 +26,21 @@ public class OnionController : MonoBehaviour
         _waitTimeForMaterial = new WaitForSeconds(durationOfHitMaterial);
     }
 
+    [SerializeField]
+    public GameObject _carrot;
+    [SerializeField]
+    public Animator _carrotanimator;
 
+    [SerializeField]
+    GameObject Onion;
+
+    public void ActivateCarrot()
+    {
+        _carrot.SetActive(true);
+        _carrotanimator.enabled= true;
+    }
+
+    public void DeactivateOnion() => Onion.SetActive(false);
     private void OnTriggerEnter2D(Collider2D collision)
 
     {

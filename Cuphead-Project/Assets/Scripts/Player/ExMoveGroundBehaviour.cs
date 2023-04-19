@@ -35,7 +35,7 @@ public class ExMoveGroundBehaviour : StateMachineBehaviour
         }
         if (stateInfo.normalizedTime > 0.9 && isExMoveUsed == true)
         {
-            animator.SetBool(CupheadAnimID.IS_EX_MOVING, false);
+            animator.SetBool(CupheadAnimID.EX_MOVE, false);
         }
 
     }

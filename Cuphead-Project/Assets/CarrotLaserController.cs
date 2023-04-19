@@ -16,18 +16,23 @@ public class CarrotLaserController : MonoBehaviour
     float _spawnMoveDistance;
     [SerializeField]
     Transform _playerTransform;
+    [SerializeField]
+    Rigidbody2D _carrotEye;
 
     [SerializeField]
     float _laserSpeed;
 
-
-
-
-
+    //플레이어 움직임 추적을 한번만 하도록 하기위한 bool 변수 설정 
+    private bool isDead;
 
     
+    
+    
+
     private void OnEnable()
     {
+       
+        isDead = false;
         projectileSpriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
@@ -35,11 +40,17 @@ public class CarrotLaserController : MonoBehaviour
         Invoke(nameof(DeactivateDelay), 5f);
     }
 
-  
+
     private void FixedUpdate()
     {
+        if (!isDead)
+        {
+            _lastlyDetectedPlayerPosition.y = -4f;
+            Vector2 extrapolation = (_lastlyDetectedPlayerPosition - _carrotEye.position).normalized;
         carrotRigidbody.position = Vector2.Lerp
-        (transform.position, _lastlyDetectedPlayerPosition + (2 * Vector2.down), _laserSpeed * Time.deltaTime);
+        (transform.position, _lastlyDetectedPlayerPosition +(10 * extrapolation), _laserSpeed * Time.deltaTime);
+        }
+        
     }
    
     
@@ -62,7 +73,10 @@ public class CarrotLaserController : MonoBehaviour
     {
         if (HasBeenHitCollision(collision))
         {
+            Debug.Log("레이저사망");
+            
             animator.SetBool(ProjectileAnimID.DEAD, true);
+            isDead = true;
         }
     }
 

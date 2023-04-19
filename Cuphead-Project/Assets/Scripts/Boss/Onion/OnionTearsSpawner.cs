@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OnionTearsSpawner : MonoBehaviour
 {
+
     [SerializeField]
     GameObject _spawnpositionLeft;
 
@@ -24,6 +25,8 @@ public class OnionTearsSpawner : MonoBehaviour
     Vector3 _decidedSpawnpositionLeft;
     Vector3 _decidedSpawnpositionRight;
 
+
+    
 
     /// <summary>
     /// Tear 생성 함수입니다. Onion의 애니메이션에 맞게 동작합니다. 

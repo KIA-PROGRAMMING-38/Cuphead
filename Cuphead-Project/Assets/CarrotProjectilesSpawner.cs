@@ -15,8 +15,6 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     [SerializeField]
     Transform _RightSpawnPositionOfCarrotProjectile;
 
-    [SerializeField]
-    Transform _LaserSpawnPosition;
 
     private static int CarrotHP = 30;
     private int spawnPosition = 0;
@@ -41,12 +39,14 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     Vector3 _decidedSpawnpositionRight;
 
 
-    [SerializeField]
-    OnionBackgroundController onionBackgroundController;
-
-
     
-  
+    [SerializeField]
+    GameObject CarrotEye;
+
+    public void ActivateCarrotEye() => CarrotEye.SetActive(true);
+    public void DeactivateCarrotEye() => CarrotEye.SetActive(false);
+
+
     Vector3 spawnPositionMove;
 
     /// <summary>
@@ -57,9 +57,6 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     {
        
         // 백분위로 랜덤함수 판별.
-
-       
-       
 
         PositionDeciderOfCarrotProjectile = Random.Range(0, 100);
 
@@ -139,14 +136,15 @@ public class CarrotProjectilesSpawner : MonoBehaviour
 
     }
     [SerializeField]
-    SpriteRenderer _carrotEyeSpriteRenderer;
+    GameObject _carrotLaserAnimator;
+
     void ActivateCarrotEyeDuringLaserShoot()
     {
-        _carrotEyeSpriteRenderer.enabled = true;
+        _carrotLaserAnimator.SetActive(true);
     }
     void DectivateCarrotEyeDuringLaserShoot()
     {
-        _carrotEyeSpriteRenderer.enabled = false;
+        _carrotLaserAnimator.SetActive(false);
     }
     private bool IsBulletCollision(Collider2D collision)
     {
