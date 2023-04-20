@@ -75,15 +75,15 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0
-    functionName: ActivateCarrotEyeDuringLaserShoot
+  - time: 0.16666667
+    functionName: ActivateCarrotEye
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0
-    functionName: ActivateCarrotEye
+  - time: 0.16666667
+    functionName: ActivateCarrotEyeDuringLaserShoot
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
