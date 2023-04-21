@@ -1,4 +1,5 @@
 
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,12 +39,12 @@ public class OnionTearController : MonoBehaviour
     int RandomNumberToSetBool;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+     
         Debug.Log("플랫폼 - 물방울");
-        //애니메이션 랜덤재생을 위한 랜덤 구조 입니다. 
+        //애니메이션 랜덤재생을 위한 랜덤 구조.
+        RandomNumberToSetBool = Random.Range(0, 3);
         if (HasHitPlayerCollision(collision) || HasHitGroundCollision(collision))
         {
-            RandomNumberToSetBool = Random.Range(0, 3);
             switch ((TearDeathAnimType)RandomNumberToSetBool)
             {
                 case TearDeathAnimType.DeathTypeA:
@@ -77,9 +78,7 @@ public class OnionTearController : MonoBehaviour
 
     private void OnDisable()
     {
-        //OnEnable때 작성하면, Null에러가 발생할 위험이 있으므로, 
-        //OnDisable에서 isKinematic을 false로 잡아줍니다. 
-        projectileRigidbody.isKinematic = false; 
+        projectileRigidbody.isKinematic = false;
         ObjectPooler.ReturnToPool(gameObject);
         CancelInvoke();
 
