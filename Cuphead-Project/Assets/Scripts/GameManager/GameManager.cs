@@ -6,32 +6,46 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    [SerializeField] private GameObject _player;
-    public delegate void PlayerDied();
-    public static event PlayerDied playerDied;
-
-    public static event Action OnGameEnded;
-
-    private bool _isGameOver = false;
-    void OnEnable()
-    {
-        playerDied?.Invoke();
-    }
-
+    public static event Action OnPotatoDied;
    
-    void Update()
+    
+    public bool IsGameover { get; private set;}
+    public bool IsPotatoDead { get; private set; }
+    [SerializeField] private GameObject _player;
+    [SerializeField] private CupheadController _cupheadController;
+    [SerializeField] private GameObject _Potato;
+    [SerializeField] private GameObject _Onion;
+    [SerializeField] private GameObject _Carrot;
+
+    private void Start()
     {
-        if(_isGameOver == false && _player.activeSelf == false)
-        {
-            SetGameOver();
-        }
+        _player.SetActive(true);
+        _Potato.SetActive(true);
     }
 
-    public void SetGameOver()
+    public void OnGameStart()
     {
-        _isGameOver = true;
-        OnGameEnded?.Invoke();
+        _cupheadController.enabled= true;
+    }
 
+    public void OnPotatoDead()
+    {
+        OnPotatoDied?.Invoke();
+        _Potato.SetActive(false);
+        _Onion.SetActive(true);
+    }
+    public void OnOnionDead()
+    {
+        _Onion.SetActive(false);
+        _Carrot.SetActive(true);
+    }
+
+    public void SetPotatoInactive() => _Potato.SetActive(false);
+    public void SetOnionACtive() { }
+
+ 
+    public void OnCarrotDead()
+    {
 
     }
 }

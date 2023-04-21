@@ -4,33 +4,52 @@ using UnityEngine;
 
 public class potatoProjectileSpawner : MonoBehaviour
 {
-
-
-    [SerializeField] float _waitingTime;
-    public Animator _animator;
+    public GameManager GameManager;
 
     [SerializeField]
-    PotatoIntroEvent potatoIntroEvent;
+    GameObject potatoObject;
 
     [SerializeField]
-    float _spawnCoolTime;
+    GameObject _potatoBackground;
+
+    [SerializeField]
+    GameObject _spawnposition;
+
+    [SerializeField] Material _MaterialDuringDamaged;
+    [SerializeField] Material _defaultMaterial;
+
+    Animator _animator;
+
+    SpriteRenderer PotatoSpriteRenderer;
 
     private static int PotatoHp = 30;
 
-    [SerializeField]
-    SpriteRenderer PotatoSpriteRenderer;
+
+    private void Start()
+    {
+      gameObject.SetActive(false);
+    }
+
     private void OnEnable()
     {
+        _animator = GetComponent<Animator>();
         PotatoSpriteRenderer = GetComponent<SpriteRenderer>();
     }
-    [SerializeField]
-    GameObject _spawnposition;
-   
+    private void OnpPotatoDeath()
+    {//여기에 추후에 흐려지는 쉐이더 적용시키면 될듯?
+        GameManager.OnPotatoDead();
+    }
 
-    [SerializeField]
-    OnionBackgroundController onionBackgroundController;
-
-
+    public void DeactivatePotato()
+    {
+        
+    }
+    /// <summary>
+    /// 투사체를 던지는 함수입니다.
+    /// 4번째는 패리객체를 던질 수 있게끔 작성했습니다. 
+    /// </summary>
+    /// <returns></returns>
+    /// 
     int count = 0;
     readonly int bossProjectileCounts = 3;
     GameObject throwProjectile()
@@ -51,15 +70,7 @@ public class potatoProjectileSpawner : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 애니메이션 이벤트로 중복재생 할 함수 재생
-    /// </summary>
-    /// <returns></returns>
-    protected GameObject throwParryable()
-    {
-        return ObjectPooler.SpawnFromPool
-                ("Parryable", _spawnposition.transform.position);
-    }
+
 
 
 
@@ -88,22 +99,17 @@ public class potatoProjectileSpawner : MonoBehaviour
         return collision.CompareTag(TagNames.BULLET);
     }
 
-    void TurnOffBackround()
-    {
-        potatoIntroEvent.Deactive();
-        Deactive();
-    }
-    public void Deactive()
-    {
-        gameObject.SetActive(false);
-    }
+ 
+  
 
-
-    [SerializeField] Material _hitMaterial;
-    [SerializeField] Material _defaultMaterial;
+    /// <summary>
+    /// 보스가 총알에 맞을때 데미지를 입는다는 인터페이스를 위해 
+    /// 매티리얼을 바꿔주는 함수입니다. 
+    /// </summary>
+   
     public void changeMaterial()
     {
-        PotatoSpriteRenderer.material = _hitMaterial;
+        PotatoSpriteRenderer.material = _MaterialDuringDamaged;
         StartCoroutine(TurnBackToOriginalMaterial());
     }
     WaitForSeconds _waitTimeForMaterial = new WaitForSeconds(0.15f);
@@ -116,35 +122,40 @@ public class potatoProjectileSpawner : MonoBehaviour
 
 
     /// <summary>
-    /// 포테이터 사망 애니메이션 후, 양파 호출 함수 
+    /// 포테이터 사망 애니메이션 후, 양파 호출 함수입니다.
+    /// 게임매니져로 변경해주어야합니다. 
     /// </summary>
-    /// 
-    [SerializeField]
-    Renderer onionRenderer;
-    [SerializeField]
-    Animator onionAnimator;
-    [SerializeField]
-    GameObject onionBackground;
-   
 
-    public void SetActiveOnionBackground()
-    {
-        StartCoroutine(SetActiveOnion());
-    }
+    //[SerializeField]
+    //GameObject _onion;
 
-    WaitForSeconds waitTime = new WaitForSeconds(1.0f);
-    IEnumerator SetActiveOnion()
-    {
-        yield return waitTime;
-        ActivateOnionAndBackground();
-    }
 
-    public void ActivateOnionAndBackground()
-    {
-        onionBackground.SetActive(true);
-        onionAnimator.enabled = true;
-        onionRenderer.enabled = true;
-    }
+    //public void SetActiveOnionBackground()
+    //{
+    //    StartCoroutine(SetActiveOnion());
+    //}
+
+    //WaitForSeconds waitTime = new WaitForSeconds(1.0f);
+    //IEnumerator SetActiveOnion()
+    //{
+    //    yield return waitTime;
+    //    ActivateOnion();
+    //}
+
+
+
+    ///// <summary>
+    ///// 포테이토가 죽은경우 발동하는 애니메이션 이벤트 함수 입니다.
+    ///// 포테이토가 먼저 Deactivate되지 않도록 합니다. 
+    ///// </summary>
+    //public void ActivateOnion()
+    //{
+    //    Debug.Log("양파호출!");
+    //    _onion.SetActive(true);
+    //}
+
+
+
 }
 
 
