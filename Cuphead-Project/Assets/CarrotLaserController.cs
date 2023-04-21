@@ -73,8 +73,6 @@ public class CarrotLaserController : MonoBehaviour
     {
         if (HasBeenHitCollision(collision))
         {
-            Debug.Log("레이저사망");
-            
             animator.SetBool(ProjectileAnimID.DEAD, true);
             isDead = true;
         }

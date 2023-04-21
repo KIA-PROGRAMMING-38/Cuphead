@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7634900288041413550, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
+      propertyPath: childProjectileCollider
+      value: 
+      objectReference: {fileID: 2159432647405238640}
     - target: {fileID: 8439006461690673421, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
       propertyPath: m_Name
       value: Parryable
@@ -21,11 +25,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8599102967719719076, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.49
+      value: -16.94
       objectReference: {fileID: 0}
     - target: {fileID: 8599102967719719076, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.76
+      value: 2.11
       objectReference: {fileID: 0}
     - target: {fileID: 8599102967719719076, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -37,15 +41,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8599102967719719076, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8599102967719719076, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8599102967719719076, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8599102967719719076, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -79,7 +83,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2281595773734847231, guid: 0271e14cbfdb32a4fa5648db2781b365, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2281595773734847231, guid: 0271e14cbfdb32a4fa5648db2781b365, type: 3}
       propertyPath: m_IsActive
@@ -135,3 +139,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0271e14cbfdb32a4fa5648db2781b365, type: 3}
+--- !u!58 &2159432647405238640 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 6207825643929783938, guid: 0271e14cbfdb32a4fa5648db2781b365, type: 3}
+  m_PrefabInstance: {fileID: 5463279787542231026}
+  m_PrefabAsset: {fileID: 0}

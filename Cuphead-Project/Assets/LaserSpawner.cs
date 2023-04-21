@@ -6,6 +6,10 @@ using UnityEngine;
 public class LaserSpawner : MonoBehaviour
 {
 
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
     readonly int LASER_COUNT_TOTAL = 5;
     Vector3 _lastlyTrackedPlayerPosition;
 

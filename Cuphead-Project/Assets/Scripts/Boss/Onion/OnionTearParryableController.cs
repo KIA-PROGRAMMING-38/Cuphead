@@ -6,32 +6,46 @@ public class OnionTearParryableController : MonoBehaviour
 {
 
     private Rigidbody2D projectileRigidbody;
-
     private SpriteRenderer projectile;
     private Animator animator;
     private Collider2D collider;
 
 
-
+   
     private void OnEnable()
     {
-        projectileRigidbody = GetComponent<Rigidbody2D>();
+        projectileRigidbody = GetComponent<Rigidbody2D>();// 직전 키네마틱 해제
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
-        Invoke(nameof(DeactiveDelay), 1.0f);
+
+       
+        projectileRigidbody.gravityScale = Random.Range(0.1f, 0.3f);
+      
+
+        Invoke(nameof(DeactiveDelay), 2.0f);
+   
     }
     void DeactiveDelay() => gameObject.SetActive(false);
 
+
     private void OnDisable()
     {
+        projectileRigidbody.isKinematic = false;
         ObjectPooler.ReturnToPool(gameObject);
         CancelInvoke();
-        projectileRigidbody.gravityScale = Random.Range(0.1f, 0.4f);
+       
+     
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (HasHitPlayerCollision(collision) || HasHitGroundCollision(collision))
         {
+            
+            /* 플레이어 or 플랫폼과 충돌시 오브젝트를 멈추고 애니메이션 재생을
+            위해 키네마틱을 true로 하고 정지*/
+            projectileRigidbody.isKinematic = true;
+            projectileRigidbody.velocity = Vector3.zero;
             animator.SetBool(ProjectileAnimID.DEAD, true);
         }
     }

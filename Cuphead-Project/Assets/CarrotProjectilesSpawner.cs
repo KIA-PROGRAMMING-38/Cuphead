@@ -6,8 +6,7 @@ public class CarrotProjectilesSpawner : MonoBehaviour
 {
     Animator _animator;
 
-    [SerializeField]
-    PotatoIntroEvent potatoIntroEvent;
+   
 
 
     [SerializeField]
@@ -26,7 +25,12 @@ public class CarrotProjectilesSpawner : MonoBehaviour
 
 
     SpriteRenderer CarrotSpriteRenderer;
-    
+
+
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
     private void OnEnable()
     {
         _waitTimeForMaterial = new WaitForSeconds(durationOfHitMaterial);

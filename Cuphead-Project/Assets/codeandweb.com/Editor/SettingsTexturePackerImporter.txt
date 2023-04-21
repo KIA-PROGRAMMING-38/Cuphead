@@ -1,0 +1,41 @@
+version: 2
+tpsheetFileNames:
+- Assets/codeandweb.com/Example/SpriteSheet/sprites.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Carrot/Carrot_Death.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Backgorund.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Cry.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Death.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Idle.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Intro 1.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Intro.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Cry.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Death.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Idle.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Intro.tpsheet
+textureFileNames:
+- Assets/codeandweb.com/Example/SpriteSheet/sprites.png
+- Assets/Sprites/Boss/Made by SpritePacker/Carrot/Carrot_Death.png
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Onion_Backgorund.png
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Cry.png
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Onion_Death.png
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Idle.png
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Death.png
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Onion_Intro.png
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Onion_Cry.png
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Onion_Death.png
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Onion_Idle.png
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Onion_Intro.png
+normalmapFileNames:
+- Assets/codeandweb.com/Example/SpriteSheet/sprites_n.png
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+enableDebugOutput: 0

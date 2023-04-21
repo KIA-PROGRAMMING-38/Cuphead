@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5751607528653931390}
   - component: {fileID: 7323851128024226862}
   - component: {fileID: 375548491}
-  - component: {fileID: 375548490}
+  - component: {fileID: 375548492}
   m_Layer: 8
   m_Name: ExMove
   m_TagString: Bullet
@@ -154,8 +154,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 2
---- !u!61 &375548490
-BoxCollider2D:
+--- !u!70 &375548492
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -167,19 +167,9 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.06, y: 2.04}
-    newSize: {x: 4.06, y: 2.04}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.0001, y: 0.0001}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0.83, y: 0}
+  m_Size: {x: 1.88, y: 1.44}
+  m_Direction: 0
 --- !u!1001 &2484909107434458020
 PrefabInstance:
   m_ObjectHideFlags: 0

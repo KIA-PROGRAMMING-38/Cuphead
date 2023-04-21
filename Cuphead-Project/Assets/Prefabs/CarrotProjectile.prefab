@@ -70,8 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialProjectileSpeed: 0.42
-  _playerTransform: {fileID: 0}
-  _playerTrackingSpeed: 0.6
+  _player: {fileID: 0}
+  _playerTrackingSpeed: 0.72
   _MaterialDuringDamaged: {fileID: 2100000, guid: ce387163aadcbf44ab9f4ecb84f0460b, type: 2}
   _defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!212 &3719218236378251411

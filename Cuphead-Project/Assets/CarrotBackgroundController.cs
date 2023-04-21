@@ -9,11 +9,13 @@ public class CarrotBackgroundController : MonoBehaviour
     GameObject Carrot;
 
     //애니메이션 이벤트로 활성화
-    public void SetActivate()
+    public void ActivateCarrot()
     {
         Carrot.SetActive(true);
     }
 
- 
+   
+
+
 
 }

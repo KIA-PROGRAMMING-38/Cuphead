@@ -87,7 +87,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialProjectileSpeed: 2
   _playerTransform: {fileID: 0}
-  _laserSpeed: 1.66
+  _carrotEye: {fileID: 0}
+  _laserSpeed: 1.08
   laserSpawner: {fileID: 0}
 --- !u!95 &1780025056151872068
 Animator:

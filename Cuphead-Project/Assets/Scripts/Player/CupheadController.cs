@@ -22,7 +22,8 @@ public class CupheadController : MonoBehaviour
     public delegate void
         Event();
 
-    GameManager gameManager;
+    [SerializeField]
+    GameManager GameManager;
 
     public static Animator PlayerAnimator;
     public static SpriteRenderer PlayerSpriteRenderer;
@@ -66,7 +67,7 @@ public class CupheadController : MonoBehaviour
     Collider2D playerOnGround;
     ParrySuccessBehaviour parrySuccessBehaviour;
 
-
+    CupheadController _cupheadController;
 
     private void OnEnable()
     {
@@ -75,11 +76,25 @@ public class CupheadController : MonoBehaviour
     }
     private void Awake()
     {
-        //플레이어 초기 방향 설정
-        playerDirection = PLAYER_DIRECTION_RIGHT;
+        _cupheadController = GetComponent<CupheadController>();
         PlayerSpriteRenderer = GetComponent<SpriteRenderer>();
         playerRigidbody = GetComponent<Rigidbody2D>();
         PlayerAnimator = GetComponent<Animator>();
+        
+        //플레이어 초기 방향 설정.
+        playerDirection = PLAYER_DIRECTION_RIGHT;
+        //플레이어 인트로전까지 이동제약.
+        _cupheadController.enabled = false;
+
+
+    }
+
+    /// <summary>
+    /// 플레이어의 인트로가 끝날때 플레이어를 재생시켜줍니다. 
+    /// </summary>
+   public void StartPlay()
+    {
+        GameManager.OnGameStart();
     }
 
 
