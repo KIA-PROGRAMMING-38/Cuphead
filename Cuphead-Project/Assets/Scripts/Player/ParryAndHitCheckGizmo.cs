@@ -15,7 +15,7 @@ public class ParryAndHitCheckGizmo : MonoBehaviour
     {
 
     }
-    public static readonly float PLAYER_COLLIDER_GIZMO_SIZE = 0.8f;
+    public static readonly float PLAYER_COLLIDER_GIZMO_SIZE = 1.0f;
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;

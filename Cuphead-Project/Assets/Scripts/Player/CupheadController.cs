@@ -16,6 +16,13 @@ public class CupheadStateInfo
 public class CupheadController : MonoBehaviour
 {
 
+    // Try-Parrying 애니메이션에서도 간접적으로
+    // Trigger 를 활용할 수 있도록하는 bool값입니다. 
+    public bool isParryTriggered { get; private set; }
+
+
+
+
     [SerializeField]
     GameObject PlayerGameObject;
 
@@ -348,12 +355,20 @@ public class CupheadController : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+
+    /// <summary>
+    /// 패링 성공시 극적인 표현을 위해 잠시
+    /// 게임플레이를 멈춥니다.
+    /// 애니메이션 이벤트로 작동합니다. 
+    /// </summary>
+    private bool isPaused = false;
     public void TemporaryPause() => isPaused = true;
  
 
     //아래는 코루틴 함수 사용 부분입니다
-
-    public static readonly WaitForSeconds _waitTime = new WaitForSeconds(0.8f);
+    //플레이어 무적상태를 구현하기 위해 작성했습니다.
+    public static readonly WaitForSeconds _waitTime = new WaitForSeconds(1.0f);
+    public static readonly WaitForSeconds _parryWaitTime = new WaitForSeconds(0.1f);
     IEnumerator DelayMakingIsJumpEXMobingFalse()
     {
         yield return _waitTime;
@@ -367,22 +382,47 @@ public class CupheadController : MonoBehaviour
         HasBeenHit = false;
 
     }
+
+    /// <summary>
+    /// 패링성공 직후에만 패리상태로 변할 수 있도록 합니다.
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator DelayMakingParrySucceedFalse()
+    {
+        yield return _parryWaitTime;
+        PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, false);
+
+    }
     #endregion
 
 
 
-    #region // 플레이어가, 플랫폼, 투사체등에 맞는 경우를 감지합니다. 
+    #region // 플레이어가, 플랫폼, 투사체,보스,등에 맞는 경우를 감지합니다. 
     private void OnTriggerStay2D(Collider2D collision)
     {
-
+        if (IsParryableObjectCollision(collision))
+        {
+            Debug.Log("패링성공");
+            isParryTriggered = true;
+            PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, true);
+            PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
+            TryParrying = false;
+            StartCoroutine(DelayMakingParrySucceedFalse());
+        }
+       
 
         if (HasBeenHitCollision(collision))
         {
             PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, true);
+            StartCoroutine(DelayMakingIsJumpEXMobingFalse());
         }
+    }
 
-     
-
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, false);
+        isParryTriggered = false;
+      
     }
     #endregion
 
@@ -392,6 +432,11 @@ public class CupheadController : MonoBehaviour
     /// </summary>
     /// <param name="collision"></param>
     /// <returns></returns>
+    /// 
+    private bool IsParryableObjectCollision(Collider2D collision)
+    {
+        return collision.CompareTag(TagNames.PARRYABLE);
+    }
     private bool IsPlatformCollision(Collider2D collision)
     {
         return collision.CompareTag(LayerNames.PLATFORM);
@@ -405,12 +450,10 @@ public class CupheadController : MonoBehaviour
     private bool HasBeenHitCollision(Collider2D collision)
     {
       
-        if(HitParryableCollision(collision) && TryParrying)
-        {
-            return false;
-        }
+     
 
-        if (collision.CompareTag(TagNames.PROJECTILE))
+        if (collision.CompareTag(TagNames.PROJECTILE) ||
+            collision.CompareTag(TagNames.ENEMY))
         {
             return true;
         }
@@ -434,11 +477,8 @@ public class CupheadController : MonoBehaviour
 
     }
 
-    private bool HitParryableCollision(Collider2D collision)
-    {
-        return collision.CompareTag(TagNames.PARRYABLE);
-    }
-    private bool isPaused = false;
+   
+  
     
    
   

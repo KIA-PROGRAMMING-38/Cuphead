@@ -59,12 +59,10 @@ public class CarrotProjectileController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log($"플레이어 위치 :{_player.transform.position}");
-        if (!died)
+     
+        if (!died)//발사체가 터지기 전까지는 플레이어를 추격
         {
-
             RotateAndMoveProjectileTowardsPlayer();
-
         }
 
     }

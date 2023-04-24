@@ -35,7 +35,7 @@ public class OnionTearParryableController : MonoBehaviour
        
      
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         // 플레이어 혹은, 지면과 충돌했다면~
         if (HasHitPlayerCollision(collision) || HasHitGroundCollision(collision))

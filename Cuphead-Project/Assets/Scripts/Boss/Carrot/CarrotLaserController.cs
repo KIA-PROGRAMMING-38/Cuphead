@@ -30,7 +30,6 @@ public class CarrotLaserController : MonoBehaviour
 
     private void OnEnable()
     {
-
         isDead = false;
         laserSpriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();

@@ -72,6 +72,7 @@ public static class TagNames
     public static readonly string PARRYABLE = "Parryable";
     public static readonly string PLATFROM = "Platform";
     public static readonly string PLAYER = "Player";
+    public static readonly string ENEMY= "Enemy";
 }
 
 
