@@ -365,6 +365,10 @@ public class CupheadController : MonoBehaviour
     public void TemporaryPause() => isPaused = true;
  
 
+
+
+
+
     //아래는 코루틴 함수 사용 부분입니다
     //플레이어 무적상태를 구현하기 위해 작성했습니다.
     public static readonly WaitForSeconds _waitTime = new WaitForSeconds(1.0f);
@@ -381,6 +385,14 @@ public class CupheadController : MonoBehaviour
         yield return _waitTime;
         HasBeenHit = false;
 
+    }
+ 
+    private IEnumerator EnableScriptAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        PeashotSpawner peashotSpawner = GetComponent<PeashotSpawner>();
+        peashotSpawner.enabled = true;
     }
 
     /// <summary>
@@ -400,6 +412,7 @@ public class CupheadController : MonoBehaviour
     #region // 플레이어가, 플랫폼, 투사체,보스,등에 맞는 경우를 감지합니다. 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        //패링시도중 패링투사체 충돌 시
         if (IsParryableObjectCollision(collision))
         {
             Debug.Log("패링성공");
@@ -409,15 +422,29 @@ public class CupheadController : MonoBehaviour
             TryParrying = false;
             StartCoroutine(DelayMakingParrySucceedFalse());
         }
-       
 
+        //플레이어가 충돌체에 맞은 경우
         if (HasBeenHitCollision(collision))
         {
+            PeashotSpawner peashotSpawner = GetComponent<PeashotSpawner>();
+            peashotSpawner.enabled = false;
+
             PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, true);
+
+            //무적상태 호출 (애니메이션 간 파라미터 조건을 이용)
+            //플레이어에게 맞은 상태면 bool값으로 인해, 일정시간 중복데미지 X
             StartCoroutine(DelayMakingIsJumpEXMobingFalse());
+
+            //패링에 실패했는데 불궇고, 패링객체를 만나서 중복처리되는 경우를 방지.
+            StartCoroutine(DelayMakingParrySucceedFalse());
+
+            //맞을경우 일정시간 동안 총알을 발사 할 수 없음
+            StartCoroutine(EnableScriptAfterDelay(1.0f));
         }
     }
 
+
+    
     private void OnTriggerExit2D(Collider2D collision)
     {
         PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, false);

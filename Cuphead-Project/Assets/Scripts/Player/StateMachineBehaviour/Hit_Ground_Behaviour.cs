@@ -10,13 +10,16 @@ public class Hit_Ground_Behaviour : StateMachineBehaviour
 
    
     [SerializeField] Vector2 BounceVectorByHit = new Vector2 (5, 5);
-  
-  
+
+    [SerializeField] Script peashotSpawner;
+
+
 
 
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+      
         //초기화만 진행?
         playerRigidbody = animator.GetComponent<Rigidbody2D>();
     
@@ -33,6 +36,8 @@ public class Hit_Ground_Behaviour : StateMachineBehaviour
             playerRigidbody.velocity = BounceVectorByHit;
             CupheadController.HasBeenHit = true;
         }
+
+        peashotSpawner.SetActive(false);
     }
 
 
@@ -40,5 +45,10 @@ public class Hit_Ground_Behaviour : StateMachineBehaviour
     {
        animator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
        
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        peashotSpawner.SetActive(true);
     }
 }
