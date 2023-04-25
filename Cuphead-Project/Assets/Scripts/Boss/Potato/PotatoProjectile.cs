@@ -17,7 +17,10 @@ public class PotatoProjectile : MonoBehaviour
     Collider2D collider;
     float _spawnMoveDistance;
 
-
+    public void Start()
+    {
+     
+    }
     public void Update()
     {
 

@@ -11,7 +11,6 @@ public class Hit_Ground_Behaviour : StateMachineBehaviour
    
     [SerializeField] Vector2 BounceVectorByHit = new Vector2 (5, 5);
 
-    [SerializeField] Script peashotSpawner;
 
 
 
@@ -37,7 +36,7 @@ public class Hit_Ground_Behaviour : StateMachineBehaviour
             CupheadController.HasBeenHit = true;
         }
 
-        peashotSpawner.SetActive(false);
+   
     }
 
 
@@ -49,6 +48,6 @@ public class Hit_Ground_Behaviour : StateMachineBehaviour
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        peashotSpawner.SetActive(true);
+   
     }
 }

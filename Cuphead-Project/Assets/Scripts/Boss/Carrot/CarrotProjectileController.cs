@@ -27,7 +27,10 @@ public class CarrotProjectileController : MonoBehaviour
     SpriteRenderer _spriteRenderer;
 
     private bool died = false;
-
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
     private void Update()
     {
 
@@ -70,7 +73,6 @@ public class CarrotProjectileController : MonoBehaviour
 ;
     private void OnDisable()
     {
-
         ObjectPooler.ReturnToPool(gameObject);
         CancelInvoke(); //코루틴과 다르게 반드시 해제해주어야 합니다. 
     }
@@ -155,7 +157,7 @@ public class CarrotProjectileController : MonoBehaviour
         float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rotation_z + 90f);
         carrotRigidbody.position = Vector2.Lerp
-          (transform.position, _player.transform.position, _playerTrackingSpeed * Time.deltaTime);
+        (transform.position, _player.transform.position, _playerTrackingSpeed * Time.deltaTime);
     }
 
 

@@ -121,38 +121,17 @@ public class potatoProjectileSpawner : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// 포테이터 사망 애니메이션 후, 양파 호출 함수입니다.
-    /// 게임매니져로 변경해주어야합니다. 
-    /// </summary>
+    [SerializeField] GameObject Potato_shoot_animator;
 
-    //[SerializeField]
-    //GameObject _onion;
+    public void ActivatePotatoShootEffect()
+    {
+        Potato_shoot_animator.SetActive(true);
+    }
 
-
-    //public void SetActiveOnionBackground()
-    //{
-    //    StartCoroutine(SetActiveOnion());
-    //}
-
-    //WaitForSeconds waitTime = new WaitForSeconds(1.0f);
-    //IEnumerator SetActiveOnion()
-    //{
-    //    yield return waitTime;
-    //    ActivateOnion();
-    //}
-
-
-
-    ///// <summary>
-    ///// 포테이토가 죽은경우 발동하는 애니메이션 이벤트 함수 입니다.
-    ///// 포테이토가 먼저 Deactivate되지 않도록 합니다. 
-    ///// </summary>
-    //public void ActivateOnion()
-    //{
-    //    Debug.Log("양파호출!");
-    //    _onion.SetActive(true);
-    //}
+    public void DectivatePotatoShootEffect()
+    {
+        Potato_shoot_animator.SetActive(false);
+    }
 
 
 

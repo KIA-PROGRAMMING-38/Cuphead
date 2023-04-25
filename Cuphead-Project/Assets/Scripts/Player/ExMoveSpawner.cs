@@ -24,7 +24,7 @@ public class ExMoveSpawner : MonoBehaviour
         _elapsedTime += Time.deltaTime;
 
         // 총알 발사시간을 제한하는 조건을 넣어, 지나치게 많은 총알이 생성되는 것을 방지합니다. 
-        if (Input.GetKey(KeyCode.V) && _elapsedTime > _spawnCoolTime)
+        if (Input.GetKeyDown(KeyCode.V) && _elapsedTime > _spawnCoolTime)
         {
             _playerAnimator.SetBool(CupheadAnimID.EX_MOVE, true);
             _exMoveAnimator.SetBool(BulletAnimID.IS_LAUNCHED, true);

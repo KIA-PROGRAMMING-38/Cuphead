@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 399d3f48d434dd149bfa76c3f4606abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialLaserSpeed: 0
+  _initialLaserSpeed: 0.63
   _carrotEye: {fileID: 0}
   _laserSpeed: 1.08
 --- !u!95 &1780025056151872068

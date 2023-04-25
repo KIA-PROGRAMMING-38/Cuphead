@@ -11,8 +11,10 @@ public class GameManager : MonoBehaviour
     
     public bool IsGameover { get; private set;}
     public bool IsPotatoDead { get; private set; }
+
+
     [SerializeField] private GameObject _player;
-    [SerializeField] private CupheadController _cupheadController;
+    [SerializeField] private CupheadController CupheadController;
     [SerializeField] private GameObject _Potato;
     [SerializeField] private GameObject _Onion;
     [SerializeField] private GameObject _Carrot;
@@ -25,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     public void OnGameStart()
     {
-        _cupheadController.enabled= true;
+        CupheadController.enabled= true;
     }
 
     public void OnPotatoDead()

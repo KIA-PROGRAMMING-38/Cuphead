@@ -45,13 +45,14 @@ public class CupheadController : MonoBehaviour
     [SerializeField]
     public Vector2 ExmoveBounceForce;
 
-    private int playerHP = 3; 
+    private int playerHP = 3;
 
 
 
     #region//각 동작을 한 번만 실행되도록 하기위해 아래와 같은 조건값을 사용합니다. 
     //플레이어 고유 상태 여부를 스태틱으로 저장했습니다.
     //다른 객체와 구별됨에 주의합니다. 
+    public static bool StopRunning;
     public static bool IsDucking;
     public static bool IsJumping;
     public static bool HasParried;
@@ -68,14 +69,24 @@ public class CupheadController : MonoBehaviour
 
     public AudioSource _audioSource;
 
-    Try_Parrying_Behaviour try_Parrying_Behaviour;
-
     [SerializeField]
     Collider2D playerOnGround;
-    ParrySuccessBehaviour parrySuccessBehaviour;
+   
 
     CupheadController _cupheadController;
+    private void Start()
+    {
+        //플레이어 인트로전까지 이동제약.
+        _cupheadController.enabled = false;
 
+        //플레이어 초기 방향 설정.
+        playerDirection = PLAYER_DIRECTION_RIGHT;
+
+      
+          
+        
+
+    }
     private void OnEnable()
     {
         
@@ -88,10 +99,8 @@ public class CupheadController : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody2D>();
         PlayerAnimator = GetComponent<Animator>();
         
-        //플레이어 초기 방향 설정.
-        playerDirection = PLAYER_DIRECTION_RIGHT;
-        //플레이어 인트로전까지 이동제약.
-        _cupheadController.enabled = false;
+        
+      
 
 
     }
@@ -102,21 +111,19 @@ public class CupheadController : MonoBehaviour
    public void StartPlay()
     {
         GameManager.OnGameStart();
+        Debug.Log("게임시작!");
     }
 
 
 
-    void Start()
-    {
-        parrySuccessBehaviour = new ParrySuccessBehaviour();
-    }
+ 
     private void Update()
     {
      
         DuckPlayer();
         JumpPlayer();
         Shoot();
-        
+        StopPlayerRunning();
         MovePlayer();
     }
     private void LateUpdate()
@@ -134,41 +141,53 @@ public class CupheadController : MonoBehaviour
     /// 일시적으로 플레이어 이동을 멈추고 점프속도를 없애주는
     /// 코드를 작성했습니다. 
     /// </summary>
-
+    
 
     /// <summary>
     /// 플레이어 이동을 위한 입력값을 받아 움직이는 함수입니다.
     /// </summary>
     public void MovePlayer()
     {
-        if (!Input.GetKeyUp(KeyCode.C))
+        _inputVec.x = Input.GetAxisRaw("Horizontal");
+        _inputVec.y = Input.GetAxisRaw("Vertical");
+
+        if (StopRunning == false)
         {
-            _bulletSparkAnimator.SetBool(BulletAnimID.IS_LAUNCHED, false);
 
-            _inputVec.x = Input.GetAxisRaw("Horizontal");
-            _inputVec.y = Input.GetAxisRaw("Vertical");
-
-
-            if (IsDucking == false)
+            if (IsDucking == false) //C키로 플레이어를 멈추거나 Ducking 상태가 아니면..
             {
-                playerRigidbody.velocity = new Vector2
+                playerRigidbody.velocity = new Vector2 //  플레이어를 움직여줌 
                (_inputVec.x * _playerMoveSpeed, playerRigidbody.velocity.y);
+                if(playerRigidbody.velocity != Vector2.zero)
+                {
+                    PlayerAnimator.SetBool(CupheadAnimID.RUN, true);
+                }
             }
 
             FlipPlayer();
         }
 
-        else if (Input.GetKey(KeyCode.C))
-        {
-            playerRigidbody.velocity = Vector2.zero;
-        }
-
-        else if (Input.GetKey(KeyCode.DownArrow))
-        {
-            playerRigidbody.velocity = Vector2.zero;
-        }
-
     }
+
+   public void StopPlayerRunning()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            playerRigidbody.velocity = Vector2.zero;
+            Debug.Log($"IsStopRunning: {StopRunning}");
+            StopRunning = true;
+            PlayerAnimator.SetBool(CupheadAnimID.RUN, false);
+            PlayerAnimator.SetBool(CupheadAnimID.STOP_MOVING, true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.C))
+        {
+            PlayerAnimator.SetBool(CupheadAnimID.STOP_MOVING, false);
+            Debug.Log($"IsStopRunning: {StopRunning}");
+            StopRunning = false;
+        }
+    }
+
 
 
 
@@ -185,7 +204,7 @@ public class CupheadController : MonoBehaviour
 
         if (_inputVec.x != 0f)
         {
-            PlayerAnimator.SetBool(CupheadAnimID.RUN, true);
+           
 
             if (_inputVec.x < 0.0f)
             {
@@ -216,7 +235,7 @@ public class CupheadController : MonoBehaviour
     /// </summary>
     public void DuckPlayer()
     {
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.DownArrow) && !StopRunning)
         {
             IsDucking = true;
             PlayerAnimator.SetBool(CupheadAnimID.DUCK, true);
@@ -266,7 +285,13 @@ public class CupheadController : MonoBehaviour
 
 
 
-
+    public void StopPlayer()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+           playerRigidbody.velocity = Vector3.zero;
+        }
+    }
 
 
     /// <summary>
@@ -279,12 +304,12 @@ public class CupheadController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.X))
         {
-            PlayerAnimator.SetBool(CupheadAnimID.STAND_SHOOT, true);
+            PlayerAnimator.SetBool(CupheadAnimID.SHOOT, true);
         }
 
         if (Input.GetKeyUp(KeyCode.X))
         {
-            PlayerAnimator.SetBool(CupheadAnimID.STAND_SHOOT, false);
+            PlayerAnimator.SetBool(CupheadAnimID.SHOOT, false);
 
         }
 

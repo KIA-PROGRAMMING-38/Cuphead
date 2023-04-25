@@ -5,7 +5,7 @@ using UnityEngine;
 public class PeashotExMoveController : MonoBehaviour
 {
     [SerializeField]
-    Rigidbody2D _bulletRigidbody;
+    Rigidbody2D _exMoveRigidBody;
     [SerializeField]
     Transform _rangePosition;
     [SerializeField]
@@ -28,14 +28,14 @@ public class PeashotExMoveController : MonoBehaviour
         if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT)
         {
             ExMoveSpriteRenderer.flipX = false;
-            _bulletRigidbody.velocity = _exMoveForce;
+            _exMoveRigidBody.velocity = _exMoveForce;
          
 
         }
         else if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_LEFT)
         {
             ExMoveSpriteRenderer.flipX = true;
-            _bulletRigidbody.velocity = -_exMoveForce;
+            _exMoveRigidBody.velocity = -_exMoveForce;
 
         }
 
@@ -47,7 +47,7 @@ public class PeashotExMoveController : MonoBehaviour
 
         if (CheckBulletIsHit() == true)
         {
-            _bulletRigidbody.velocity = Vector2.zero;
+            _exMoveRigidBody.velocity = Vector2.zero;
             Invoke(nameof(DeactiveDelay), 0.2f);
         }
 

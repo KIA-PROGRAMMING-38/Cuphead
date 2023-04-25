@@ -13,13 +13,15 @@ public static class CupheadAnimID
     public static readonly int DUCK = Animator.StringToHash("Ducking");
     public static readonly int IS_DUCK_AND_SHOOOT = Animator.StringToHash("DuckingAndShooting");
 
-    public static readonly int STAND_SHOOT = Animator.StringToHash("StandShooting");
+    public static readonly int STOP_MOVING = Animator.StringToHash("StopMoving");
+
+
+    public static readonly int SHOOT = Animator.StringToHash("Shooting");
     public static readonly int SHOOT_UP = Animator.StringToHash("ShootingUp");
     public static readonly int SHOOT_DOWN = Animator.StringToHash("ShootingDown");
-    public static readonly int SHOOT_UPPER_LEFT = Animator.StringToHash("ShootingUpperLeft");
-    public static readonly int SHOOT_UPPER_RIGHT = Animator.StringToHash("ShootingUpperRight");
-    public static readonly int SHOOT_BOTTOM_LEFT = Animator.StringToHash("ShootingBottomLeft");
-    public static readonly int SHOOT_BOTTOM_RIGHT = Animator.StringToHash("ShootingBottomRight");
+    public static readonly int SHOOT_UPPER_SIDEWAYS = Animator.StringToHash("ShootingUpperSideways");
+    public static readonly int SHOOT_BOTTOM_SIDEWAYS = Animator.StringToHash("ShootingBottomSideways");
+  
 
     public static readonly int TRY_PARRYING = Animator.StringToHash("TryParrying");
     public static readonly int HAS_PARRIED = Animator.StringToHash("HasParried");
