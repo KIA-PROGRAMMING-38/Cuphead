@@ -6,10 +6,15 @@ public class ExMoveSpawner : MonoBehaviour
 {
     [SerializeField]
     GameObject _spawnposition;
+
     [SerializeField]
     Animator _playerAnimator;
+
     [SerializeField]
     Animator _exMoveAnimator;
+
+    [SerializeField]
+    PeashotSpawner peashotSpawner;
 
     [SerializeField]
     float _spawnCoolTime;
@@ -27,7 +32,6 @@ public class ExMoveSpawner : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V) && _elapsedTime > _spawnCoolTime)
         {
             _playerAnimator.SetBool(CupheadAnimID.EX_MOVE, true);
-            _exMoveAnimator.SetBool(BulletAnimID.IS_LAUNCHED, true);
           
             // 스폰 시 포지션을 정해줍니다. 
             // 숙인 경우(Ducking) 발사 위치를 밑으로 정해줍니다. 
@@ -38,6 +42,12 @@ public class ExMoveSpawner : MonoBehaviour
     }
     public void LaunchExMove()
     {
+        peashotSpawner.isUp = false;
+        GameObject bullet = ObjectPooler.SpawnFromPool(ObjectPoolNameID.EX_MOVE, _spawnposition.transform.position);
+    }
+    public void LaunchExMoveUp()
+    {
+        peashotSpawner.isUp = true;
         GameObject bullet = ObjectPooler.SpawnFromPool(ObjectPoolNameID.EX_MOVE, _spawnposition.transform.position);
     }
 }

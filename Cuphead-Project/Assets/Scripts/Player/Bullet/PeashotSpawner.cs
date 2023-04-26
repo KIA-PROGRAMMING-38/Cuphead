@@ -10,14 +10,7 @@ public class PeashotSpawner : MonoBehaviour
 {
     [SerializeField]
     Animator _playerAnimator;
-    [SerializeField]
-    GameObject _spawnposition;
 
-    [SerializeField]
-    GameObject _spawnpositionDucking;
-
-    [SerializeField]
-    Animator _bulletSparkAnimator;
 
     [SerializeField]
     float _spawnCoolTime;
@@ -32,7 +25,8 @@ public class PeashotSpawner : MonoBehaviour
     float _elapsedTime;
     int countTomove = 0;
 
-    Vector3[] moveSpawnPosition = new Vector3[4];
+    Vector3[] moveSpawnPositionRight = new Vector3[4];
+    Vector3[] moveSpawnPositionLeft = new Vector3[4];
 
     Vector3 originalPositionAndRotation;
 
@@ -41,7 +35,7 @@ public class PeashotSpawner : MonoBehaviour
 
 
 
-    public bool isUp { get; private set; }
+    public bool isUp { get; set; }
     public bool isDown { get; private set; }
     public bool isRight { get; private set; }
     public bool isLeft { get; private set; }
@@ -59,11 +53,16 @@ public class PeashotSpawner : MonoBehaviour
     private void Awake()
     {
 
-        originalPositionAndRotation = _spawnposition.transform.position;
-        moveSpawnPosition[0] = Vector3.up * _spawnMoveDistance; // 중단
-        moveSpawnPosition[1] = Vector3.up * _spawnMoveDistance; //최상단
-        moveSpawnPosition[2] = Vector3.down * _spawnMoveDistance; // 중단
-        moveSpawnPosition[3] = Vector3.down * _spawnMoveDistance; //최하단
+
+        moveSpawnPositionLeft[0] = Vector3.up * _spawnMoveDistance; // 중단
+        moveSpawnPositionLeft[1] = Vector3.up * _spawnMoveDistance; //최상단
+        moveSpawnPositionLeft[2] = Vector3.down * _spawnMoveDistance; // 중단
+        moveSpawnPositionLeft[3] = Vector3.down * _spawnMoveDistance; //최하단
+
+        moveSpawnPositionRight[0] = Vector3.up * _spawnMoveDistance; // 중단
+        moveSpawnPositionRight[1] = Vector3.up * _spawnMoveDistance; //최상단
+        moveSpawnPositionRight[2] = Vector3.down * _spawnMoveDistance; // 중단
+        moveSpawnPositionRight[3] = Vector3.down * _spawnMoveDistance; //최하단
     }
 
     enum Direction
@@ -91,43 +90,138 @@ public class PeashotSpawner : MonoBehaviour
 
 
 
+    [SerializeField]
+    GameObject _spawnpositionDuckingRight;
+
+    [SerializeField]
+    GameObject _spawnpositionDuckingLeft;
 
     readonly float TIME_ZERO = 0f;
+    /// <summary>
+    /// 플레이어가 Ducking 상태일때 발사체위치 조정 및 풀에서 꺼내오기
+    /// </summary>
     private void ShootBulletDucking()
     {
 
-        GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _spawnpositionDucking.transform.position);
-        _elapsedTime = TIME_ZERO;
+        if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT)
+        {
+            GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _spawnpositionDuckingRight.transform.position);
+            _elapsedTime = TIME_ZERO;
+        }
+        else if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_LEFT)
+        {
+            GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _spawnpositionDuckingLeft.transform.position);
+            _elapsedTime = TIME_ZERO;
+        }
     }
 
 
 
 
+    private void ShootWhileJumping()
+    {
+        if (CupheadController.IsShooting)
+        {
+            if (isUp)
+            {
+                GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _shootUpPosition.transform.position);
+                _elapsedTime = TIME_ZERO;
+            }
+
+            else if (isDown)
+            {
+                GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _shootDownPosition.transform.position);
+                _elapsedTime = TIME_ZERO;
+            }
+
+            else if(isUpperRight)
+            {
+                GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _shootTopRightPosition.transform.position);
+                _elapsedTime = TIME_ZERO;
+            }
+            else if(isUpperLeft)
+            {
+                GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _shootTopLeftPosition.transform.position);
+                _elapsedTime = TIME_ZERO;
+            }
+
+            else if(isRight)
+            {
+                spawnPositionRight = _shootRightPosition.transform.position + moveSpawnPositionRight[countTomove % 4];
+                countTomove++;
+                _elapsedTime = TIME_ZERO;
+                GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", spawnPositionRight);
+                //초기화
+                spawnPositionRight = _shootRightPosition.transform.position;
+
+            }
+            else if(isLeft)
+            {
+                spawnPositionLeft = _shootLeftPosition.transform.position + moveSpawnPositionLeft[countTomove % 4];
+                countTomove++;
+                _elapsedTime = TIME_ZERO;
+                GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", spawnPositionLeft);
+                //초기화
+                spawnPositionLeft = _shootLeftPosition.transform.position;
+            }
+
+            else if(isBottomRight)
+            {
+                GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _shootBottomRightPosition.transform.position);
+                _elapsedTime = TIME_ZERO;
+            }
+            else if(isBottomLeft)
+            {
+                GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _shootBottomLeftPosition.transform.position);
+                _elapsedTime = TIME_ZERO;
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// 플레이어가 옆으로 발사할때 (위,아래,대각선 X) 발사체위치 조정 및 풀에서 꺼내오기
+    /// </summary>
+
     [SerializeField] GameObject _shootRightPosition;
     [SerializeField] GameObject _shootLeftPosition;
+    Vector3 spawnPositionRight;
+    Vector3 spawnPositionLeft;
+
     private void ShootSideways()
     {
         Debug.Log($"ShootSideways():  {bullet.MoveDirection}");
         if (isRight)
-
         {
-            _spawnposition.transform.position += moveSpawnPosition[countTomove % 4];
-            GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _shootRightPosition.transform.position);
+            spawnPositionRight = _shootRightPosition.transform.position + moveSpawnPositionRight[countTomove % 4];
             countTomove++;
             _elapsedTime = TIME_ZERO;
+            GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", spawnPositionRight);
+            //초기화
+            spawnPositionRight = _shootRightPosition.transform.position;
+
+
         }
         if (isLeft)
         {
-            _spawnposition.transform.position += moveSpawnPosition[countTomove % 4];
-            GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _shootLeftPosition.transform.position);
+            spawnPositionLeft = _shootLeftPosition.transform.position + moveSpawnPositionLeft[countTomove % 4];
             countTomove++;
             _elapsedTime = TIME_ZERO;
+            GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", spawnPositionLeft);
+            //초기화
+            spawnPositionLeft = _shootLeftPosition.transform.position;
+
+
         }
     }
 
 
 
 
+
+    /// <summary>
+    /// 플레이어가 위로 발사할때 (대각선 X) 발사체위치 조정 및 풀에서 꺼내오기
+    /// </summary>
     [SerializeField] GameObject _shootUpPosition;
     [SerializeField] GameObject _shootDownPosition;
 
@@ -139,6 +233,10 @@ public class PeashotSpawner : MonoBehaviour
     }
 
 
+
+    /// <summary>
+    /// 플레이어가 아래로 발사할때 (대각선 X) 발사체위치 조정 및 풀에서 꺼내오기
+    /// </summary>
 
     private void ShootingDown()
     {
@@ -152,6 +250,10 @@ public class PeashotSpawner : MonoBehaviour
 
 
 
+
+    /// <summary>
+    /// 플레이어가 대각선 발사 시, 발사체위치 조정 및 풀에서 꺼내오기
+    /// </summary>
     [SerializeField] GameObject _shootTopRightPosition;
     [SerializeField] GameObject _shootTopLeftPosition;
     private void ShootingTopSidewatys()
@@ -164,7 +266,7 @@ public class PeashotSpawner : MonoBehaviour
         }
         if (isUpperLeft)
         {
-            GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _shootTopRightPosition.transform.position);
+            GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _shootTopLeftPosition.transform.position);
             _elapsedTime = TIME_ZERO;
         }
     }
@@ -190,14 +292,7 @@ public class PeashotSpawner : MonoBehaviour
 
 
 
-    private void TurnOffAnimator()
-    {
-        if (Input.GetKeyUp(KeyCode.X))
-        {
-            _bulletSparkAnimator.SetBool(BulletAnimID.IS_LAUNCHED, false);
 
-        }
-    }
 
 
     private void SetShootingDirection()
@@ -215,47 +310,78 @@ public class PeashotSpawner : MonoBehaviour
         isBottomRight = inputvecY < 0 && inputvecX > 0;
         isBottomLeft = inputvecY < 0 && inputvecX < 0;
 
-        if(inputvecY==0 && inputvecX == 0)
+        if (inputvecY == 0)
         {
-            if(CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT)
+            _playerAnimator.SetBool(CupheadAnimID.SHOOT_UP, false);
+            _playerAnimator.SetBool(CupheadAnimID.SHOOT_DOWN, false);
+            _playerAnimator.SetBool(CupheadAnimID.SHOOT_UPPER_SIDEWAYS, false);
+            _playerAnimator.SetBool(CupheadAnimID.SHOOT_BOTTOM_SIDEWAYS, false);
+
+            if (inputvecX == 0)
             {
-                isRight = true;
+                if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT)
+                {
+                    _playerAnimator.SetBool(CupheadAnimID.SHOOT_UPPER_SIDEWAYS, false);
+                    _playerAnimator.SetBool(CupheadAnimID.SHOOT_BOTTOM_SIDEWAYS, false);
+                    isRight = true;
+                }
+                if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_LEFT)
+                {
+                    _playerAnimator.SetBool(CupheadAnimID.SHOOT_UPPER_SIDEWAYS, false);
+                    _playerAnimator.SetBool(CupheadAnimID.SHOOT_BOTTOM_SIDEWAYS, false);
+                    isLeft = true;
+                }
             }
-            if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_LEFT)
-            {
-                isLeft = true;
-            }
+
         }
 
 
         // 애니메이션 선처리 
         if (isUp)
         {
-            _playerAnimator.SetBool(CupheadAnimID.SHOOT_DOWN, false);
 
-            if (isRight) _playerAnimator.SetBool(CupheadAnimID.SHOOT_UPPER_SIDEWAYS, true);
-            else if (isLeft) _playerAnimator.SetBool(CupheadAnimID.SHOOT_UPPER_SIDEWAYS, true);
-            else _playerAnimator.SetBool(CupheadAnimID.SHOOT_UP, true);
+            if (isRight)
+            {
+                _playerAnimator.SetBool(CupheadAnimID.SHOOT_UP, false);
+                _playerAnimator.SetBool(CupheadAnimID.SHOOT_UPPER_SIDEWAYS, true);
+            }
+            else if (isLeft)
+            {
+                _playerAnimator.SetBool(CupheadAnimID.SHOOT_UP, false);
+                _playerAnimator.SetBool(CupheadAnimID.SHOOT_UPPER_SIDEWAYS, true);
+            }
+            else
+            {
+                _playerAnimator.SetBool(CupheadAnimID.SHOOT_UPPER_SIDEWAYS, false);
+                _playerAnimator.SetBool(CupheadAnimID.SHOOT_UP, true);
+            }
         }
 
 
         else if (isDown)
         {
-            _playerAnimator.SetBool(CupheadAnimID.SHOOT_UP, false);
 
-            if (isRight) _playerAnimator.SetBool(CupheadAnimID.SHOOT_BOTTOM_SIDEWAYS, true);
-            else if (isLeft) _playerAnimator.SetBool(CupheadAnimID.SHOOT_BOTTOM_SIDEWAYS, true);
-            else _playerAnimator.SetBool(CupheadAnimID.SHOOT_DOWN, true);
+
+            if (isRight)
+            {
+                _playerAnimator.SetBool(CupheadAnimID.SHOOT_DOWN, false);
+                _playerAnimator.SetBool(CupheadAnimID.SHOOT_BOTTOM_SIDEWAYS, true);
+            }
+            else if (isLeft)
+            {
+                _playerAnimator.SetBool(CupheadAnimID.SHOOT_DOWN, false);
+                _playerAnimator.SetBool(CupheadAnimID.SHOOT_BOTTOM_SIDEWAYS, true);
+            }
+
+            else
+            {
+                _playerAnimator.SetBool(CupheadAnimID.SHOOT_BOTTOM_SIDEWAYS, false);
+                _playerAnimator.SetBool(CupheadAnimID.SHOOT_DOWN, true);
+            }
 
         }
 
-        else
-        {
-            _playerAnimator.SetBool(CupheadAnimID.SHOOT_UPPER_SIDEWAYS, false);
-            _playerAnimator.SetBool(CupheadAnimID.SHOOT_UP, false);
-            _playerAnimator.SetBool(CupheadAnimID.SHOOT_BOTTOM_SIDEWAYS, false);
-            _playerAnimator.SetBool(CupheadAnimID.SHOOT_DOWN, false);
-        }
+
 
     }
 

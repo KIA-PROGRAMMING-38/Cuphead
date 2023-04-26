@@ -96,44 +96,10 @@ public class Bullet : MonoBehaviour
     {
         if (peashotSpawner == null) return;
 
-        if (peashotSpawner.isUp)
+        //Ducking인 경우 좌우만 판단
+        if (CupheadController.IsDucking == true)
         {
-            peashotSpriteRenderer.flipY = false;
-
-            if (peashotSpawner.isRight) moveDirection = LaunchDirection.TopRight;
-            else if (peashotSpawner.isLeft)
-            {
-                peashotSpriteRenderer.flipX = true;
-                moveDirection = LaunchDirection.TopLeft;
-            }
-            else moveDirection = LaunchDirection.Up;
-
-        }
-        else if (peashotSpawner.isDown)
-        {
-            peashotSpriteRenderer.flipY = true;
-
-            if (peashotSpawner.isRight) moveDirection = LaunchDirection.BottomRight;
-            else if (peashotSpawner.isLeft)
-            {
-                peashotSpriteRenderer.flipX = true;
-                moveDirection = LaunchDirection.BottomLeft;
-            }
-            else moveDirection = LaunchDirection.Down;
-        }
-        else if (peashotSpawner.isRight)
-        {
-            peashotSpriteRenderer.flipX = false;
-            moveDirection = LaunchDirection.Right;
-        }
-        else if (peashotSpawner.isLeft)
-        {
-            peashotSpriteRenderer.flipX = true;
-            moveDirection = LaunchDirection.Left;
-        }
-        else // 전부아니라면 기본값을 할당.
-        {
-            if(CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT)
+            if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT)
             {
                 moveDirection = LaunchDirection.Right;
                 peashotSpriteRenderer.flipX = false;
@@ -143,13 +109,69 @@ public class Bullet : MonoBehaviour
                 moveDirection = LaunchDirection.Left;
                 peashotSpriteRenderer.flipX = true;
             }
-
         }
 
+        //Ducking 아닌 경우
+        else
+        {
+            if (peashotSpawner.isUp)
+            {
+                peashotSpriteRenderer.flipY = false;
+
+                if (peashotSpawner.isRight) moveDirection = LaunchDirection.TopRight;
+                else if (peashotSpawner.isLeft)
+                {
+                    peashotSpriteRenderer.flipX = true;
+                    moveDirection = LaunchDirection.TopLeft;
+                }
+                else moveDirection = LaunchDirection.Up;
+
+            }
+            else if (peashotSpawner.isDown)
+            {
+                peashotSpriteRenderer.flipY = true;
+
+                if (peashotSpawner.isRight) moveDirection = LaunchDirection.BottomRight;
+                else if (peashotSpawner.isLeft)
+                {
+                    peashotSpriteRenderer.flipX = true;
+                    moveDirection = LaunchDirection.BottomLeft;
+                }
+                else
+                    moveDirection = LaunchDirection.Down;
+            }
+            else if (peashotSpawner.isRight)
+            {
+                peashotSpriteRenderer.flipX = false;
+                moveDirection = LaunchDirection.Right;
+            }
+            else if (peashotSpawner.isLeft)
+            {
+                peashotSpriteRenderer.flipX = true;
+                moveDirection = LaunchDirection.Left;
+            }
+            else // 전부아니라면 SpriteRenderer로 최신값을 할당.
+            {
+                if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT)
+                {
+                    moveDirection = LaunchDirection.Right;
+                    peashotSpriteRenderer.flipX = false;
+                }
+                else if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_LEFT)
+                {
+                    moveDirection = LaunchDirection.Left;
+                    peashotSpriteRenderer.flipX = true;
+                }
+
+            }
+        }
+
+        
+
         transform.rotation = rotationTable[(int)moveDirection];
-        peashotSpriteRenderer.flipX = flipTable[(int)moveDirection, 0] ;
-        peashotSpriteRenderer.flipY = flipTable[(int)moveDirection, 1] ;
-       
+        peashotSpriteRenderer.flipX = flipTable[(int)moveDirection, 0];
+        peashotSpriteRenderer.flipY = flipTable[(int)moveDirection, 1];
+
 
         //할당된 값을 Lookuptable로 호출
         _bulletRigidbody.velocity = _bulletForceTable[(int)moveDirection];

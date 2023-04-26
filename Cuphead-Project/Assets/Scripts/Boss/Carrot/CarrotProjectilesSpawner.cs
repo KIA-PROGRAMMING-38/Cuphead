@@ -15,11 +15,14 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     //CarrotProjectile을 랜덤으로 생성 할 상단 플랫폼을 두가지 구간으로 나누어줍니다. 
     [SerializeField]
     Transform _LeftSpawnPositionOfCarrotProjectile;
+
     [SerializeField]
     Transform _RightSpawnPositionOfCarrotProjectile;
 
+    [SerializeField]
+    GameObject _carrotLaserAnimator;
 
-  
+
     private int spawnPosition = 0;
     private readonly int SPAWN_POSITION_LEFT = 0;
     private readonly int SPAWN_POSITION_RIGHT = 10;
@@ -33,19 +36,24 @@ public class CarrotProjectilesSpawner : MonoBehaviour
 
     private void Start()
     {
-        gameObject.SetActive(false); //Carrot_background 객체에 의해 애니메이션 이벤트를 통해 호출됩니다. 
+       
     }
-
+    void DeactivateDelay() => gameObject.SetActive(false);
 
     private void OnEnable()
     {
         _waitTimeForMaterial = new WaitForSeconds(durationOfHitMaterial);
         _animator = GetComponent<Animator>();
         CarrotSpriteRenderer = GetComponent<SpriteRenderer>();
-      
+        Invoke(nameof(DeactivateDelay), 20f); //
     }
 
-    
+    private void OnDisable()
+    {
+        ObjectPooler.ReturnToPool(gameObject);
+        CancelInvoke(); //코루틴과 다르게 반드시 해제해주어야 합니다. 
+    }
+
     [SerializeField]
     GameObject CarrotEye;
 
@@ -55,7 +63,38 @@ public class CarrotProjectilesSpawner : MonoBehaviour
 
     Vector3 spawnPositionMove;
 
+    GameObject throwBackGroundCarrotProjectile()
+    {
+        // 백분위로 랜덤함수 판별
+        PositionDeciderOfCarrotProjectile = Random.Range(0, 100);
+        Debug.Log(PositionDeciderOfCarrotProjectile);
 
+        if (PositionDeciderOfCarrotProjectile < 50)
+        {
+            float rangeToMovespawnPosition = Random.Range(0, 3);
+            spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
+
+            // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
+
+            _LeftSpawnPositionOfCarrotProjectile.position += spawnPositionMove;
+
+            return ObjectPooler.SpawnFromPool
+            (ObjectPoolNameID.CARROT_BACKGROUND_PROJECTILE, _LeftSpawnPositionOfCarrotProjectile.position);
+        }
+
+        else
+        {
+            float rangeToMovespawnPosition = Random.Range(0, 3);
+            spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
+
+            // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
+
+            _RightSpawnPositionOfCarrotProjectile.position += spawnPositionMove;
+
+            return ObjectPooler.SpawnFromPool
+            (ObjectPoolNameID.CARROT_BACKGROUND_PROJECTILE, _RightSpawnPositionOfCarrotProjectile.position);
+        }
+    }
     /// <summary>
     /// 당근 투사체 애니메이션 이벤트 입니다.
     /// 위치값을 랜덤으로 하도록 구성하였습니다. 
@@ -64,8 +103,7 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     GameObject throwCarrotProjectile()
     {
        
-        // 백분위로 랜덤함수 판별.
-
+        // 백분위로 랜덤함수 판별
         PositionDeciderOfCarrotProjectile = Random.Range(0, 100);
 
         Debug.Log(PositionDeciderOfCarrotProjectile);
@@ -74,7 +112,7 @@ public class CarrotProjectilesSpawner : MonoBehaviour
         {
             float rangeToMovespawnPosition = Random.Range(0, 3);
             spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
-            Debug.Log("당근 왼쪽");
+            
             // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
           
             _LeftSpawnPositionOfCarrotProjectile.position += spawnPositionMove;
@@ -87,7 +125,7 @@ public class CarrotProjectilesSpawner : MonoBehaviour
         {
             float rangeToMovespawnPosition = Random.Range(0, 3);
             spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
-            Debug.Log("당근 오른쪽");
+           
             // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
           
             _RightSpawnPositionOfCarrotProjectile.position += spawnPositionMove;
@@ -164,8 +202,8 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     /// 호출하기 위해서 아래와 같이 _carrotLaserAnimator를 받아오고
     /// 재생하여줍니다. 
     /// </summary>
-    [SerializeField]
-    GameObject _carrotLaserAnimator;
+  
+   
 
     void ActivateCarrotEyeDuringLaserShoot()
     {
@@ -175,10 +213,10 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     {
         _carrotLaserAnimator.SetActive(false);
     }
-   
+ 
 
-  
-   
+
+
     /// <summary>
     /// 레이저는 다른 투사체와 다르게,
     /// 플랫폼에 부딫혀야 사라지는 애니메이션이 재생됩니다.

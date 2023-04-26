@@ -51,11 +51,17 @@ public static class ObjectPoolNameID
 
     public static readonly string POTATO_PROJECTILE_PARRYABLE = "PotatoProjectileParryable";
     public static readonly string POTATO_PROJECTILE = "PotatoProjectile";
+  
     public static readonly string ONION_TEARS = "NormalTear";
     public static readonly string ONION_TEARS_PARRYABLE = "ParryableTear";
+
     public static readonly string EX_MOVE = "ExMove";
+
     public static readonly string CARROT_PROJECTILE = "CarrotProjectile";
     public static readonly string CARROT_LASER = "CarrotLaser";
+    public static readonly string CARROT_BACKGROUND_PROJECTILE = "CarrotBackgroundProjectile";
+
+    public static readonly string BULLET_SPARKER = "Bullet_Sparker";
 }
 
 public static class EffectNames

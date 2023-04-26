@@ -29,16 +29,11 @@ public class CarrotProjectileController : MonoBehaviour
     private bool died = false;
     private void Start()
     {
-        gameObject.SetActive(false);
+        Invoke(nameof(DeactivateDelay), 1f); //시작할때 비활성화 위한 값.
     }
     private void Update()
     {
 
-
-        if (_player == null)
-        {
-            _player = GameObject.FindGameObjectWithTag(TagNames.PLAYER);
-        }
 
 
     }
@@ -69,8 +64,8 @@ public class CarrotProjectileController : MonoBehaviour
         }
 
     }
-    void DeactivateDelay() => gameObject.SetActive(false)
-;
+    void DeactivateDelay() => gameObject.SetActive(false);
+
     private void OnDisable()
     {
         ObjectPooler.ReturnToPool(gameObject);

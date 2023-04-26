@@ -27,7 +27,10 @@ public class CarrotLaserController : MonoBehaviour
     new Collider2D collider;
 
     private bool isDead; //플레이어 움직임 추적을 한번만 하도록 하기위한 bool 변수 설정 
-
+    private void Start()
+    {
+        
+    }
     private void OnEnable()
     {
         isDead = false;

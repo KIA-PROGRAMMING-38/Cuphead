@@ -19,6 +19,8 @@ TagManager:
   - ParryableTear
   - CarrotProjectile
   - CarrotLaser
+  - CarrotBackgroundProjectile
+  - Bullet_Sparker
   layers:
   - Default
   - TransparentFX

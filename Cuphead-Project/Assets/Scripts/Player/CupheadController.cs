@@ -57,6 +57,7 @@ public class CupheadController : MonoBehaviour
     public static bool IsJumping;
     public static bool HasParried;
     public static bool TryParrying;
+    public static bool IsShooting;
     public static bool IsEXMoving;
     public static bool IsOnGround;
     public static bool IsJumpEXMoving;
@@ -171,7 +172,7 @@ public class CupheadController : MonoBehaviour
 
    public void StopPlayerRunning()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && !IsJumping)
         {
             playerRigidbody.velocity = Vector2.zero;
             Debug.Log($"IsStopRunning: {StopRunning}");
@@ -235,17 +236,18 @@ public class CupheadController : MonoBehaviour
     /// </summary>
     public void DuckPlayer()
     {
-        if (Input.GetKey(KeyCode.DownArrow) && !StopRunning)
+        if (Input.GetKey(KeyCode.DownArrow) && !StopRunning &&!IsJumping)
         {
+            playerRigidbody.velocity = Vector3.zero;    
             IsDucking = true;
             PlayerAnimator.SetBool(CupheadAnimID.DUCK, true);
-            //_bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, true);
+         
         }
         else if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             IsDucking = false;
             PlayerAnimator.SetBool(CupheadAnimID.DUCK, false);
-            //_bulletSparkAnimator.SetBool(CupheadAnimID.IS_DUCKING, false);
+           
         }
     }
 
@@ -285,13 +287,7 @@ public class CupheadController : MonoBehaviour
 
 
 
-    public void StopPlayer()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-           playerRigidbody.velocity = Vector3.zero;
-        }
-    }
+  
 
 
     /// <summary>
@@ -304,11 +300,13 @@ public class CupheadController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.X))
         {
+            IsShooting = true;
             PlayerAnimator.SetBool(CupheadAnimID.SHOOT, true);
         }
 
         if (Input.GetKeyUp(KeyCode.X))
         {
+            IsShooting = false;
             PlayerAnimator.SetBool(CupheadAnimID.SHOOT, false);
 
         }

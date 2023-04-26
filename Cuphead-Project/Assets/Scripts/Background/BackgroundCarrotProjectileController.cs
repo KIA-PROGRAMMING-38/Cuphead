@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class BackgroundCarrotProjectileController : MonoBehaviour
 {
-    Rigidbody2D rigidbody;
-    [SerializeField]
+    Rigidbody2D BackgroundCarrotRigidbody;
+
     float _speed;
     private void OnEnable()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-        Invoke(nameof(DeactivateDelay), 5f);
+        BackgroundCarrotRigidbody = GetComponent<Rigidbody2D>();
+        Invoke(nameof(DeactivateDelay), 2f);
     }
 
     private void Update()
     {
-        rigidbody.velocity = _speed * Vector2.up;
+        BackgroundCarrotRigidbody.velocity = _speed * Vector2.up;
     }
 
-
-
-  
 
     void DeactivateDelay() => gameObject.SetActive(false)
 ;

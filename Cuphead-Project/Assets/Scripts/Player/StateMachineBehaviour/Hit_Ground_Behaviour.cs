@@ -42,12 +42,12 @@ public class Hit_Ground_Behaviour : StateMachineBehaviour
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       animator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
+     
        
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-   
+        animator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
     }
 }
