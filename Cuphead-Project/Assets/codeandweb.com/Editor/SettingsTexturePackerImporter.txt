@@ -14,6 +14,7 @@ tpsheetFileNames:
 - Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Intro.tpsheet
 - Assets/Sprites/Player/TexturePackager/Ex_Move_Smoke.tpsheet
 - Assets/Sprites/Player/TexturePackager/Intro_And_Hit.tpsheet
+- Assets/Sprites/Player/TexturePackager/Noise_Texture.tpsheet
 - Assets/Sprites/Player/TexturePackager/Player_Duck.tpsheet
 - Assets/Sprites/Player/TexturePackager/Player_Effectstpsheet.tpsheet
 - Assets/Sprites/Player/TexturePackager/Player_ExMove.tpsheet
@@ -37,6 +38,7 @@ textureFileNames:
 - Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Onion_Intro.png
 - Assets/Sprites/Player/TexturePackager/Ex_Move_Smoke.png
 - Assets/Sprites/Player/TexturePackager/Intro_And_Hit.png
+- Assets/Sprites/Player/TexturePackager/Noise_Texture.png
 - Assets/Sprites/Player/TexturePackager/Player_Duck.png
 - Assets/Sprites/Player/TexturePackager/Player_Effectstpsheet.png
 - Assets/Sprites/Player/TexturePackager/Player_ExMove.png
@@ -47,6 +49,7 @@ textureFileNames:
 - Assets/Sprites/Player/TexturePackager/Player_stand_shoot..png
 normalmapFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites_n.png
+- 
 - 
 - 
 - 
