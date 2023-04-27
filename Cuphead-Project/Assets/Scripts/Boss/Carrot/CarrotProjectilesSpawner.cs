@@ -20,45 +20,46 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     Transform _RightSpawnPositionOfCarrotProjectile;
 
     [SerializeField]
-    GameObject _carrotLaserAnimator;
+    Animator _carrotEyeForLaserAnimator;
 
+    [SerializeField]
+    SpriteRenderer _carrotEyeForLaserSpriteRenderer;
+
+    Vector3 decidedPositionToSpawnCarrotProjectile;
+    Vector3 decidedPositionToSpawnBackgroundCarrotProjectile;
 
     private int spawnPosition = 0;
     private readonly int SPAWN_POSITION_LEFT = 0;
     private readonly int SPAWN_POSITION_RIGHT = 10;
 
-    private int PositionDeciderOfCarrotProjectile = 0;
+    private int projectileCreationChance = 0;
+    private int positionDeciderOfCarrotProjectile = 0;
     float durationOfHitMaterial = 0.15f;
 
 
-    SpriteRenderer CarrotSpriteRenderer;
+    SpriteRenderer carrotSpriteRenderer;
 
 
     private void Start()
     {
        
     }
-    void DeactivateDelay() => gameObject.SetActive(false);
+   
 
     private void OnEnable()
     {
         _waitTimeForMaterial = new WaitForSeconds(durationOfHitMaterial);
         _animator = GetComponent<Animator>();
-        CarrotSpriteRenderer = GetComponent<SpriteRenderer>();
-        Invoke(nameof(DeactivateDelay), 20f); //
+        carrotSpriteRenderer = GetComponent<SpriteRenderer>();
+       
     }
 
-    private void OnDisable()
-    {
-        ObjectPooler.ReturnToPool(gameObject);
-        CancelInvoke(); //코루틴과 다르게 반드시 해제해주어야 합니다. 
-    }
-
+ 
     [SerializeField]
-    GameObject CarrotEye;
+    GameObject CarrotLaserSpawner;
 
-    public void ActivateCarrotEye() => CarrotEye.SetActive(true);
-    public void DeactivateCarrotEye() => CarrotEye.SetActive(false);
+    public void ActivateCarrotThirdEyeObject() => CarrotLaserSpawner.SetActive(true);
+    public void DeactivateCarrotThirdEyeObject() => CarrotLaserSpawner.SetActive(false);
 
 
     Vector3 spawnPositionMove;
@@ -66,35 +67,50 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     GameObject throwBackGroundCarrotProjectile()
     {
         // 백분위로 랜덤함수 판별
-        PositionDeciderOfCarrotProjectile = Random.Range(0, 100);
-        Debug.Log(PositionDeciderOfCarrotProjectile);
+        projectileCreationChance = Random.Range(0, 100);
 
-        if (PositionDeciderOfCarrotProjectile < 50)
+        positionDeciderOfCarrotProjectile = Random.Range(0, 100);
+
+        Debug.Log(positionDeciderOfCarrotProjectile);
+
+        if (projectileCreationChance > 35)
         {
-            float rangeToMovespawnPosition = Random.Range(0, 3);
-            spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
+            if (positionDeciderOfCarrotProjectile < 50)
+            {
+                float rangeToMovespawnPosition = Random.Range(0, 3);
+                spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
 
-            // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
+                // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
 
-            _LeftSpawnPositionOfCarrotProjectile.position += spawnPositionMove;
+                decidedPositionToSpawnCarrotProjectile 
+                    = _LeftSpawnPositionOfCarrotProjectile.position
+                    + spawnPositionMove;
 
-            return ObjectPooler.SpawnFromPool
-            (ObjectPoolNameID.CARROT_BACKGROUND_PROJECTILE, _LeftSpawnPositionOfCarrotProjectile.position);
+                return ObjectPooler.SpawnFromPool
+                (ObjectPoolNameID.CARROT_BACKGROUND_PROJECTILE, decidedPositionToSpawnCarrotProjectile);
+            }
+
+            else 
+            {
+                float rangeToMovespawnPosition = Random.Range(0, 3);
+                spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
+
+                // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
+
+                decidedPositionToSpawnCarrotProjectile =
+                    _RightSpawnPositionOfCarrotProjectile.position +
+                    spawnPositionMove;
+
+                return ObjectPooler.SpawnFromPool
+                (ObjectPoolNameID.CARROT_BACKGROUND_PROJECTILE, decidedPositionToSpawnCarrotProjectile);
+            }
         }
-
         else
         {
-            float rangeToMovespawnPosition = Random.Range(0, 3);
-            spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
-
-            // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
-
-            _RightSpawnPositionOfCarrotProjectile.position += spawnPositionMove;
-
-            return ObjectPooler.SpawnFromPool
-            (ObjectPoolNameID.CARROT_BACKGROUND_PROJECTILE, _RightSpawnPositionOfCarrotProjectile.position);
+            return null; 
         }
     }
+       
     /// <summary>
     /// 당근 투사체 애니메이션 이벤트 입니다.
     /// 위치값을 랜덤으로 하도록 구성하였습니다. 
@@ -102,36 +118,42 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     /// <returns></returns>
     GameObject throwCarrotProjectile()
     {
-       
+        positionDeciderOfCarrotProjectile = Random.Range(0, 100);
         // 백분위로 랜덤함수 판별
-        PositionDeciderOfCarrotProjectile = Random.Range(0, 100);
+        positionDeciderOfCarrotProjectile = Random.Range(0, 100);
 
-        Debug.Log(PositionDeciderOfCarrotProjectile);
+        Debug.Log(positionDeciderOfCarrotProjectile);
 
-        if (PositionDeciderOfCarrotProjectile < 50)
+        if (positionDeciderOfCarrotProjectile < 50)
         {
             float rangeToMovespawnPosition = Random.Range(0, 3);
             spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
-            
+
             // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
-          
-            _LeftSpawnPositionOfCarrotProjectile.position += spawnPositionMove;
+            decidedPositionToSpawnBackgroundCarrotProjectile =
+            _LeftSpawnPositionOfCarrotProjectile.position + spawnPositionMove;
 
             return ObjectPooler.SpawnFromPool
-            (ObjectPoolNameID.CARROT_PROJECTILE, _LeftSpawnPositionOfCarrotProjectile.position);
+            (ObjectPoolNameID.CARROT_PROJECTILE, decidedPositionToSpawnBackgroundCarrotProjectile);
+        }
+
+        else if (positionDeciderOfCarrotProjectile > 50)
+        {
+            float rangeToMovespawnPosition = Random.Range(0, 3);
+            spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
+
+            // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
+            decidedPositionToSpawnBackgroundCarrotProjectile
+            =_RightSpawnPositionOfCarrotProjectile.position 
+            + spawnPositionMove;
+
+            return ObjectPooler.SpawnFromPool
+            (ObjectPoolNameID.CARROT_PROJECTILE, decidedPositionToSpawnBackgroundCarrotProjectile);
         }
 
         else
         {
-            float rangeToMovespawnPosition = Random.Range(0, 3);
-            spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
-           
-            // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
-          
-            _RightSpawnPositionOfCarrotProjectile.position += spawnPositionMove;
-
-            return ObjectPooler.SpawnFromPool
-            (ObjectPoolNameID.CARROT_PROJECTILE, _RightSpawnPositionOfCarrotProjectile.position);
+            return null;
         }
     }
 
@@ -144,12 +166,15 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     [SerializeField] Material _MaterialDuringDamaged;
     [SerializeField] Material _defaultMaterial;
 
+    [SerializeField] SpriteRenderer _carrotEyeSpriteRenderer;
+
     // 매터리얼을 바꿀 시간을 정해줍니다. 
     WaitForSeconds _waitTimeForMaterial;
     private static float hitMaterialDurationTime = 0.18f;
     public void changeMaterial()
     {
-        CarrotSpriteRenderer.material = _MaterialDuringDamaged;
+        carrotSpriteRenderer.material = _MaterialDuringDamaged;
+        _carrotEyeSpriteRenderer.material = _MaterialDuringDamaged;
         StartCoroutine(TurnBackToOriginalMaterial());
     }
 
@@ -157,7 +182,8 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     IEnumerator TurnBackToOriginalMaterial()
     {
         yield return _waitTimeForMaterial;
-        CarrotSpriteRenderer.material = _defaultMaterial;
+        _carrotEyeSpriteRenderer.material = _defaultMaterial;
+        carrotSpriteRenderer.material = _defaultMaterial;
     }
 
   
@@ -202,16 +228,18 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     /// 호출하기 위해서 아래와 같이 _carrotLaserAnimator를 받아오고
     /// 재생하여줍니다. 
     /// </summary>
-  
-   
 
-    void ActivateCarrotEyeDuringLaserShoot()
+
+
+    public void EnableAnimatorAndSpriteCarrotEyeDuringLaserShoot()
     {
-        _carrotLaserAnimator.SetActive(true);
+        _carrotEyeForLaserAnimator.enabled = true;
+        _carrotEyeForLaserSpriteRenderer.enabled = true;
     }
-    void DectivateCarrotEyeDuringLaserShoot()
+    public void disableAnimatorAndSpriteCarrotEyeDuringLaserShoot()
     {
-        _carrotLaserAnimator.SetActive(false);
+        _carrotEyeForLaserAnimator.enabled = false;
+        _carrotEyeForLaserSpriteRenderer.enabled = false;
     }
  
 

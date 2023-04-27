@@ -62,6 +62,8 @@ public static class ObjectPoolNameID
     public static readonly string CARROT_BACKGROUND_PROJECTILE = "CarrotBackgroundProjectile";
 
     public static readonly string BULLET_SPARKER = "Bullet_Sparker";
+    public static readonly string PLAYER_HIT_EFFECT = "PlayerHitEffect";
+    public static readonly string EX_MOVE_EFFECTS = "ExMoveEffects";
 }
 
 public static class EffectNames

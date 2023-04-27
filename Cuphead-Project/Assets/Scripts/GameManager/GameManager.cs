@@ -30,17 +30,39 @@ public class GameManager : MonoBehaviour
         CupheadController.enabled= true;
     }
 
+
+    WaitForSeconds _waitTimeForActivatingNextBoss;
+    float _waitTimeForActivatingOnionFloat = 1.0f; 
+
     public void OnPotatoDead()
     {
+        _waitTimeForActivatingNextBoss = new WaitForSeconds(_waitTimeForActivatingOnionFloat);
         OnPotatoDied?.Invoke();
         _Potato.SetActive(false);
+        StartCoroutine(SetActiveOnionDelayed());
+    }
+
+    IEnumerator SetActiveOnionDelayed()
+    {
+        yield return _waitTimeForActivatingNextBoss;
         _Onion.SetActive(true);
     }
+
+
+
     public void OnOnionDead()
     {
         _Onion.SetActive(false);
         _Carrot.SetActive(true);
     }
+
+    IEnumerator SetActiveCarrotDelayed()
+    {
+        yield return _waitTimeForActivatingNextBoss;
+        _Carrot.SetActive(true);
+    }
+
+
 
     public void SetPotatoInactive() => _Potato.SetActive(false);
     public void SetOnionACtive() { }

@@ -27,8 +27,10 @@ public class PotatoProjectile : MonoBehaviour
     }
     private void OnEnable()
     {
+      
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
+        collider.enabled = true;
         bulletHitChecker = GetComponent<BulletHitChecker>();
         projectileRigidbody.velocity = projectileForce;
         Invoke(nameof(DeactivateDelay), 1.5f);
@@ -46,7 +48,7 @@ public class PotatoProjectile : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (HasBeenHitCollision(collision))
+        if (HasBeenHitCollision(collision) && !CupheadController.IsInvincible)
         {
             animator.SetBool(ProjectileAnimID.HIT_PLAYER, true);
         }

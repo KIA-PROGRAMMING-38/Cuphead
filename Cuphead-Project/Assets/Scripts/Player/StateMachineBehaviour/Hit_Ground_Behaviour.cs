@@ -8,8 +8,10 @@ public class Hit_Ground_Behaviour : StateMachineBehaviour
     Rigidbody2D playerRigidbody;
     Animator playerAnimator;
 
-   
-    [SerializeField] Vector2 BounceVectorByHit = new Vector2 (5, 5);
+
+    Vector3 positionToMoveByHitRight;
+    Vector3 positionToMoveByHitLeft;
+
 
 
 
@@ -18,36 +20,47 @@ public class Hit_Ground_Behaviour : StateMachineBehaviour
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-      
-        //초기화만 진행?
+        animator.SetBool(CupheadAnimID.EX_MOVE, false);
         playerRigidbody = animator.GetComponent<Rigidbody2D>();
-    
+        positionToMoveByHitLeft =
+            playerRigidbody.transform.position + Vector3.left + Vector3.up;
+        positionToMoveByHitRight = 
+            playerRigidbody.transform.position + Vector3.right + Vector3.up;
+        playerRigidbody.isKinematic = true;
 
-        if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT && CupheadController.HasBeenHit == false)
-        {
-            Debug.Log($"velociy changed by projectile");
-            playerRigidbody.velocity = BounceVectorByHit;
-            CupheadController.HasBeenHit = true;
-        }
-        else
-        {
-            Debug.Log($"velociy changed by projectile");
-            playerRigidbody.velocity = BounceVectorByHit;
-            CupheadController.HasBeenHit = true;
-        }
-
-   
+      
+      
     }
 
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-     
+        CupheadController.HasBeenHit = true;
+
+        if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT && CupheadController.HasBeenHit == false)
+        {
+            Debug.Log($"velociy changed by projectile");
+            playerRigidbody.transform.position =
+                Vector3.Lerp(playerRigidbody.transform.position, positionToMoveByHitRight, 0.5f);
+
+
+        }
+
+        else
+        {
+            playerRigidbody.transform.position =
+            Vector3.Lerp(playerRigidbody.transform.position, positionToMoveByHitLeft, 0.5f);
+            Debug.Log($"velociy changed by projectile");
+
+        }
+
        
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        playerRigidbody.isKinematic = false;
         animator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
+        CupheadController.HasBeenHit = false;
     }
 }

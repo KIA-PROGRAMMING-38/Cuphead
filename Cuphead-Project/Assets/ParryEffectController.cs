@@ -4,40 +4,45 @@ using UnityEngine;
 
 public class ParryEffectController : MonoBehaviour
 {
-    WaitForSeconds _parryWaitTime;
+    WaitForSeconds _parryEffectOnTime;
 
     [SerializeField]
     float _parryingWaitTime;
     [SerializeField]
     CupheadEffectsController cupheadEffectsController;
+
     SpriteRenderer spriteRenderer;
     Animator animator;
     private void Start()
     {
+       
+
+
         animator = GetComponent<Animator>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
         spriteRenderer.enabled = false;
         animator.enabled = false;
 
-        _parryWaitTime = new WaitForSeconds(_parryingWaitTime);
+        
     }
     private void OnEnable()
     {
 
-        CupheadEffectsController.ParryEffect += CustomEventHandler;
+        CupheadEffectsController.ParryEffect += ActivateEffect;
     }
 
     private void OnDisable()
     {
 
-        CupheadEffectsController.ParryEffect -= CustomEventHandler;
+        CupheadEffectsController.ParryEffect -= ActivateEffect;
     }
 
     // 이벤트 핸들러 함수
-    private void CustomEventHandler()
+    private void ActivateEffect()
     {
-        Debug.Log("이벤트함수 호출성공 개축하:");
+        _parryEffectOnTime = new WaitForSeconds(_parryingWaitTime);
+        Debug.Log("이벤트호출");
         spriteRenderer.enabled = true;
         animator.enabled = true;
         StartCoroutine(DelayDeactivatingParryEffect());
@@ -45,7 +50,7 @@ public class ParryEffectController : MonoBehaviour
 
     IEnumerator DelayDeactivatingParryEffect()
     {
-        yield return _parryWaitTime;
+        yield return _parryEffectOnTime;
         spriteRenderer.enabled = false;
         animator.enabled = false;
     }

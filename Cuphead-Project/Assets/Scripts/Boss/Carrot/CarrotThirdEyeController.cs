@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class CarrotThirdEyeController : MonoBehaviour
 {
-
-    void Start()
+    Animator animator;
+    SpriteRenderer spriteRenderer;
+    void Awake()
     {
-        gameObject.SetActive(false);
+        animator.enabled= false;
+        spriteRenderer.enabled= false;
     }
 
 

@@ -7,7 +7,7 @@ public class CarrotProjectileController : MonoBehaviour
 {
 
 
-    private static int CarrotProjectileHP = 2;
+    private static int CarrotProjectileHP = 4;
     Rigidbody2D carrotRigidbody;
 
     SpriteRenderer projectile;
@@ -29,7 +29,7 @@ public class CarrotProjectileController : MonoBehaviour
     private bool died = false;
     private void Start()
     {
-        Invoke(nameof(DeactivateDelay), 1f); //시작할때 비활성화 위한 값.
+      
     }
     private void Update()
     {
@@ -48,11 +48,10 @@ public class CarrotProjectileController : MonoBehaviour
         _animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
         carrotRigidbody = GetComponent<Rigidbody2D>();
-
         carrotRigidbody.constraints = RigidbodyConstraints2D.None;
         carrotRigidbody.velocity = _initialProjectileSpeed * Vector2.down;
-        Invoke(nameof(DeactivateDelay), 5f); //
         carrotRigidbody.bodyType = RigidbodyType2D.Dynamic;
+        Invoke(nameof(DeactivateDelay), 5f); //
     }
 
     private void FixedUpdate()

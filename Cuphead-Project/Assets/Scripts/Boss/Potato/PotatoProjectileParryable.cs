@@ -31,6 +31,7 @@ public class PotatoProjectileParryable : MonoBehaviour
         projectileRigidbody.velocity = projectileForce;
         Invoke(nameof(DeactiveDelay), 1.5f);
         animator = GetComponent<Animator>();
+        childProjectileCollider.enabled = true;
     }
 
     private void Awake()
@@ -50,7 +51,7 @@ public class PotatoProjectileParryable : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (HasBeenHitCollision(collision))
+        if (HasBeenHitCollision(collision)  && !CupheadController.IsInvincible && CupheadController.TryParrying)
         {
             DisableProjectileCollider();
             animator.SetBool(ProjectileAnimID.PARRIED, true);

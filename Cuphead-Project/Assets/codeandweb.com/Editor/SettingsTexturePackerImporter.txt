@@ -12,6 +12,7 @@ tpsheetFileNames:
 - Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Death.tpsheet
 - Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Idle.tpsheet
 - Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Intro.tpsheet
+- Assets/Sprites/Player/TexturePackager/Ex_Move_Smoke.tpsheet
 - Assets/Sprites/Player/TexturePackager/Intro_And_Hit.tpsheet
 - Assets/Sprites/Player/TexturePackager/Player_Duck.tpsheet
 - Assets/Sprites/Player/TexturePackager/Player_Effectstpsheet.tpsheet
@@ -34,6 +35,7 @@ textureFileNames:
 - Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Onion_Death.png
 - Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Onion_Idle.png
 - Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Onion_Intro.png
+- Assets/Sprites/Player/TexturePackager/Ex_Move_Smoke.png
 - Assets/Sprites/Player/TexturePackager/Intro_And_Hit.png
 - Assets/Sprites/Player/TexturePackager/Player_Duck.png
 - Assets/Sprites/Player/TexturePackager/Player_Effectstpsheet.png
@@ -45,6 +47,7 @@ textureFileNames:
 - Assets/Sprites/Player/TexturePackager/Player_stand_shoot..png
 normalmapFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites_n.png
+- 
 - 
 - 
 - 

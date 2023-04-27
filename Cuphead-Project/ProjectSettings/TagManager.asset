@@ -21,6 +21,8 @@ TagManager:
   - CarrotLaser
   - CarrotBackgroundProjectile
   - Bullet_Sparker
+  - PlayerHitEffect
+  - ExMoveEffects
   layers:
   - Default
   - TransparentFX

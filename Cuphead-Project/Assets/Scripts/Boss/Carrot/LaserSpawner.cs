@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class LaserSpawner : MonoBehaviour
 {
-
+    Animator animator;
+    SpriteRenderer spriteRenderer;
     private void Start()
     {
-        gameObject.SetActive(false);
+        animator.enabled = false;
+        spriteRenderer.enabled = false; 
     }
     readonly int LASER_COUNT_TOTAL = 5;
     Vector3 _lastlyTrackedPlayerPosition;
@@ -16,7 +18,7 @@ public class LaserSpawner : MonoBehaviour
     [SerializeField]
     Transform _playerTransform;
     WaitForSeconds _waitTimeToSpawnNextLaser;
-    private float _waitTime = 0.1f;
+    private float _waitTime = 0.08f;
 
     private void OnEnable()
     {
