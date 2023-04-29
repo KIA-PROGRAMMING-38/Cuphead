@@ -395,7 +395,7 @@ public class CupheadController : MonoBehaviour
         //플레이어가 충돌체에 맞은 경우
         if (HasBeenHitCollision(collision) && isParryTriggered == false)
         {
-            if (IsInvincible == false)
+            if (IsInvincible == false && HasBeenHit == false)
             {
                 PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, true);
 
@@ -449,6 +449,8 @@ public class CupheadController : MonoBehaviour
         isParryTriggered = false;
         PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, false);
         PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
+        HasBeenHit = false;
+
     }
 
     IEnumerator EnableScriptAfterDelay(float delay)
