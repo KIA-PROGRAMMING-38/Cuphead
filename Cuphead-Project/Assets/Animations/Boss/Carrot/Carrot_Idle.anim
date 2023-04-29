@@ -130,13 +130,6 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: disableAnimatorAndSpriteCarrotEyeDuringLaserShoot
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
     functionName: DeactivateCarrotThirdEyeObject
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -150,8 +143,8 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.25
-    functionName: throwCarrotProjectile
+  - time: 0
+    functionName: disableAnimatorAndSpriteCarrotEyeDuringLaserShoot
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -164,14 +157,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.9166667
-    functionName: throwBackGroundCarrotProjectile
+  - time: 1.25
+    functionName: throwCarrotProjectile
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.5
+  - time: 1.5833334
     functionName: throwBackGroundCarrotProjectile
     data: 
     objectReferenceParameter: {fileID: 0}

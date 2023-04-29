@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4395904630806557762}
   m_Layer: 7
   m_Name: ParryableTear ProjectileCollider
-  m_TagString: PotatoPorjectile
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: -891974525321106092}
   m_Layer: 10
   m_Name: ParryableTear
-  m_TagString: PotatoPorjectile
+  m_TagString: Parryable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

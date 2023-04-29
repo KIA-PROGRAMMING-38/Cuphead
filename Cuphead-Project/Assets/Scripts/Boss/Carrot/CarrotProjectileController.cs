@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -26,10 +27,13 @@ public class CarrotProjectileController : MonoBehaviour
 
     SpriteRenderer _spriteRenderer;
 
+    [SerializeField]
+    Collider2D DamageableCollider; 
+
     private bool died = false;
-    private void Start()
+    private void Awake()
     {
-      
+        
     }
     private void Update()
     {
@@ -37,7 +41,7 @@ public class CarrotProjectileController : MonoBehaviour
 
 
     }
-
+    bool start = false;
 
     private void OnEnable()
     {
@@ -51,7 +55,17 @@ public class CarrotProjectileController : MonoBehaviour
         carrotRigidbody.constraints = RigidbodyConstraints2D.None;
         carrotRigidbody.velocity = _initialProjectileSpeed * Vector2.down;
         carrotRigidbody.bodyType = RigidbodyType2D.Dynamic;
-        Invoke(nameof(DeactivateDelay), 5f); //
+
+        if (!start)
+        {
+            start = true;
+            Invoke(nameof(DeactivateDelay), 1f);
+        }
+        else
+        {
+            Invoke(nameof(DeactivateDelay), 20f); //
+        }
+       
     }
 
     private void FixedUpdate()
@@ -144,12 +158,21 @@ public class CarrotProjectileController : MonoBehaviour
     }
 
 
+    [SerializeField]
+    float rotationSpeed = 1f;
+
+    Quaternion TargetRotation;
     public void RotateAndMoveProjectileTowardsPlayer()
     {
+        //당근 투사체 실시간 회전구현 부분
         Vector3 difference = _player.transform.position - transform.position;
         difference.Normalize();
         float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rotation_z + 90f);
+        TargetRotation = Quaternion.Euler(0f, 0f, rotation_z + 90f);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, TargetRotation, rotationSpeed);
+
+
+        //당근 투사체 실시간 트랙킹 부분
         carrotRigidbody.position = Vector2.Lerp
         (transform.position, _player.transform.position, _playerTrackingSpeed * Time.deltaTime);
     }
@@ -157,10 +180,23 @@ public class CarrotProjectileController : MonoBehaviour
 
     public void FreezeAndDie()
     {
+        //터지는 순간 더이상 플레이어를 공격 할 수 없기 때문에 콜라이더 끄기.
+        DamageableCollider.enabled= false;
+        GetComponent<Collider2D>().enabled = false;
+        //더이상 플레이어를 향해 움직이거나 회전하지않음.
         died = true;
-
         carrotRigidbody.bodyType = RigidbodyType2D.Static;
+
+        //Death 애니메이션 재생.
         _animator.SetBool(ProjectileAnimID.DEAD, true);
     }
+
+
+    /// <summary>
+    /// 포테이토와,어니언 사망시, 백그라운드(흙 구덩이)가 서서히 사라지도록 하는 함수입니다.
+    /// 각 Material 을 받아와 서서히 투명도를 0으로 만들어줍니다. 
+    /// </summary>
+    /// 
+  
 
 }

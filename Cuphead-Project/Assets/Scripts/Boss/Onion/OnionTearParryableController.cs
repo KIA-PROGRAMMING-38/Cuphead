@@ -8,7 +8,7 @@ public class OnionTearParryableController : MonoBehaviour
     private Rigidbody2D tearParryableRigidbody;
     private SpriteRenderer tearParryableSpriteRenderer;
     private Animator tearParryableAnimator;
-    private Collider2D tearParryableCollider;
+    private Collider2D tearDamageableCollider;
 
 
    
@@ -16,7 +16,7 @@ public class OnionTearParryableController : MonoBehaviour
     {
         tearParryableRigidbody = GetComponent<Rigidbody2D>();// 직전 키네마틱 해제
         tearParryableAnimator = GetComponent<Animator>();
-        tearParryableCollider = GetComponent<Collider2D>();
+        tearDamageableCollider = GetComponentInChildren<Collider2D>();
         tearParryableRigidbody.gravityScale = Random.Range(0.1f, 0.3f);
       
         Invoke(nameof(DeactiveDelay), 2.0f);
@@ -62,5 +62,5 @@ public class OnionTearParryableController : MonoBehaviour
 
     public void ShowTear() => gameObject?.SetActive(true);
     public void HideTear() => gameObject?.SetActive(false);
-    public void DeactivateCollider() => tearParryableCollider.enabled = false;
+    public void DeactivateCollider() => tearDamageableCollider.enabled = false;
 }

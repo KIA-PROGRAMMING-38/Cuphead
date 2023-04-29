@@ -6,6 +6,7 @@ public class BackgroundCarrotProjectileController : MonoBehaviour
 {
     Rigidbody2D BackgroundCarrotRigidbody;
 
+    [SerializeField]
     float _speed;
     private void OnEnable()
     {

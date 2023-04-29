@@ -19,7 +19,7 @@ public class OnionController : MonoBehaviour
     [SerializeField]
     WaitForSeconds _waitTimeForMaterial;
 
-   
+
     [SerializeField]
     Animator _animator;
 
@@ -37,6 +37,8 @@ public class OnionController : MonoBehaviour
     [SerializeField]
     GameObject Onion;
 
+    Collider2D onionCollider;
+
     private static int OnionHP = 30;
     float durationOfHitMaterial = 0.15f;
 
@@ -45,7 +47,9 @@ public class OnionController : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        _fadeCoroutine = FadeCoroutine();
         gameObject.SetActive(false);
+        onionCollider = GetComponent<Collider2D>();
     }
 
 
@@ -83,19 +87,25 @@ public class OnionController : MonoBehaviour
     {
         if (OnionHP < 0) //죽는 순간 눈물 물줄기를 먼저 끄고 DIE실행
         {
-        
+
             _animator.SetBool(CupheadAnimID.DIED, true);
-           
+
         }
     }
 
-    /// <summary>
-    /// HP가 
-    /// </summary>
+
     private void OnOnionDeath()
-    {//여기에 추후에 흐려지는 쉐이더 적용시키면 될듯?
+    {
+
         GameManager.OnOnionDead();
     }
+
+    private void OnOnionDeadStart()
+    {
+        onionCollider.enabled = false;
+        GameManager.OnOnionDeadStart();
+    }
+
 
 
     /// <summary>
@@ -129,8 +139,43 @@ public class OnionController : MonoBehaviour
         OnionSprtieRenderer.material = _defaultMaterial;
     }
 
+    [SerializeField] SpriteRenderer _onionBackgroundRenderer;
+    [SerializeField] float _dcreasingSpeed;
 
- 
+    private float _fadeTime;
 
 
+    public void StartFadeCoroutine()
+    {
+        _fadeTime = 0;
+        StartCoroutine(_fadeCoroutine);
+    }
+
+    private readonly Color START_COLOR = new(1, 1, 1, 1);
+    private readonly Color END_COLOR = new(1, 1, 1, 0);
+
+    private IEnumerator _fadeCoroutine;
+    private IEnumerator FadeCoroutine()
+    {
+        while (true)
+        {
+            while (_fadeTime < 0.3f)
+            {
+                _onionBackgroundRenderer.color = Color.Lerp(START_COLOR, END_COLOR, _fadeTime / 0.3f);
+
+                _fadeTime += Time.deltaTime;
+
+                yield return null;
+            }
+
+            StopCoroutine(_fadeCoroutine);
+
+            yield return null;
+        }
+    }
 }
+
+
+
+
+

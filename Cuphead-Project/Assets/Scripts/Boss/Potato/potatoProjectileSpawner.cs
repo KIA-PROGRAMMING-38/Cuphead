@@ -22,12 +22,16 @@ public class potatoProjectileSpawner : MonoBehaviour
 
     SpriteRenderer PotatoSpriteRenderer;
 
+    Collider2D potatoCollider;
     private static int PotatoHp = 30;
 
 
     private void Start()
     {
-      gameObject.SetActive(false);
+        _fadeCoroutine = FadeCoroutine();
+
+        potatoCollider = GetComponent<Collider2D>();
+        gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -35,15 +39,23 @@ public class potatoProjectileSpawner : MonoBehaviour
         _animator = GetComponent<Animator>();
         PotatoSpriteRenderer = GetComponent<SpriteRenderer>();
     }
-    private void OnpPotatoDeath()
+
+    //Potato 사망시 게임매니저에서 발생하는 이벤트 
+    public void OnpPotatoDeathStart()
+    {//여기에 추후에 흐려지는 쉐이더 적용시키면 될듯?
+        potatoCollider.enabled = false;
+        //감자가 죽으면 Background보다 뒤에 그려져고 사라져야 자연스럽기에 1로 바꿔줍니다. 
+        PotatoSpriteRenderer.sortingOrder = 1;
+        GameManager.OnPotatoDeadStart();
+    }
+    public void OnpPotatoDeath()
     {//여기에 추후에 흐려지는 쉐이더 적용시키면 될듯?
         GameManager.OnPotatoDead();
+
     }
 
-    public void DeactivatePotato()
-    {
-        
-    }
+
+
     /// <summary>
     /// 투사체를 던지는 함수입니다.
     /// 4번째는 패리객체를 던질 수 있게끔 작성했습니다. 
@@ -99,14 +111,14 @@ public class potatoProjectileSpawner : MonoBehaviour
         return collision.CompareTag(TagNames.BULLET);
     }
 
- 
-  
+
+
 
     /// <summary>
     /// 보스가 총알에 맞을때 데미지를 입는다는 인터페이스를 위해 
     /// 매티리얼을 바꿔주는 함수입니다. 
     /// </summary>
-   
+
     public void changeMaterial()
     {
         PotatoSpriteRenderer.material = _MaterialDuringDamaged;
@@ -117,7 +129,7 @@ public class potatoProjectileSpawner : MonoBehaviour
     {
         yield return _waitTimeForMaterial;
 
-        PotatoSpriteRenderer.material = _defaultMaterial; 
+        PotatoSpriteRenderer.material = _defaultMaterial;
     }
 
 
@@ -131,6 +143,42 @@ public class potatoProjectileSpawner : MonoBehaviour
     public void DectivatePotatoShootEffect()
     {
         Potato_shoot_animator.SetActive(false);
+    }
+
+
+    [SerializeField] SpriteRenderer _potatoBackgroundRenderer;
+    [SerializeField] float _dcreasingSpeed;
+
+    private float _fadeTime;
+
+
+    public void StartFadeCoroutine()
+    {
+        _fadeTime = 0;
+        StartCoroutine(_fadeCoroutine);
+    }
+
+    private readonly Color START_COLOR = new(1, 1, 1, 1);
+    private readonly Color END_COLOR = new(1, 1, 1, 0);
+
+    private IEnumerator _fadeCoroutine;
+    private IEnumerator FadeCoroutine()
+    {
+        while (true)
+        {
+            while (_fadeTime < 0.3f)
+            {
+                _potatoBackgroundRenderer.color = Color.Lerp(START_COLOR, END_COLOR, _fadeTime / 0.3f);
+
+                _fadeTime += Time.deltaTime;
+
+                yield return null;
+            }
+
+            StopCoroutine(_fadeCoroutine);
+
+            yield return null;
+        }
     }
 
 

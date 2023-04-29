@@ -9,8 +9,8 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     [SerializeField]
     private static int CarrotHP = 30;
 
-
-    Animator _animator;
+    [SerializeField]
+    GameManager GameManager;
 
     //CarrotProjectile을 랜덤으로 생성 할 상단 플랫폼을 두가지 구간으로 나누어줍니다. 
     [SerializeField]
@@ -36,33 +36,52 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     private int positionDeciderOfCarrotProjectile = 0;
     float durationOfHitMaterial = 0.15f;
 
-
+    Animator _animator;
     SpriteRenderer carrotSpriteRenderer;
 
 
     private void Start()
     {
-       
+        gameObject.SetActive(false);
     }
-   
+
 
     private void OnEnable()
     {
         _waitTimeForMaterial = new WaitForSeconds(durationOfHitMaterial);
         _animator = GetComponent<Animator>();
         carrotSpriteRenderer = GetComponent<SpriteRenderer>();
-       
+
     }
 
- 
+
     [SerializeField]
     GameObject CarrotLaserSpawner;
+    [SerializeField]
+    GameObject CarrotEyes;
 
-    public void ActivateCarrotThirdEyeObject() => CarrotLaserSpawner.SetActive(true);
-    public void DeactivateCarrotThirdEyeObject() => CarrotLaserSpawner.SetActive(false);
+    public void ActivateCarrotThirdEyeObject()
+    {
+        CarrotLaserSpawner.SetActive(true);
+    }
+
+    public void DeactivateCarrotThirdEyeObject()
+    {
+        CarrotEyes.SetActive(false);
+        CarrotLaserSpawner.SetActive(false);
+    }
 
 
     Vector3 spawnPositionMove;
+
+
+
+    [SerializeField]
+    Transform _LeftSpawnPositionOfBackgroundCarrotProjectile;
+
+    [SerializeField]
+    Transform _RightSpawnPositionOfBackgroundCarrotProjectile;
+
 
     GameObject throwBackGroundCarrotProjectile()
     {
@@ -82,15 +101,15 @@ public class CarrotProjectilesSpawner : MonoBehaviour
 
                 // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
 
-                decidedPositionToSpawnCarrotProjectile 
-                    = _LeftSpawnPositionOfCarrotProjectile.position
+                decidedPositionToSpawnCarrotProjectile
+                    = _LeftSpawnPositionOfBackgroundCarrotProjectile.position
                     + spawnPositionMove;
 
                 return ObjectPooler.SpawnFromPool
                 (ObjectPoolNameID.CARROT_BACKGROUND_PROJECTILE, decidedPositionToSpawnCarrotProjectile);
             }
 
-            else 
+            else
             {
                 float rangeToMovespawnPosition = Random.Range(0, 3);
                 spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
@@ -98,7 +117,7 @@ public class CarrotProjectilesSpawner : MonoBehaviour
                 // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
 
                 decidedPositionToSpawnCarrotProjectile =
-                    _RightSpawnPositionOfCarrotProjectile.position +
+                    _RightSpawnPositionOfBackgroundCarrotProjectile.position +
                     spawnPositionMove;
 
                 return ObjectPooler.SpawnFromPool
@@ -107,10 +126,10 @@ public class CarrotProjectilesSpawner : MonoBehaviour
         }
         else
         {
-            return null; 
+            return null;
         }
     }
-       
+
     /// <summary>
     /// 당근 투사체 애니메이션 이벤트 입니다.
     /// 위치값을 랜덤으로 하도록 구성하였습니다. 
@@ -118,39 +137,48 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     /// <returns></returns>
     GameObject throwCarrotProjectile()
     {
-        positionDeciderOfCarrotProjectile = Random.Range(0, 100);
-        // 백분위로 랜덤함수 판별
-        positionDeciderOfCarrotProjectile = Random.Range(0, 100);
 
-        Debug.Log(positionDeciderOfCarrotProjectile);
-
-        if (positionDeciderOfCarrotProjectile < 50)
+        if (projectileCreationChance > 35)
         {
-            float rangeToMovespawnPosition = Random.Range(0, 3);
-            spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
+            positionDeciderOfCarrotProjectile = Random.Range(0, 100);
+            // 백분위로 랜덤함수 판별
+            positionDeciderOfCarrotProjectile = Random.Range(0, 100);
 
-            // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
-            decidedPositionToSpawnBackgroundCarrotProjectile =
-            _LeftSpawnPositionOfCarrotProjectile.position + spawnPositionMove;
+            //너무 많은 당근투사체 생성 방지를 위한 랜덤변수.
+            projectileCreationChance = Random.Range(0, 100);
+            Debug.Log(positionDeciderOfCarrotProjectile);
 
-            return ObjectPooler.SpawnFromPool
-            (ObjectPoolNameID.CARROT_PROJECTILE, decidedPositionToSpawnBackgroundCarrotProjectile);
+            if (positionDeciderOfCarrotProjectile < 50)
+            {
+                float rangeToMovespawnPosition = Random.Range(0, 3);
+                spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
+
+                // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
+                decidedPositionToSpawnBackgroundCarrotProjectile =
+                _LeftSpawnPositionOfCarrotProjectile.position + spawnPositionMove;
+
+                return ObjectPooler.SpawnFromPool
+                (ObjectPoolNameID.CARROT_PROJECTILE, decidedPositionToSpawnBackgroundCarrotProjectile);
+            }
+
+            else if (positionDeciderOfCarrotProjectile > 50)
+            {
+                float rangeToMovespawnPosition = Random.Range(0, 3);
+                spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
+
+                // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
+                decidedPositionToSpawnBackgroundCarrotProjectile
+                = _RightSpawnPositionOfCarrotProjectile.position
+                + spawnPositionMove;
+
+                return ObjectPooler.SpawnFromPool
+                (ObjectPoolNameID.CARROT_PROJECTILE, decidedPositionToSpawnBackgroundCarrotProjectile);
+            }
+            else
+            {
+                return null;
+            }
         }
-
-        else if (positionDeciderOfCarrotProjectile > 50)
-        {
-            float rangeToMovespawnPosition = Random.Range(0, 3);
-            spawnPositionMove = new Vector3(rangeToMovespawnPosition, 0, 0);
-
-            // 기준점(왼쪽,오른쪽 총 두개) 에서 랜덤값을 더한값을 최종값으로 입력.
-            decidedPositionToSpawnBackgroundCarrotProjectile
-            =_RightSpawnPositionOfCarrotProjectile.position 
-            + spawnPositionMove;
-
-            return ObjectPooler.SpawnFromPool
-            (ObjectPoolNameID.CARROT_PROJECTILE, decidedPositionToSpawnBackgroundCarrotProjectile);
-        }
-
         else
         {
             return null;
@@ -178,7 +206,7 @@ public class CarrotProjectilesSpawner : MonoBehaviour
         StartCoroutine(TurnBackToOriginalMaterial());
     }
 
-    
+
     IEnumerator TurnBackToOriginalMaterial()
     {
         yield return _waitTimeForMaterial;
@@ -186,7 +214,11 @@ public class CarrotProjectilesSpawner : MonoBehaviour
         carrotSpriteRenderer.material = _defaultMaterial;
     }
 
-  
+    public void OnCarrotDead()
+    {
+        GameManager.OnCarrotDead();
+        GameManager.StopTimerAndLoadNewScene();
+    }
 
     /// <summary>
     /// 데미지를 맞으면 HP를 1씩 감소 시킵니다. 
@@ -215,7 +247,7 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     {
         if (IsBulletCollision(collision))
         {
-            
+
             DecreaseHP();
             CheckCarrotAlive();
             changeMaterial();
@@ -241,7 +273,7 @@ public class CarrotProjectilesSpawner : MonoBehaviour
         _carrotEyeForLaserAnimator.enabled = false;
         _carrotEyeForLaserSpriteRenderer.enabled = false;
     }
- 
+
 
 
 

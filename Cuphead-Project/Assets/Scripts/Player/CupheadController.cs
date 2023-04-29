@@ -387,9 +387,13 @@ public class CupheadController : MonoBehaviour
 
             StartCoroutine(DelayMakingParrySucceedFalse());
         }
+        else
+        {
+            isParryTriggered = false;
+        }
 
         //플레이어가 충돌체에 맞은 경우
-        if (HasBeenHitCollision(collision))
+        if (HasBeenHitCollision(collision) && isParryTriggered == false)
         {
             if (IsInvincible == false)
             {
@@ -432,7 +436,7 @@ public class CupheadController : MonoBehaviour
         StartCoroutine(EnableScriptAfterDelay(1.0f));
 
         //플레이어 무적상태표시 
-        StartCoroutine(BlinkPlayerCoroutine(3f, 0.25f));
+        StartCoroutine(BlinkPlayerCoroutine(2.2f, 0.23f));
     }
 
 

@@ -70,11 +70,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f549d3eec896ac642a1f0b1660dcbf04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialProjectileSpeed: 0.42
+  _initialProjectileSpeed: 0.24
   _player: {fileID: 0}
-  _playerTrackingSpeed: 0.72
+  _playerTrackingSpeed: 0.36
+  DamageableCollider: {fileID: 868575863845802408}
   _MaterialDuringDamaged: {fileID: 2100000, guid: ce387163aadcbf44ab9f4ecb84f0460b, type: 2}
   _defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  rotationSpeed: 1.03
 --- !u!212 &3719218236378251411
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -135,7 +137,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3719218236378251500}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -217,10 +219,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3311002329259575862, guid: 28a7266b9f4c99d4194aee6b188f96e9, type: 3}
       propertyPath: m_Name
-      value: CarrotProjectile
+      value: CarrotProjectileCollider
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3888926780313523493, guid: 28a7266b9f4c99d4194aee6b188f96e9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 28a7266b9f4c99d4194aee6b188f96e9, type: 3}
+--- !u!70 &868575863845802408 stripped
+CapsuleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1468695935789846, guid: 28a7266b9f4c99d4194aee6b188f96e9, type: 3}
+  m_PrefabInstance: {fileID: 867218768693623486}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2082959755730227786 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1216203057670711540, guid: 28a7266b9f4c99d4194aee6b188f96e9, type: 3}
