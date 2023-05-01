@@ -1,5 +1,8 @@
 
+<<<<<<< HEAD
 using JetBrains.Annotations;
+=======
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,13 +42,21 @@ public class OnionTearController : MonoBehaviour
     int RandomNumberToSetBool;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+<<<<<<< HEAD
      
+=======
+
+        Debug.Log("플랫폼 - 물방울");
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
         //애니메이션 랜덤재생을 위한 랜덤 구조.
         RandomNumberToSetBool = Random.Range(0, 3);
         if (HasHitPlayerCollision(collision) || HasHitGroundCollision(collision))
         {
+<<<<<<< HEAD
             collider.enabled = false;
 
+=======
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
             switch ((TearDeathAnimType)RandomNumberToSetBool)
             {
                 case TearDeathAnimType.DeathTypeA:

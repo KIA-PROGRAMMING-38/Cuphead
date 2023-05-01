@@ -8,7 +8,11 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Potato_Dead
+<<<<<<< HEAD
   m_Speed: 0.9
+=======
+  m_Speed: 1.3
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []

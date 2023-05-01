@@ -214,6 +214,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+<<<<<<< HEAD
   - time: 0
     functionName: OnOnionDeadStart
     data: 
@@ -235,6 +236,8 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+=======
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   - time: 3.9166667
     functionName: OnOnionDeath
     data: 
@@ -242,6 +245,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+<<<<<<< HEAD
   - time: 3.9166667
     functionName: DeactivateSpriteRenderer
     data: 
@@ -249,3 +253,5 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+=======
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a

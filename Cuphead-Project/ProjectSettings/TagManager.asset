@@ -19,10 +19,13 @@ TagManager:
   - ParryableTear
   - CarrotProjectile
   - CarrotLaser
+<<<<<<< HEAD
   - CarrotBackgroundProjectile
   - Bullet_Sparker
   - PlayerHitEffect
   - ExMoveEffects
+=======
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   layers:
   - Default
   - TransparentFX

@@ -195,7 +195,11 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+<<<<<<< HEAD
   - time: 3.5833333
+=======
+  - time: 3.4166667
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
     functionName: StartPlay
     data: 
     objectReferenceParameter: {fileID: 0}

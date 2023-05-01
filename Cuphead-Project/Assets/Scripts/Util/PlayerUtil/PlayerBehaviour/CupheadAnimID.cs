@@ -6,7 +6,10 @@ public static class CupheadAnimID
     public static readonly int DIED = Animator.StringToHash("Died");
 
     public static readonly int RUN = Animator.StringToHash("Running");
+<<<<<<< HEAD
     public static readonly int DASH = Animator.StringToHash("Dashing");
+=======
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
 
     public static readonly int JUMP = Animator.StringToHash("Jumping");
     public static readonly int JUMP_AND_SHOOT = Animator.StringToHash("JumpingAndShooting");
@@ -14,6 +17,7 @@ public static class CupheadAnimID
     public static readonly int DUCK = Animator.StringToHash("Ducking");
     public static readonly int IS_DUCK_AND_SHOOOT = Animator.StringToHash("DuckingAndShooting");
 
+<<<<<<< HEAD
     public static readonly int STOP_MOVING = Animator.StringToHash("StopMoving");
 
 
@@ -23,6 +27,15 @@ public static class CupheadAnimID
     public static readonly int SHOOT_UPPER_SIDEWAYS = Animator.StringToHash("ShootingUpperSideways");
     public static readonly int SHOOT_BOTTOM_SIDEWAYS = Animator.StringToHash("ShootingBottomSideways");
   
+=======
+    public static readonly int STAND_SHOOT = Animator.StringToHash("StandShooting");
+    public static readonly int SHOOT_UP = Animator.StringToHash("ShootingUp");
+    public static readonly int SHOOT_DOWN = Animator.StringToHash("ShootingDown");
+    public static readonly int SHOOT_UPPER_LEFT = Animator.StringToHash("ShootingUpperLeft");
+    public static readonly int SHOOT_UPPER_RIGHT = Animator.StringToHash("ShootingUpperRight");
+    public static readonly int SHOOT_BOTTOM_LEFT = Animator.StringToHash("ShootingBottomLeft");
+    public static readonly int SHOOT_BOTTOM_RIGHT = Animator.StringToHash("ShootingBottomRight");
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
 
     public static readonly int TRY_PARRYING = Animator.StringToHash("TryParrying");
     public static readonly int HAS_PARRIED = Animator.StringToHash("HasParried");
@@ -57,6 +70,7 @@ public static class ObjectPoolNameID
     public static readonly string ONION_TEARS_PARRYABLE = "ParryableTear";
 
     public static readonly string EX_MOVE = "ExMove";
+<<<<<<< HEAD
 
     public static readonly string CARROT_PROJECTILE = "CarrotProjectile";
     public static readonly string CARROT_LASER = "CarrotLaser";
@@ -65,6 +79,10 @@ public static class ObjectPoolNameID
     public static readonly string BULLET_SPARKER = "Bullet_Sparker";
     public static readonly string PLAYER_HIT_EFFECT = "PlayerHitEffect";
     public static readonly string EX_MOVE_EFFECTS = "ExMoveEffects";
+=======
+    public static readonly string CARROT_PROJECTILE = "CarrotProjectile";
+    public static readonly string CARROT_LASER = "CarrotLaser";
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
 }
 
 public static class EffectNames

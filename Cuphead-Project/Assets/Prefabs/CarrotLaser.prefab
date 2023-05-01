@@ -32,8 +32,12 @@ Transform:
   m_LocalPosition: {x: 5.1294384, y: 3.1747777, z: 0.58012915}
   m_LocalScale: {x: 1.189202, y: 1.189202, z: 1.189202}
   m_ConstrainProportionsScale: 0
+<<<<<<< HEAD
   m_Children:
   - {fileID: 5878703861690002226}
+=======
+  m_Children: []
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -71,8 +75,13 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
+<<<<<<< HEAD
   m_Offset: {x: -0.06, y: 0}
   m_Size: {x: 0.73, y: 1.84}
+=======
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 1}
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   m_Direction: 0
 --- !u!114 &1780025056151872066
 MonoBehaviour:
@@ -86,9 +95,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 399d3f48d434dd149bfa76c3f4606abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   _initialLaserSpeed: 0.66
   _carrotEye: {fileID: 0}
   _laserSpeed: 0.71
+=======
+  _initialProjectileSpeed: 2
+  _playerTransform: {fileID: 0}
+  _carrotEye: {fileID: 0}
+  _laserSpeed: 1.08
+  laserSpawner: {fileID: 0}
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
 --- !u!95 &1780025056151872068
 Animator:
   serializedVersion: 5
@@ -151,11 +168,16 @@ SpriteRenderer:
   m_SortingLayerID: 432366789
   m_SortingLayer: 6
   m_SortingOrder: 0
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 70f5b68b55a88c74f95b52cd42bd4afb, type: 3}
+=======
+  m_Sprite: {fileID: 0}
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
+<<<<<<< HEAD
   m_Size: {x: 0.66, y: 0.75}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -210,3 +232,11 @@ CapsuleCollider2D:
   m_Offset: {x: -0.06, y: 0}
   m_Size: {x: 1.33, y: 1.26}
   m_Direction: 0
+=======
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a

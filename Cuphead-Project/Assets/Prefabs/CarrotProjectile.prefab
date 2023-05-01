@@ -32,8 +32,12 @@ Transform:
   m_LocalPosition: {x: 5.1294384, y: 3.1747777, z: 0.58012915}
   m_LocalScale: {x: 1.189202, y: 1.189202, z: 1.189202}
   m_ConstrainProportionsScale: 0
+<<<<<<< HEAD
   m_Children:
   - {fileID: 2082959755730227786}
+=======
+  m_Children: []
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -70,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f549d3eec896ac642a1f0b1660dcbf04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   _initialProjectileSpeed: 0.24
   _player: {fileID: 0}
   _playerTrackingSpeed: 0.36
@@ -77,6 +82,13 @@ MonoBehaviour:
   _MaterialDuringDamaged: {fileID: 2100000, guid: ce387163aadcbf44ab9f4ecb84f0460b, type: 2}
   _defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   rotationSpeed: 1.03
+=======
+  _initialProjectileSpeed: 0.42
+  _player: {fileID: 0}
+  _playerTrackingSpeed: 0.72
+  _MaterialDuringDamaged: {fileID: 2100000, guid: ce387163aadcbf44ab9f4ecb84f0460b, type: 2}
+  _defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
 --- !u!212 &3719218236378251411
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -137,7 +149,11 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3719218236378251500}
+<<<<<<< HEAD
   m_BodyType: 1
+=======
+  m_BodyType: 0
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -166,6 +182,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.00000047683716}
   m_Size: {x: 0.8399999, y: 1.4499999}
   m_Direction: 0
+<<<<<<< HEAD
 --- !u!1001 &867218768693623486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -234,3 +251,5 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1216203057670711540, guid: 28a7266b9f4c99d4194aee6b188f96e9, type: 3}
   m_PrefabInstance: {fileID: 867218768693623486}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a

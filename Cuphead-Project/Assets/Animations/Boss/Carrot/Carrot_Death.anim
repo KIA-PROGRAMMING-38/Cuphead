@@ -133,6 +133,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
+<<<<<<< HEAD
     functionName: disableAnimatorAndSpriteCarrotEyeDuringLaserShoot
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -148,6 +149,9 @@ AnimationClip:
     messageOptions: 0
   - time: 0
     functionName: DeactivateCarrotThirdEyeObject
+=======
+    functionName: DeactivateCarrotEye
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

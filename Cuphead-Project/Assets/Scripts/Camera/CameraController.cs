@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+<<<<<<< HEAD
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.VolumeComponent;
+=======
+using UnityEngine;
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
 
 public class CameraController : MonoBehaviour
 {
@@ -26,6 +30,7 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     float platformLength;
 
+<<<<<<< HEAD
     private float homePositionY;
     void Start()
     {
@@ -74,4 +79,15 @@ public class CameraController : MonoBehaviour
     }
 
 
+=======
+
+    void FixedUpdate()
+    {
+        Vector3 cameraPosition = new Vector3(_player.position.x / 15 + offset.x , transform.position.y, transform.position.z);
+        transform.position =
+
+           Vector3.Lerp(transform.position, cameraPosition, followSpeed * Time.deltaTime);
+
+    }
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
 }

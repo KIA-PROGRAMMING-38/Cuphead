@@ -19,7 +19,11 @@ public class OnionController : MonoBehaviour
     [SerializeField]
     WaitForSeconds _waitTimeForMaterial;
 
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
     [SerializeField]
     Animator _animator;
 
@@ -37,8 +41,11 @@ public class OnionController : MonoBehaviour
     [SerializeField]
     GameObject Onion;
 
+<<<<<<< HEAD
     Collider2D onionCollider;
 
+=======
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
     private static int OnionHP = 30;
     float durationOfHitMaterial = 0.15f;
 
@@ -47,9 +54,13 @@ public class OnionController : MonoBehaviour
     /// </summary>
     private void Start()
     {
+<<<<<<< HEAD
         _fadeCoroutine = FadeCoroutine();
         gameObject.SetActive(false);
         onionCollider = GetComponent<Collider2D>();
+=======
+        gameObject.SetActive(false);
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
     }
 
 
@@ -79,8 +90,12 @@ public class OnionController : MonoBehaviour
         }
 
     }
+<<<<<<< HEAD
     
    
+=======
+
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
     /// <summary>
     /// HP가 0이하가 된 경우 Death 애니메이션을 재생합니다. 
     /// </summary>
@@ -88,6 +103,7 @@ public class OnionController : MonoBehaviour
     {
         if (OnionHP < 0) //죽는 순간 눈물 물줄기를 먼저 끄고 DIE실행
         {
+<<<<<<< HEAD
 
             _animator.SetBool(CupheadAnimID.DIED, true);
 
@@ -112,6 +128,22 @@ public class OnionController : MonoBehaviour
     }
 
 
+=======
+        
+            _animator.SetBool(CupheadAnimID.DIED, true);
+           
+        }
+    }
+
+    /// <summary>
+    /// HP가 
+    /// </summary>
+    private void OnOnionDeath()
+    {//여기에 추후에 흐려지는 쉐이더 적용시키면 될듯?
+        GameManager.OnOnionDead();
+    }
+
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
 
     /// <summary>
     /// OnTrigger와 함께 총알이 맞은 경우 체력을 -1 감소 시킵니다. 
@@ -144,6 +176,7 @@ public class OnionController : MonoBehaviour
         OnionSprtieRenderer.material = _defaultMaterial;
     }
 
+<<<<<<< HEAD
     [SerializeField] SpriteRenderer _onionBackgroundRenderer;
     [SerializeField] float _dcreasingSpeed;
 
@@ -197,3 +230,10 @@ public class OnionController : MonoBehaviour
 
 
 
+=======
+
+ 
+
+
+}
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a

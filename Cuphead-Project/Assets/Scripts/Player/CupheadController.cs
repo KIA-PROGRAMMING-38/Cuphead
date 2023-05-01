@@ -630,6 +630,7 @@ public class CupheadController : MonoBehaviour
         {
            
             PlayerAnimator.SetBool(CupheadAnimID.DASH,true);
+
             SoundManager.PlayOneShot(_dashSound);
 
             // 이전에 실행된 코루틴이 있다면 중지.

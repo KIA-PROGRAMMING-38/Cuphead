@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     
     public bool IsGameover { get; private set;}
     public bool IsPotatoDead { get; private set; }
+<<<<<<< HEAD
 
 
     [SerializeField] private GameObject _player;
@@ -170,7 +171,43 @@ public class GameManager : MonoBehaviour
 
     
   
+=======
+    [SerializeField] private GameObject _player;
+    [SerializeField] private CupheadController _cupheadController;
+    [SerializeField] private GameObject _Potato;
+    [SerializeField] private GameObject _Onion;
+    [SerializeField] private GameObject _Carrot;
 
+    private void Start()
+    {
+        _player.SetActive(true);
+        _Potato.SetActive(true);
+    }
+
+    public void OnGameStart()
+    {
+        _cupheadController.enabled= true;
+    }
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
+
+    public void OnPotatoDead()
+    {
+        OnPotatoDied?.Invoke();
+        _Potato.SetActive(false);
+        _Onion.SetActive(true);
+    }
+    public void OnOnionDead()
+    {
+        _Onion.SetActive(false);
+        _Carrot.SetActive(true);
+    }
+
+    public void SetPotatoInactive() => _Potato.SetActive(false);
+    public void SetOnionACtive() { }
+
+ 
+    public void OnCarrotDead()
+    {
 
     public void SetPotatoInactive() => _Potato.SetActive(false);
     public void SetOnionACtive() { }

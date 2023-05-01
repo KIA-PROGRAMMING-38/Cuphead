@@ -168,6 +168,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+<<<<<<< HEAD
   - time: 0
     functionName: OnpPotatoDeathStart
     data: 
@@ -190,6 +191,9 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 2.8333333
+=======
+  - time: 2.75
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
     functionName: OnpPotatoDeath
     data: 
     objectReferenceParameter: {fileID: 0}

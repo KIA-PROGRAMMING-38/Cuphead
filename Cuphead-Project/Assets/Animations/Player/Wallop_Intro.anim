@@ -6,7 +6,11 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< HEAD:Cuphead-Project/Assets/Animations/Player/Wallop_Intro.anim
   m_Name: Wallop_Intro
+========
+  m_Name: Waterstream_Onion_Loop
+>>>>>>>> 4a852836704d737aa2115b708427c05389db532a:Cuphead-Project/Assets/Animations/Boss/Onion/Effects_Onion/Waterstream_Onion_Loop.anim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,6 +24,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
+<<<<<<<< HEAD:Cuphead-Project/Assets/Animations/Player/Wallop_Intro.anim
       value: {fileID: 21300000, guid: 29cdac7d9f876774bb2b9464a0153ce4, type: 3}
     - time: 0.083333336
       value: {fileID: 21300000, guid: c1444e389c97bd240ab5d43c36a220b8, type: 3}
@@ -27,6 +32,15 @@ AnimationClip:
       value: {fileID: 21300000, guid: 29cdac7d9f876774bb2b9464a0153ce4, type: 3}
     - time: 0.25
       value: {fileID: 21300000, guid: c1444e389c97bd240ab5d43c36a220b8, type: 3}
+========
+      value: {fileID: -615145807, guid: f41f58d3315af1a4e93dce41a5429137, type: 3}
+    - time: 0.083333336
+      value: {fileID: -1822555721, guid: f41f58d3315af1a4e93dce41a5429137, type: 3}
+    - time: 0.16666667
+      value: {fileID: -1208929364, guid: f41f58d3315af1a4e93dce41a5429137, type: 3}
+    - time: 0.25
+      value: {fileID: 272176939, guid: f41f58d3315af1a4e93dce41a5429137, type: 3}
+>>>>>>>> 4a852836704d737aa2115b708427c05389db532a:Cuphead-Project/Assets/Animations/Boss/Onion/Effects_Onion/Waterstream_Onion_Loop.anim
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,10 +60,17 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
+<<<<<<<< HEAD:Cuphead-Project/Assets/Animations/Player/Wallop_Intro.anim
     - {fileID: 21300000, guid: 29cdac7d9f876774bb2b9464a0153ce4, type: 3}
     - {fileID: 21300000, guid: c1444e389c97bd240ab5d43c36a220b8, type: 3}
     - {fileID: 21300000, guid: 29cdac7d9f876774bb2b9464a0153ce4, type: 3}
     - {fileID: 21300000, guid: c1444e389c97bd240ab5d43c36a220b8, type: 3}
+========
+    - {fileID: -615145807, guid: f41f58d3315af1a4e93dce41a5429137, type: 3}
+    - {fileID: -1822555721, guid: f41f58d3315af1a4e93dce41a5429137, type: 3}
+    - {fileID: -1208929364, guid: f41f58d3315af1a4e93dce41a5429137, type: 3}
+    - {fileID: 272176939, guid: f41f58d3315af1a4e93dce41a5429137, type: 3}
+>>>>>>>> 4a852836704d737aa2115b708427c05389db532a:Cuphead-Project/Assets/Animations/Boss/Onion/Effects_Onion/Waterstream_Onion_Loop.anim
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

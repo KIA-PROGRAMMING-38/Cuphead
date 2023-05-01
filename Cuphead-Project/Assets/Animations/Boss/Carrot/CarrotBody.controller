@@ -11,7 +11,11 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 2992289608713612039}
+<<<<<<< HEAD
     m_Position: {x: 230, y: 110, z: 0}
+=======
+    m_Position: {x: 230, y: 100, z: 0}
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   - serializedVersion: 1
     m_State: {fileID: -1877122680726403881}
     m_Position: {x: 230, y: 180, z: 0}
@@ -93,7 +97,11 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Carrot_Idle
+<<<<<<< HEAD
   m_Speed: 1.45
+=======
+  m_Speed: 1
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1941620467097800080}
@@ -151,13 +159,21 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 1
+<<<<<<< HEAD
     m_Controller: {fileID: 9100000}
+=======
+    m_Controller: {fileID: 0}
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   - m_Name: Dead
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
+<<<<<<< HEAD
     m_Controller: {fileID: 9100000}
+=======
+    m_Controller: {fileID: 0}
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -190,7 +206,11 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0.42857155
+<<<<<<< HEAD
   m_ExitTime: 12
+=======
+  m_ExitTime: 10
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -253,7 +273,11 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Carrot_Shoot
+<<<<<<< HEAD
   m_Speed: 1.4
+=======
+  m_Speed: 0.8
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4104809849738837523}

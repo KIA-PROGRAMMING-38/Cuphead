@@ -64,7 +64,11 @@ GameObject:
   - component: {fileID: 8850843668451659050}
   m_Layer: 7
   m_Name: NormalTear
+<<<<<<< HEAD
   m_TagString: Projectile
+=======
+  m_TagString: PotatoPorjectile
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +124,11 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.18}
+<<<<<<< HEAD
   m_Size: {x: 0.45, y: 0.92}
+=======
+  m_Size: {x: 0.89, y: 0.5}
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   m_Direction: 0
 --- !u!212 &8850843668451659049
 SpriteRenderer:

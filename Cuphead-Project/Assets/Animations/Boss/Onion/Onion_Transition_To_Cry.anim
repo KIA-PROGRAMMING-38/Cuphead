@@ -97,6 +97,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+<<<<<<< HEAD
   - time: 0.41666666
     functionName: PlayOnionCry
     data: 
@@ -104,6 +105,8 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+=======
+>>>>>>> 4a852836704d737aa2115b708427c05389db532a
   - time: 0.5
     functionName: SetBoolTrueOfWaterStream
     data: 
