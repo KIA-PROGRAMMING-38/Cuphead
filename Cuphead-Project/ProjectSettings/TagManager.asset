@@ -17,6 +17,12 @@ TagManager:
   - JumpDust
   - NormalTear
   - ParryableTear
+  - CarrotProjectile
+  - CarrotLaser
+  - CarrotBackgroundProjectile
+  - Bullet_Sparker
+  - PlayerHitEffect
+  - ExMoveEffects
   layers:
   - Default
   - TransparentFX

@@ -20,15 +20,17 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 200125a1be78fb548ab9ab14f104cb48, type: 3}
+      value: {fileID: 1979755917, guid: 7d0fb4e3f4803ff42b6b6e6385ad2e75, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: b8a6e9f9223e9874499036d4369e8688, type: 3}
+      value: {fileID: -1348919296, guid: 7d0fb4e3f4803ff42b6b6e6385ad2e75, type: 3}
     - time: 0.16666667
-      value: {fileID: 21300000, guid: de49b356461d3a847b667e5250ae2c1c, type: 3}
+      value: {fileID: 1376222818, guid: 7d0fb4e3f4803ff42b6b6e6385ad2e75, type: 3}
     - time: 0.25
-      value: {fileID: 21300000, guid: e690be38e70102a4d8f2e69a53b6db75, type: 3}
+      value: {fileID: 864533002, guid: 7d0fb4e3f4803ff42b6b6e6385ad2e75, type: 3}
     - time: 0.33333334
-      value: {fileID: 21300000, guid: 561589513f1f01142b838b92b13343f4, type: 3}
+      value: {fileID: -498841328, guid: 7d0fb4e3f4803ff42b6b6e6385ad2e75, type: 3}
+    - time: 0.41666666
+      value: {fileID: -1844297809, guid: 7d0fb4e3f4803ff42b6b6e6385ad2e75, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,17 +50,18 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 200125a1be78fb548ab9ab14f104cb48, type: 3}
-    - {fileID: 21300000, guid: b8a6e9f9223e9874499036d4369e8688, type: 3}
-    - {fileID: 21300000, guid: de49b356461d3a847b667e5250ae2c1c, type: 3}
-    - {fileID: 21300000, guid: e690be38e70102a4d8f2e69a53b6db75, type: 3}
-    - {fileID: 21300000, guid: 561589513f1f01142b838b92b13343f4, type: 3}
+    - {fileID: 1979755917, guid: 7d0fb4e3f4803ff42b6b6e6385ad2e75, type: 3}
+    - {fileID: -1348919296, guid: 7d0fb4e3f4803ff42b6b6e6385ad2e75, type: 3}
+    - {fileID: 1376222818, guid: 7d0fb4e3f4803ff42b6b6e6385ad2e75, type: 3}
+    - {fileID: 864533002, guid: 7d0fb4e3f4803ff42b6b6e6385ad2e75, type: 3}
+    - {fileID: -498841328, guid: 7d0fb4e3f4803ff42b6b6e6385ad2e75, type: 3}
+    - {fileID: -1844297809, guid: 7d0fb4e3f4803ff42b6b6e6385ad2e75, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.4166667
+    m_StopTime: 0.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -78,22 +81,22 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.083333336
+  - time: 0
+    functionName: ActivateHitEffect
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0
+    functionName: OnHasBeenHit
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.41666666
     functionName: DecreaseHP
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.16666667
-    functionName: CheckPlayerAlive
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.25
-    functionName: SetFalseHasBeenHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -24,11 +24,12 @@ public class GroundChecker : MonoBehaviour
         if (IsPlatformCollision(collision))
         {
 
-            PlayerAnimator.SetBool(CupheadAnimID.IS_JUMPING, false);
+            PlayerAnimator.SetBool(CupheadAnimID.JUMP, false);
             PlayerAnimator.SetBool(CupheadAnimID.TRY_PARRYING, false);
             CupheadController.IsJumping = false;
+            CupheadController.TryParrying = false;
 
-          
+
 
         }
 

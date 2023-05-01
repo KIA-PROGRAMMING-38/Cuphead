@@ -1,0 +1,77 @@
+version: 2
+tpsheetFileNames:
+- Assets/codeandweb.com/Example/SpriteSheet/sprites.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Carrot/Carrot_Death.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Backgorund.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Cry.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Death.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Idle.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Intro 1.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Intro.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Cry.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Death.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Idle.tpsheet
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Intro.tpsheet
+- Assets/Sprites/Player/TexturePackager/Boss.Death.tpsheet
+- Assets/Sprites/Player/TexturePackager/Ex_Move_Smoke.tpsheet
+- Assets/Sprites/Player/TexturePackager/Intro_And_Hit.tpsheet
+- Assets/Sprites/Player/TexturePackager/Noise_Texture.tpsheet
+- Assets/Sprites/Player/TexturePackager/Player_Duck.tpsheet
+- Assets/Sprites/Player/TexturePackager/Player_Effectstpsheet.tpsheet
+- Assets/Sprites/Player/TexturePackager/Player_ExMove.tpsheet
+- Assets/Sprites/Player/TexturePackager/Player_ExMove_Air.tpsheet
+- Assets/Sprites/Player/TexturePackager/Player_Intro_A.tpsheet
+- Assets/Sprites/Player/TexturePackager/Player_Jump_And_Parry.tpsheet
+- Assets/Sprites/Player/TexturePackager/Player_Run.tpsheet
+- Assets/Sprites/Player/TexturePackager/Player_stand_shoot.tpsheet
+textureFileNames:
+- Assets/codeandweb.com/Example/SpriteSheet/sprites.png
+- Assets/Sprites/Boss/Made by SpritePacker/Carrot/Carrot_Death.png
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Onion_Backgorund.png
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Cry.png
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Onion_Death.png
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Idle.png
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Death.png
+- Assets/Sprites/Boss/Made by SpritePacker/Metafiles/Onion_Onion_Intro.png
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Onion_Cry.png
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Onion_Death.png
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Onion_Idle.png
+- Assets/Sprites/Boss/Made by SpritePacker/Onion/Onion_Onion_Intro.png
+- Assets/Sprites/Player/TexturePackager/Boss.Death.png
+- Assets/Sprites/Player/TexturePackager/Ex_Move_Smoke.png
+- Assets/Sprites/Player/TexturePackager/Intro_And_Hit.png
+- Assets/Sprites/Player/TexturePackager/Noise_Texture.png
+- Assets/Sprites/Player/TexturePackager/Player_Duck.png
+- Assets/Sprites/Player/TexturePackager/Player_Effectstpsheet.png
+- Assets/Sprites/Player/TexturePackager/Player_ExMove.png
+- Assets/Sprites/Player/TexturePackager/Player_ExMove_Air.png
+- Assets/Sprites/Player/TexturePackager/Player_Intro_A.png
+- Assets/Sprites/Player/TexturePackager/Player_Jump_And_Parry.png
+- Assets/Sprites/Player/TexturePackager/Player_Run.png
+- Assets/Sprites/Player/TexturePackager/Player_stand_shoot..png
+normalmapFileNames:
+- Assets/codeandweb.com/Example/SpriteSheet/sprites_n.png
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+enableDebugOutput: 0

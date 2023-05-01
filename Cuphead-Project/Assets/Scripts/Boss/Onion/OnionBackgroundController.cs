@@ -4,21 +4,11 @@ using UnityEngine;
 
 public class OnionBackgroundController : MonoBehaviour
 {
-    [SerializeField] GameObject onionBody;
-   
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameObject _onionBody;
 
-
-    void Update()
-    {
-        
-    }
-   
+ 
     public void ActivateOnion()
     {
-        onionBody.SetActive(true);
+        _onionBody.SetActive(true);
     }
 }

@@ -1,3 +1,5 @@
+
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +9,6 @@ public class OnionTearController : MonoBehaviour
 
 
     Rigidbody2D projectileRigidbody;
-
     SpriteRenderer projectile;
     Animator animator;
     Collider2D collider;
@@ -16,27 +17,73 @@ public class OnionTearController : MonoBehaviour
 
     private void OnEnable()
     {
-        projectileRigidbody = GetComponent<Rigidbody2D>();  
+       
+        projectileRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
-        Invoke(nameof(DeactiveDelay), 1.0f);
+
+        
+        projectileRigidbody.gravityScale = Random.Range(0.2f, 0.5f);
+
+        Invoke(nameof(DeactiveDelay), 2.0f);
     }
     void DeactiveDelay() => gameObject.SetActive(false);
 
-    private void OnDisable()
+   
+    enum TearDeathAnimType
     {
-        ObjectPooler.ReturnToPool(gameObject);
-        CancelInvoke();
-        projectileRigidbody.gravityScale = Random.Range(0.2f, 0.8f);
+        DeathTypeA,
+        DeathTypeB,
+        DeathTypeC
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    int RandomNumberToSetBool;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+     
+        //애니메이션 랜덤재생을 위한 랜덤 구조.
+        RandomNumberToSetBool = Random.Range(0, 3);
         if (HasHitPlayerCollision(collision) || HasHitGroundCollision(collision))
         {
-            animator.SetBool(ProjectileAnimID.DEAD, true);
+            collider.enabled = false;
+
+            switch ((TearDeathAnimType)RandomNumberToSetBool)
+            {
+                case TearDeathAnimType.DeathTypeA:
+                    animator.SetTrigger("Tear_Dead_A");
+                    projectileRigidbody.isKinematic = true;
+                    projectileRigidbody.velocity = Vector3.zero;
+                    break;
+
+                case TearDeathAnimType.DeathTypeB:
+                    animator.SetTrigger("Tear_Dead_B");
+                    projectileRigidbody.isKinematic = true;
+                    projectileRigidbody.velocity = Vector3.zero;
+                    break;
+
+                case TearDeathAnimType.DeathTypeC:
+                    animator.SetTrigger("Tear_Dead_C");
+                    projectileRigidbody.isKinematic = true;
+                    projectileRigidbody.velocity = Vector3.zero;
+                    break;
+
+                default:Debug.Log("Tear애니메이션 오류");
+                    break;
+            }
+           
         }
+       
+        //오브젝트를 멈춤(속도)
+       
     }
 
+
+    private void OnDisable()
+    {
+        projectileRigidbody.isKinematic = false;
+        ObjectPooler.ReturnToPool(gameObject);
+        CancelInvoke();
+
+    }
     // 양파눈물은 플레이어 혹은 플랫폼과 상호작용합니다. 
     private bool HasHitPlayerCollision(Collider2D collision)
     {

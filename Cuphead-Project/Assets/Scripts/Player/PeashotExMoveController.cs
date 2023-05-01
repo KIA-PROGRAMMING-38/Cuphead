@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PeashotExMoveController : MonoBehaviour
 {
     [SerializeField]
-    Rigidbody2D _bulletRigidbody;
+    Rigidbody2D _exMoveRigidBody;
     [SerializeField]
     Transform _rangePosition;
     [SerializeField]
@@ -17,6 +18,12 @@ public class PeashotExMoveController : MonoBehaviour
     [SerializeField]
     Vector2 _exMoveForce;
 
+    [SerializeField]
+    Vector2 _exMoveForceUp;
+
+
+    [SerializeField]
+    PeashotSpawner peashotSpawner;
 
 
 
@@ -25,19 +32,28 @@ public class PeashotExMoveController : MonoBehaviour
         //플레이어의 플립여부 자료를 받아옵니다.
         //받아온 자료를 조건으로 하여, 총알의 발사 위치를 정합니다.
 
-        if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT)
+       //up방향이 아니고, 플레이어 방향이 위쪽인경우.
+        if (peashotSpawner.isUp)
+        {
+            _exMoveRigidBody.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+            _exMoveRigidBody.velocity = _exMoveForceUp;
+        }
+        //up방향이 아니고, 플레이어 방향이 오른쪽인경우.
+        else if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT && !peashotSpawner.isUp)
         {
             ExMoveSpriteRenderer.flipX = false;
-            _bulletRigidbody.velocity = _exMoveForce;
-         
-
+            _exMoveRigidBody.velocity = _exMoveForce;
         }
-        else if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_LEFT)
+
+        //up방향이 아니고, 플레이어 방향이 왼쪽인경우.
+        else if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_LEFT && !peashotSpawner.isUp)
         {
             ExMoveSpriteRenderer.flipX = true;
-            _bulletRigidbody.velocity = -_exMoveForce;
-
+            _exMoveRigidBody.velocity = -_exMoveForce;
         }
+
+     
+
 
     }
 
@@ -47,7 +63,7 @@ public class PeashotExMoveController : MonoBehaviour
 
         if (CheckBulletIsHit() == true)
         {
-            _bulletRigidbody.velocity = Vector2.zero;
+            _exMoveRigidBody.velocity = Vector2.zero;
             Invoke(nameof(DeactiveDelay), 0.2f);
         }
 
