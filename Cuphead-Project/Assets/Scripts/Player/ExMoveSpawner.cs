@@ -20,17 +20,36 @@ public class ExMoveSpawner : MonoBehaviour
     float _spawnCoolTime;
 
     float _elapsedTime;
-   
 
-                                                                                                                                             
 
+    public void DecreaseExGauge()
+    {
+        if (CupheadController.CurrentExMoveGauge > CupheadController.ExMoveGaugeCountPerOne)
+        {
+            CupheadController.CurrentExMoveGauge -= CupheadController.ExMoveGaugeCountPerOne;
+        }
+
+    }
+
+    [SerializeField]
+    AudioSource _soundmanager;
+    [SerializeField]
+    AudioClip ExmoveSound;
     private void Update()
     {
         _elapsedTime += Time.deltaTime;
 
         // 총알 발사시간을 제한하는 조건을 넣어, 지나치게 많은 총알이 생성되는 것을 방지합니다. 
-        if (Input.GetKeyDown(KeyCode.V) && _elapsedTime > _spawnCoolTime)
+        if (Input.GetKeyDown(KeyCode.V) && _elapsedTime > _spawnCoolTime &&
+            UIController.ExCount > 0)
         {
+            _soundmanager.clip = ExmoveSound;
+            _soundmanager.PlayOneShot(ExmoveSound);
+
+            CupheadController.SuperMeter++;
+
+            DecreaseExGauge();
+
             _playerAnimator.SetBool(CupheadAnimID.EX_MOVE, true);
           
             // 스폰 시 포지션을 정해줍니다. 

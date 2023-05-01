@@ -76,14 +76,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: EnableAnimatorAndSpriteCarrotEyeDuringLaserShoot
+    functionName: ActivateCarrotThirdEyeObject
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0
-    functionName: ActivateCarrotThirdEyeObject
+  - time: 0.083333336
+    functionName: EnableAnimatorAndSpriteCarrotEyeDuringLaserShoot
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

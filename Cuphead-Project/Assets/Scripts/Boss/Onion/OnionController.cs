@@ -79,7 +79,8 @@ public class OnionController : MonoBehaviour
         }
 
     }
-
+    
+   
     /// <summary>
     /// HP가 0이하가 된 경우 Death 애니메이션을 재생합니다. 
     /// </summary>
@@ -92,16 +93,20 @@ public class OnionController : MonoBehaviour
 
         }
     }
-
+    private void DeactivateSpriteRenderer()
+    {
+        OnionSprtieRenderer.enabled = false;
+    }
 
     private void OnOnionDeath()
     {
-
+      
         GameManager.OnOnionDead();
     }
 
     private void OnOnionDeadStart()
     {
+        OnionCrySource.Stop();
         onionCollider.enabled = false;
         GameManager.OnOnionDeadStart();
     }
@@ -172,6 +177,19 @@ public class OnionController : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    [SerializeField] AudioSource OnionCrySource;
+    [SerializeField] AudioClip OnionCryClip;
+
+    public void PlayOnionCry()
+    {
+        OnionCrySource.clip= OnionCryClip;
+        OnionCrySource.Play();
+    }
+    public void StopOnionCry()
+    {
+        OnionCrySource.Stop();
     }
 }
 

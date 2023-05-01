@@ -27,8 +27,9 @@ public class GroundChecker : MonoBehaviour
             PlayerAnimator.SetBool(CupheadAnimID.JUMP, false);
             PlayerAnimator.SetBool(CupheadAnimID.TRY_PARRYING, false);
             CupheadController.IsJumping = false;
+            CupheadController.TryParrying = false;
 
-          
+
 
         }
 

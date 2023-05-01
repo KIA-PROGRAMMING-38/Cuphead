@@ -79,7 +79,8 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.43
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6207825643929783938, guid: 0271e14cbfdb32a4fa5648db2781b365, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0271e14cbfdb32a4fa5648db2781b365, type: 3}
 --- !u!1 &2125902855321275353 stripped
 GameObject:
@@ -114,6 +115,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 241365275623556426, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
+      propertyPath: m_Radius
+      value: 1.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 241365275623556426, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2723181591030200048, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
+      propertyPath: m_Radius
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634900288041413550, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
+      propertyPath: _potatoProjectileDamageableCollider
+      value: 
+      objectReference: {fileID: 2159432647405238640}
     - target: {fileID: 8439006461690673421, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
       propertyPath: m_Name
       value: Parryable
@@ -164,6 +181,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
+--- !u!58 &2159432647405238640 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2723181591030200048, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}
+  m_PrefabInstance: {fileID: 4052526870129053568}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5722756954908294948 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8599102967719719076, guid: e2aeeaf00e8adf443a7725f27a80ac3a, type: 3}

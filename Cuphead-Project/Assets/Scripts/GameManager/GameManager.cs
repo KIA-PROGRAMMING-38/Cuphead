@@ -31,9 +31,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _bossDeathEffect;
     [SerializeField] private BossDeathEffectController bossDeathEffectController;
 
-    public float startTime;
+    private float startTime;
     private void Awake()
     {
+        _waitTimeForActivateRecord = new WaitForSeconds(_waitTimeForActivateRecordFloat);
         DontDestroyOnLoad(gameObject);
     }
     private void Start()
@@ -66,6 +67,9 @@ public class GameManager : MonoBehaviour
     WaitForSeconds _waitTimeForActivatingNextBoss;
     float _waitTimeForActivatingOnionFloat = 2.0f;
 
+    WaitForSeconds _waitTimeForActivateRecord;
+    float _waitTimeForActivateRecordFloat = 8.0f;
+
     public void OnPotatoDeadStart()
     {
         _bossDeathEffect.transform.position = _Potatobody.transform.position;
@@ -75,7 +79,7 @@ public class GameManager : MonoBehaviour
 
     public void OnPotatoDead()
     {
-
+       
         _waitTimeForActivatingNextBoss = new WaitForSeconds(_waitTimeForActivatingOnionFloat);
         OnPotatoDied?.Invoke();
         
@@ -112,14 +116,41 @@ public class GameManager : MonoBehaviour
     }
 
 
+    [SerializeField]
+    GameObject _resultScene;
+    [SerializeField]
+    GameObject _inPlayerScene;
+    [SerializeField]
+    GameObject _cuphead;
+
+
+    [SerializeField] AudioSource SoundManager;
+    [SerializeField] AudioClip _knockout;
 
     public void OnCarrotDead()
     {
+        SoundManager.clip = _knockout;
+        SoundManager.loop = false;
+        SoundManager.PlayOneShot(_knockout);
         _bossDeathEffect.transform.position = _Carrot.transform.position;
         bossDeathEffectController.ActivateAnimation();
         _bossDeathEffect.SetActive(true);
+
+        StartCoroutine(SetActiveRecordDelayed());
+
+        IsGameover = true;
+       
     }
 
+    IEnumerator SetActiveRecordDelayed()
+    {
+     
+        yield return _waitTimeForActivateRecord;
+        _Carrot.SetActive(false);
+        _inPlayerScene.SetActive(false);
+        _resultScene.SetActive(true);
+        _cuphead.SetActive(false);
+    }
 
 
 
@@ -130,25 +161,15 @@ public class GameManager : MonoBehaviour
         while (!IsGameover)
         {
             playTime = Time.time - startTime;
-
-            if (IsGameover)
-            {
-                StopTimerAndLoadNewScene();
-            }
-
             yield return null;
         }
        
         
     }
 
-    public void StopTimerAndLoadNewScene()
-    {
-        IsGameover = true;
-        string sceneName = "RESULT";
-        Debug.Log(playTime);
-        SceneManager.LoadScene(sceneName);
-    }
+
+    
+  
 
 
     public void SetPotatoInactive() => _Potato.SetActive(false);

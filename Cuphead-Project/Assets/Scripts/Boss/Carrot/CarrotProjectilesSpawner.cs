@@ -58,17 +58,25 @@ public class CarrotProjectilesSpawner : MonoBehaviour
     [SerializeField]
     GameObject CarrotLaserSpawner;
     [SerializeField]
-    GameObject CarrotEyes;
+    SpriteRenderer CarrotEyes;
+    [SerializeField]
+    Animator CarrotLaserAnimator;
+    [SerializeField]
+    SpriteRenderer CarrotLaserSpriteRenderer;
 
     public void ActivateCarrotThirdEyeObject()
     {
-        CarrotLaserSpawner.SetActive(true);
+        CarrotLaserSpriteRenderer.enabled = true;
+        CarrotEyes.enabled = true;
+        CarrotLaserAnimator.enabled = true;
     }
 
     public void DeactivateCarrotThirdEyeObject()
     {
-        CarrotEyes.SetActive(false);
-        CarrotLaserSpawner.SetActive(false);
+        CarrotLaserSpriteRenderer.enabled = false;
+        CarrotLaserAnimator.enabled = false;
+        CarrotEyes.enabled = false;
+       
     }
 
 
@@ -213,11 +221,19 @@ public class CarrotProjectilesSpawner : MonoBehaviour
         _carrotEyeSpriteRenderer.material = _defaultMaterial;
         carrotSpriteRenderer.material = _defaultMaterial;
     }
+    [SerializeField]
+    AudioSource _BossSoundManager;
+    public void StopLaserSound()
+    {
+        _BossSoundManager.Stop();
+    }
 
     public void OnCarrotDead()
     {
+        _BossSoundManager.Stop(); 
+        DeactivateCarrotThirdEyeObject();
         GameManager.OnCarrotDead();
-        GameManager.StopTimerAndLoadNewScene();
+       
     }
 
     /// <summary>

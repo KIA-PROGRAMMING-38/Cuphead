@@ -12,8 +12,8 @@ public class BulletHitChecker : MonoBehaviour
     [SerializeField]
     public LayerMask whatIsEnemy;
 
-    [SerializeField]
-    public LayerMask whatIsWall;
+    //[SerializeField]
+    //public LayerMask whatIsWall;
 
     [SerializeField]
     Animator _bulletAnimator;
@@ -28,11 +28,16 @@ public class BulletHitChecker : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, _radiusSize);
     }
     public bool isHittingEnemy;
+    //public bool isHittingWall;
     public bool CheckBulletIsHit()
     {
         return Physics2D.OverlapCircle(transform.position, _radiusSize, whatIsEnemy);
     }
 
+    //public bool CheckBulletIsHitWall()
+    //{
+    //    return Physics2D.OverlapCircle(transform.position, _radiusSize, whatIsWall);
+    //}
 
 
     /// <summary>
@@ -45,8 +50,9 @@ public class BulletHitChecker : MonoBehaviour
     {
         //bool hitWall = CheckBulletHitsWall();
         isHittingEnemy = CheckBulletIsHit();
-      
-        if (isHittingEnemy)
+        //isHittingWall = CheckBulletIsHitWall();
+
+        if (isHittingEnemy )
         {
             _bulletAnimator.SetBool(BulletAnimID.HIT_ENEMY_OR_ITS_PROJECTILES, true);
            

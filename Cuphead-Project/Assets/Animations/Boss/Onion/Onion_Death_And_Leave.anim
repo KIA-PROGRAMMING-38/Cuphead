@@ -221,6 +221,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0
+    functionName: StopOnionCry
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 3.9166667
     functionName: FadeCoroutine
     data: 
@@ -230,6 +237,13 @@ AnimationClip:
     messageOptions: 0
   - time: 3.9166667
     functionName: OnOnionDeath
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 3.9166667
+    functionName: DeactivateSpriteRenderer
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

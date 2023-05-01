@@ -52,7 +52,7 @@ public class OnionTearSpawner : MonoBehaviour
         projectileCreationChance = Random.Range(0, 100);
 
 
-        if (projectileCreationChance > 65)
+        if (projectileCreationChance > 80)
         {
             spawnPosition = Random.Range(SPAWN_POSITION_LEFT, SPAWN_POSITION_RIGHT);
             tearDecider = Random.Range(0, 100);

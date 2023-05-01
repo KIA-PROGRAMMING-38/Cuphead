@@ -190,7 +190,7 @@ public class PeashotSpawner : MonoBehaviour
 
     private void ShootSideways()
     {
-        Debug.Log($"ShootSideways():  {bullet.MoveDirection}");
+        
         if (isRight)
         {
             spawnPositionRight = _shootRightPosition.transform.position + moveSpawnPositionRight[countTomove % 4];
@@ -276,7 +276,7 @@ public class PeashotSpawner : MonoBehaviour
     [SerializeField] GameObject _shootBottomLeftPosition;
     private void ShootingBottomSideways()
     {
-        Debug.Log($"ShootingBottomSideways():  {bullet.MoveDirection}");
+       
         if (isBottomRight)
         {
             GameObject Bullet = ObjectPooler.SpawnFromPool("Bullet", _shootBottomRightPosition.transform.position);

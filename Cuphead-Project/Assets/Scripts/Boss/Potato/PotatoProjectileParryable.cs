@@ -19,12 +19,13 @@ public class PotatoProjectileParryable : MonoBehaviour
     [SerializeField]
     Collider2D childProjectileCollider;
     float _spawnMoveDistance;
-   
 
+  
 
 
     private void OnEnable()
     {
+       
         ShowParry();
         //이후 패링객체 플레이어 상호작용 시 사용할 함수를 미리 작성했습니다.
         //bulletHitChecker = GetComponent<BulletHitChecker>();
@@ -51,12 +52,16 @@ public class PotatoProjectileParryable : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (HasBeenHitCollision(collision)  && !CupheadController.IsInvincible && CupheadController.TryParrying)
+        //패리성공했거나, 
+        if ((HasBeenHitCollision(collision) && !CupheadController.IsInvincible && CupheadController.TryParrying )
+            || HasBeenHitCollision(childProjectileCollider) || CupheadController.HasParried)
         {
             DisableProjectileCollider();
             animator.SetBool(ProjectileAnimID.PARRIED, true);
          
         }
+
+     
     }
 
     private bool HasBeenHitCollision(Collider2D collision)

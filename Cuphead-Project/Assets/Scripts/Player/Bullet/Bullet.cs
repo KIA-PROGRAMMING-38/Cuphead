@@ -59,6 +59,10 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     BulletHitChecker bulletHitChecker;
 
+
+    [SerializeField]
+    BulletHitWallChecker BulletHitWallChecker;
+
     [SerializeField]
     PeashotSpawner peashotSpawner;
 
@@ -77,6 +81,7 @@ public class Bullet : MonoBehaviour
     public LaunchDirection moveDirection { get; private set; }
     public LaunchDirection MoveDirection { get; private set; }
 
+    bool IncreasedExGauge;
     private void Start()
     {
 
@@ -84,8 +89,22 @@ public class Bullet : MonoBehaviour
 
     public void Update()
     {
+        //적에게 맞는경우
         _bulletRigidbody.velocity = bulletDirection;
         if (bulletHitChecker.CheckBulletIsHit())
+        {
+            //게이지 증가
+            if (!IncreasedExGauge)
+            {
+                IncreaseExGauge();
+                IncreasedExGauge = true;
+            }
+            
+            _bulletRigidbody.velocity = Vector2.zero;
+            Invoke(nameof(DeactiveDelay), 0.2f);
+        }
+        //벽,플랫폼에 맞는경우
+        else if (BulletHitWallChecker.CheckBulletIsHitWall())
         {
             _bulletRigidbody.velocity = Vector2.zero;
             Invoke(nameof(DeactiveDelay), 0.2f);
@@ -94,6 +113,8 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
+        IncreasedExGauge = false;
+
         if (peashotSpawner == null) return;
 
         //Ducking인 경우 좌우만 판단
@@ -192,7 +213,14 @@ public class Bullet : MonoBehaviour
         CancelInvoke(); //unlike coroutine, using Invoke have to be used with CancelInvoke
     }
 
-
+    public void IncreaseExGauge()
+    {
+        if(CupheadController.CurrentExMoveGauge < CupheadController.ExMoveGaugeCountPerOne * 5 + 1)
+        {
+            CupheadController.CurrentExMoveGauge++;
+        }
+        
+    }
 
 
 }

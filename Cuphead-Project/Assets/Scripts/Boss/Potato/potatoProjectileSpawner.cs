@@ -23,7 +23,7 @@ public class potatoProjectileSpawner : MonoBehaviour
     SpriteRenderer PotatoSpriteRenderer;
 
     Collider2D potatoCollider;
-    private static int PotatoHp = 30;
+    private static int PotatoHp = 50;
 
 
     private void Start()
@@ -53,7 +53,10 @@ public class potatoProjectileSpawner : MonoBehaviour
         GameManager.OnPotatoDead();
 
     }
-
+    private void DeactivatePotatoSpriteRenderer()
+    {
+        PotatoSpriteRenderer.enabled = false;
+    }
 
 
     /// <summary>
@@ -181,7 +184,16 @@ public class potatoProjectileSpawner : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    AudioSource _bossAudioSource;
+    [SerializeField]
+    AudioClip _potatoProjectileClip;
 
+    public void StartPotatoProjectileSound()
+    {
+        _bossAudioSource.clip = _potatoProjectileClip;
+        _bossAudioSource.PlayOneShot(_potatoProjectileClip);
+    }
 
 }
 

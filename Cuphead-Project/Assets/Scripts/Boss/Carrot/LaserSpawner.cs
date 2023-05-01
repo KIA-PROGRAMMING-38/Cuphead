@@ -9,6 +9,7 @@ public class LaserSpawner : MonoBehaviour
     SpriteRenderer spriteRenderer;
     private void Start()
     {
+        animator = GetComponent<Animator>();
         animator.enabled = false;
         spriteRenderer.enabled = false; 
     }
@@ -57,4 +58,16 @@ public class LaserSpawner : MonoBehaviour
         CarrotLaserController._lastlyDetectedPlayerPosition = _playerTransform.position;
     }
 
+    [SerializeField]
+    AudioSource _BossSoundManager;
+    [SerializeField]
+    AudioClip _laserSound;
+
+    public void PlayLaserSound()
+    {
+        _BossSoundManager.clip= _laserSound;
+        _BossSoundManager.PlayOneShot(_laserSound);
+    }
+    
+   
 }

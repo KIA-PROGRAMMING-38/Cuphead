@@ -26,12 +26,16 @@ public class soundManager : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
 
-
+        BgmusicVeggie.volume = 0;
         StartBgVoluime();
-        Invoke(nameof(PlayYouAreUp), 2.0f);
+        Invoke(nameof(PlayYouAreUp), 2.4f);
 
     }
 
+    private void Update()
+    {
+        TurnUpBgVolume();
+    }
 
     /// <summary>
     /// VeggieBackground를 설정하는 부분입니다.
@@ -50,22 +54,19 @@ public class soundManager : MonoBehaviour
 
         BgmusicVeggie.SetScheduledStartTime(3f);
 
-        StartCoroutine(TurnUpBgVolume());
-    
-
     }
 
-    IEnumerator TurnUpBgVolume()
+    void  TurnUpBgVolume()
     {
-        while (BgmusicVeggie.volume < targetVolume - volumeThreshold)
-        {
+           
             BgmusicVeggie.volume = Mathf.MoveTowards(BgmusicVeggie.volume, targetVolume, bgVolumeUpSpeed * Time.deltaTime);
-            yield return null;
-        }
+     
     }
 
     void PlayYouAreUp()
     {
         audioSource.PlayOneShot(YouAreUp);
     }
+
+   
 }

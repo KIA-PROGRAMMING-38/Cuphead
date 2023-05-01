@@ -40,11 +40,12 @@ public class OnionTearController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
      
-        Debug.Log("플랫폼 - 물방울");
         //애니메이션 랜덤재생을 위한 랜덤 구조.
         RandomNumberToSetBool = Random.Range(0, 3);
         if (HasHitPlayerCollision(collision) || HasHitGroundCollision(collision))
         {
+            collider.enabled = false;
+
             switch ((TearDeathAnimType)RandomNumberToSetBool)
             {
                 case TearDeathAnimType.DeathTypeA:

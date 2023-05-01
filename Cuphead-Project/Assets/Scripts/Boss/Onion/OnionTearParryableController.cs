@@ -40,7 +40,7 @@ public class OnionTearParryableController : MonoBehaviour
         // 플레이어 혹은, 지면과 충돌했다면~
         if (HasHitPlayerCollision(collision) || HasHitGroundCollision(collision))
         {
-            
+            DeactivateCollider();
             /*오브젝트를 멈추고 Tear_Death애니메이션 재생하며, 
             위해 키네마틱을 true로 하고 속도를 0으로 하여 위치 고정*/
             tearParryableRigidbody.isKinematic = true;

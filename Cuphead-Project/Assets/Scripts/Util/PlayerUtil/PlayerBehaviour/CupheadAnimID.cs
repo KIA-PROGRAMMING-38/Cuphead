@@ -6,6 +6,7 @@ public static class CupheadAnimID
     public static readonly int DIED = Animator.StringToHash("Died");
 
     public static readonly int RUN = Animator.StringToHash("Running");
+    public static readonly int DASH = Animator.StringToHash("Dashing");
 
     public static readonly int JUMP = Animator.StringToHash("Jumping");
     public static readonly int JUMP_AND_SHOOT = Animator.StringToHash("JumpingAndShooting");

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 150949232544800849}
   - component: {fileID: 150949232544800850}
   - component: {fileID: 1725342631}
+  - component: {fileID: 3748024502719677374}
   m_Layer: 8
   m_Name: Bullet
   m_TagString: Bullet
@@ -138,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d860ec9f8724f4498bb6b8095aa4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletRigidbody: {fileID: 0}
+  _bulletRigidbody: {fileID: 1725342631}
   peashotSpriteRenderer: {fileID: 150949232544800853}
   _playerSpriteRenderer: {fileID: 3625428155199176949, guid: 087a632603d4eb44fa416704045c1718, type: 3}
   bulletHitChecker: {fileID: 150949232544800850}
@@ -164,6 +165,7 @@ MonoBehaviour:
     m_Bits: 512
   _bulletAnimator: {fileID: 150949232544800848}
   isHittingEnemy: 0
+  isHittingWall: 0
 --- !u!50 &1725342631
 Rigidbody2D:
   serializedVersion: 4
@@ -185,3 +187,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &3748024502719677374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150949232316828932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a03d4bb2bd4e694f888523d0cdfd73d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _radiusSize: 0.2
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 512
+  _bulletAnimator: {fileID: 150949232544800848}
+  isHittingWall: 0

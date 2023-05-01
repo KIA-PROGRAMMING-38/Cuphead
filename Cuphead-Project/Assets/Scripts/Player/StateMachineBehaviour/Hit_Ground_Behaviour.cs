@@ -39,7 +39,7 @@ public class Hit_Ground_Behaviour : StateMachineBehaviour
 
         if (CupheadController.playerDirection == CupheadController.PLAYER_DIRECTION_RIGHT && CupheadController.HasBeenHit == false)
         {
-            Debug.Log($"velociy changed by projectile");
+           
             playerRigidbody.transform.position =
                 Vector3.Lerp(playerRigidbody.transform.position, positionToMoveByHitRight, 0.5f);
 
@@ -50,7 +50,7 @@ public class Hit_Ground_Behaviour : StateMachineBehaviour
         {
             playerRigidbody.transform.position =
             Vector3.Lerp(playerRigidbody.transform.position, positionToMoveByHitLeft, 0.5f);
-            Debug.Log($"velociy changed by projectile");
+         
 
         }
 

@@ -176,6 +176,13 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 2.8333333
+    functionName: DeactivatePotatoSpriteRenderer
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2.8333333
     functionName: FadeCoroutine
     data: 
     objectReferenceParameter: {fileID: 0}

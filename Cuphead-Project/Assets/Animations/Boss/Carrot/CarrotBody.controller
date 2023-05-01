@@ -93,7 +93,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Carrot_Idle
-  m_Speed: 1.4
+  m_Speed: 1.45
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1941620467097800080}
@@ -190,7 +190,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0.42857155
-  m_ExitTime: 10
+  m_ExitTime: 12
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

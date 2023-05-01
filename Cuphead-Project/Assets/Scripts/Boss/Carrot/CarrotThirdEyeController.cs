@@ -8,7 +8,7 @@ public class CarrotThirdEyeController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     void Awake()
     {
-        animator.enabled= false;
+       
         spriteRenderer.enabled= false;
     }
 

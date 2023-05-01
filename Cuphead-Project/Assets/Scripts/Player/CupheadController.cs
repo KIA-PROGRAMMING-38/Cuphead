@@ -4,23 +4,54 @@ using UnityEditor;
 using UnityEngine.Events;
 using System.Collections;
 using Unity.VisualScripting;
+using TMPro.Examples;
 
-public class CupheadStateInfo
-{
-    public static readonly int IS_NOT_MOVING = 0;
-    public static readonly int IS_MOVING = 1;
-}
 
 
 
 public class CupheadController : MonoBehaviour
 {
+    [SerializeField]
+    public AudioSource SoundManager;
+    [SerializeField]
+    public AudioClip peashotClip;
+ 
+
+    public delegate void CustomEventHandler();
+    public static event CustomEventHandler HpControllEffect;
+
+
+
+    // 이벤트 발생 함수
+    public void HpChangedEvent()
+    {
+        HpControllEffect?.Invoke();
+        // CustomEvent 이벤트 발생
+    }
 
     // Try-Parrying 애니메이션에서도 간접적으로
     // Trigger 를 활용할 수 있도록하는 bool값입니다. 
+
+    /// <summary>
+    /// 기본공격 30개 = ExMove(필살기)1회
+    /// ExMoveSpawner에서 Decrease, Bullet Oncollision에서 Increase함수 사용하여 접근
+    /// </summary>
+    public static int CurrentExMoveGauge=100;
+    public static int ExMoveGaugeCountPerOne =50; // 피샷 몇개당 ExMOVE를 하나 줄건지
+  
+
+    // 플레이 후 통계 기록에서 보이는 화면 입니다. 
     public bool isParryTriggered { get; private set; }
 
-
+    //PlayTime만 GameManager가 관리.
+    //Record System 관리 목록
+    public static int playerHP = 3;
+    public static int HpBonus; //잔량계산하여 표출
+    public static int ParrySucceedCount = 0;//parrySucessBehavior에서 증가
+    public static int SuperMeter = 0; //peashotSpawner에서 계산
+    
+    public static string Grade = string.Empty;
+    public static string ShowPreviousGrade = string.Empty;
 
 
     [SerializeField]
@@ -33,8 +64,7 @@ public class CupheadController : MonoBehaviour
     GameManager GameManager;
 
 
-    Material _playerMaterial;
-    Color color;
+  
 
     public static Animator PlayerAnimator;
     public static SpriteRenderer PlayerSpriteRenderer;
@@ -47,9 +77,10 @@ public class CupheadController : MonoBehaviour
     public float _playerMoveSpeed;
 
     [SerializeField]
-    public Vector2 ExmoveBounceForce;
+    public PeashotSpawner _peashotSpawner;
 
-    private int playerHP = 3;
+
+
 
 
 
@@ -67,14 +98,14 @@ public class CupheadController : MonoBehaviour
     public static bool IsJumpEXMoving;
     public static bool HasBeenHit;
     public static bool IsInvincible;
+    public static bool IsDashing;
     #endregion
 
     //인풋벡터 (스태틱으로 만들어 EXMOVE에서 정지 시 사용)
     public static Vector2 _inputVec;
     bool parrySucceed;
 
-    public AudioSource _audioSource;
-
+   
     [SerializeField]
     Collider2D playerOnGround;
 
@@ -87,26 +118,31 @@ public class CupheadController : MonoBehaviour
     private  WaitForSeconds ParryTime = new WaitForSeconds(0.1f);
     private WaitForSeconds invincibleTime;
     private WaitForSeconds timeToWaitForIdle;
-    private  static readonly float INVINCILBE_TIME_FLOAT = 2.5f;
+    private WaitForSeconds peashotDisableTime;
+    private WaitForSeconds parryValidTime;
+    private static readonly float INVINCILBE_TIME_FLOAT = 2.5f;
+    private static readonly float PARRY_VALID_TIME = 0.5f;
+    private static readonly float PEASHOT_DISABLE_TIME = 0.3f;
     private static readonly float  TIME_TO_WAIT_FOR_IDLE = 0.4f;//idle때 blinkPlayer함수 실행위함.
    
+
     private void Start()
     {
-         timeToWaitForIdle =  new WaitForSeconds(TIME_TO_WAIT_FOR_IDLE);
-        //플레이어 인트로전까지 이동제약.
-         _cupheadController.enabled = false;
-         invincibleTime = new WaitForSeconds(INVINCILBE_TIME_FLOAT);
-
+      
+        parryValidTime = new WaitForSeconds(PARRY_VALID_TIME);
+        _cupheadController.enabled = false;
+        invincibleTime = new WaitForSeconds(INVINCILBE_TIME_FLOAT);
+        peashotDisableTime = new WaitForSeconds(PEASHOT_DISABLE_TIME);
 
         //플레이어 초기 방향 설정.
         playerDirection = PLAYER_DIRECTION_RIGHT;
     }
-    private void OnEnable()
-    {
 
-    }
+    
+  
     private void Awake()
     {
+        
         _cupheadController = GetComponent<CupheadController>();
         PlayerSpriteRenderer = GetComponent<SpriteRenderer>();
         playerRigidbody = GetComponent<Rigidbody2D>();
@@ -133,6 +169,7 @@ public class CupheadController : MonoBehaviour
         Shoot();
         StopPlayerRunning();
         MovePlayer();
+        DashPlayer();
     }
     private void LateUpdate()
     {
@@ -148,22 +185,21 @@ public class CupheadController : MonoBehaviour
     /// </summary>
     public void MovePlayer()
     {
+       
+            _inputVec.x = Input.GetAxisRaw("Horizontal");
+            _inputVec.y = Input.GetAxisRaw("Vertical");
 
-        _inputVec.x = Input.GetAxisRaw("Horizontal");
-        _inputVec.y = Input.GetAxisRaw("Vertical");
 
-        if (StopRunning == false && HasBeenHit == false)
+        if (StopRunning == false && HasBeenHit == false && IsDucking == false)
         {
+            playerRigidbody.velocity = new Vector2 //  플레이어를 움직여줌 
+           (_inputVec.x * _playerMoveSpeed, playerRigidbody.velocity.y);
 
-            if (IsDucking == false) //C키로 플레이어를 멈추거나 Ducking 상태가 아니면..
+            if (playerRigidbody.velocity != Vector2.zero)
             {
-                playerRigidbody.velocity = new Vector2 //  플레이어를 움직여줌 
-               (_inputVec.x * _playerMoveSpeed, playerRigidbody.velocity.y);
-                if (playerRigidbody.velocity != Vector2.zero)
-                {
-                    PlayerAnimator.SetBool(CupheadAnimID.RUN, true);
-                }
+                PlayerAnimator.SetBool(CupheadAnimID.RUN, true);
             }
+
 
             FlipPlayer();
         }
@@ -175,7 +211,7 @@ public class CupheadController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C) && !IsJumping)
         {
             playerRigidbody.velocity = Vector2.zero;
-            Debug.Log($"IsStopRunning: {StopRunning}");
+            
             StopRunning = true;
             PlayerAnimator.SetBool(CupheadAnimID.RUN, false);
             PlayerAnimator.SetBool(CupheadAnimID.STOP_MOVING, true);
@@ -184,7 +220,7 @@ public class CupheadController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.C))
         {
             PlayerAnimator.SetBool(CupheadAnimID.STOP_MOVING, false);
-            Debug.Log($"IsStopRunning: {StopRunning}");
+          
             StopRunning = false;
         }
     }
@@ -201,7 +237,6 @@ public class CupheadController : MonoBehaviour
     public readonly static int PLAYER_DIRECTION_RIGHT = 2;
     public void FlipPlayer()
     {
-
 
         if (_inputVec.x != 0f)
         {
@@ -260,7 +295,13 @@ public class CupheadController : MonoBehaviour
     /// 점프높이가 달라지도록 구현했습니다. 
     /// </summary>
     ///  [SerializeField]
-    ///  
+    ///   
+
+    [SerializeField]
+    public AudioSource JumpAudioSource;
+
+    [SerializeField]
+    public AudioClip jumpClip;
 
     public void JumpPlayer()
     {
@@ -269,6 +310,8 @@ public class CupheadController : MonoBehaviour
         {
             PlayerAnimator.SetBool(CupheadAnimID.JUMP, true);
             IsJumping = true;
+            JumpAudioSource.clip = jumpClip;
+            JumpAudioSource.PlayOneShot(jumpClip);
 
         }
 
@@ -294,18 +337,28 @@ public class CupheadController : MonoBehaviour
     /// 애니메이션 이벤트로 실행되는 함수 입니다. 
     /// 패링 에니메이션이 끝나면 패링상태를 끝내줍니다.
     /// </summary>
-
+    public bool isPlaying = false;
 
     public void Shoot()
     {
         if (Input.GetKey(KeyCode.X))
         {
+            if (isPlaying == false)
+            {
+                isPlaying = true;
+                SoundManager.clip = peashotClip;
+                SoundManager.Play();
+            }
+           
             IsShooting = true;
             PlayerAnimator.SetBool(CupheadAnimID.SHOOT, true);
         }
 
         if (Input.GetKeyUp(KeyCode.X))
         {
+            isPlaying = false;
+            SoundManager.Stop();
+
             IsShooting = false;
             PlayerAnimator.SetBool(CupheadAnimID.SHOOT, false);
 
@@ -370,6 +423,9 @@ public class CupheadController : MonoBehaviour
 
 
 
+    [SerializeField]
+    AudioClip _hasParriedSound;
+    private bool isParrySoundPlayed;
 
     #region // 플레이어가, 플랫폼, 투사체,보스,등에 맞는 경우를 감지합니다. 
     private void OnTriggerStay2D(Collider2D collision)
@@ -377,9 +433,17 @@ public class CupheadController : MonoBehaviour
         //패링시도중 패링투사체 충돌 시
         if (IsParryableObjectCollision(collision))
         {
-            Debug.Log("패링성공");
+           
+            if(isParrySoundPlayed == false && TryParrying)
+            {
+                SoundManager.clip = _hasParriedSound;
+                SoundManager.PlayOneShot(_hasParriedSound);
+                isParrySoundPlayed = true;
+            }
+
             isParryTriggered = true;
 
+            
             PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, true);
             PlayerAnimator.SetBool(CupheadAnimID.HAS_BEEN_HIT, false);
 
@@ -420,12 +484,15 @@ public class CupheadController : MonoBehaviour
     {
 
         //플레이어 이동 제약에 사용
+        
+
         PeashotSpawner peashotSpawner = GetComponent<PeashotSpawner>();
         peashotSpawner.enabled = false;
-        IsInvincible = true;
+      
         StartCoroutine(DelayMakingParrySucceedFalse());
         StartCoroutine(DelayMakingIsJumpEXMobingFalse());
 
+        IsInvincible = true;
         //플레이어에게 맞은 상태면 bool값으로 인해, 논리적으로 일정시간 중복데미지 X
         StartCoroutine(SetInvincibleAndDelayMakingHasBeenHitFalse());
 
@@ -499,9 +566,10 @@ public class CupheadController : MonoBehaviour
     {
 
 
-        yield return invincibleTime;
+        yield return parryValidTime;
         PlayerAnimator.SetBool(CupheadAnimID.HAS_PARRIED, false);
         isParryTriggered = false;
+        isParrySoundPlayed = false;
 
     }
 
@@ -544,6 +612,40 @@ public class CupheadController : MonoBehaviour
         return collision.CompareTag(LayerNames.PLATFORM);
     }
 
+    private Coroutine peashotDisableCoroutine;
+    IEnumerator TemporarilyDisablePeashotSpawner()
+    {
+
+        yield return peashotDisableTime;
+
+       
+        _peashotSpawner.enabled = true;
+        
+
+    }
+    [SerializeField] AudioClip _dashSound;
+    private void DashPlayer()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Debug.Log("dash is validated");
+            
+            PlayerAnimator.SetBool(CupheadAnimID.DASH,true);
+          
+            SoundManager.PlayOneShot(_dashSound);
+            // 이전에 실행된 코루틴이 있다면 중지.
+            if (peashotDisableCoroutine != null)
+                StopCoroutine(peashotDisableCoroutine);
+
+            _peashotSpawner.enabled = false;
+            peashotDisableCoroutine = StartCoroutine(TemporarilyDisablePeashotSpawner());
+        }
+
+        // TemporarilyDisablePeashotSpawner()를 실행.
+       
+      
+    }
+
     /// <summary>
     /// 플레이어 데미지 피해 관련 함수 
     /// </summary>
@@ -576,13 +678,26 @@ public class CupheadController : MonoBehaviour
 
 
     public static readonly WaitForSeconds _pauseTime = new WaitForSeconds(1);
-
-    private void DecreaseHP() => playerHP -= 1;
+   
+    [SerializeField] AudioClip _playerDiedAudioClip;
+    private void DecreaseHP() 
+    {
+        HpChangedEvent();
+        CheckPlayerAlive();
+        playerHP -= 1;
+        Debug.Log("decrease");
+        
+       
+    } 
     private void CheckPlayerAlive()
     {
-        if (playerHP < 0)
+        if (playerHP <= 0)
         {
+            SoundManager.clip = _playerDiedAudioClip;
+            SoundManager.PlayOneShot(_playerDiedAudioClip);
             PlayerAnimator.SetBool(CupheadAnimID.DIED, true);
+            _cupheadController.enabled = false;
+
         }
     }
 

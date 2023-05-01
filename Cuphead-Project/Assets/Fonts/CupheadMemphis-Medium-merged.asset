@@ -57,9 +57,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: CupheadMemphis-Medium-merged
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: 195379944
   material: {fileID: -5265053749837845170}
-  materialHashCode: 0
+  materialHashCode: -1908392888
   m_Version: 1.1.0
   m_SourceFontFileGUID: 7728fdaf0e649da40ab34a3b028ba1a1
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 7728fdaf0e649da40ab34a3b028ba1a1, type: 3}
@@ -1519,7 +1519,7 @@ MonoBehaviour:
     atlasHeight: 256
     characterSetSelectionMode: 3
     characterSequence: 32 - 96, 123 - 126, 160
-    referencedFontAssetGUID: 53a4378075bc7d5438df7a76955acde8
+    referencedFontAssetGUID: 
     referencedTextAssetGUID: 
     fontStyle: 0
     fontStyleModifier: 0

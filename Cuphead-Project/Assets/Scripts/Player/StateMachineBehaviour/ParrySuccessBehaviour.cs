@@ -16,7 +16,8 @@ public class ParrySuccessBehaviour : StateMachineBehaviour
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        CupheadController.CurrentExMoveGauge += 50;
+        CupheadController.ParrySucceedCount++;
         playerRigidbody = animator.GetComponent<Rigidbody2D>();
         playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, parrybounce);
         Debug.Log($"바운스 반영 후 플레이어 속도 {playerRigidbody.velocity})");
