@@ -628,11 +628,10 @@ public class CupheadController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Debug.Log("dash is validated");
-            
+           
             PlayerAnimator.SetBool(CupheadAnimID.DASH,true);
-          
             SoundManager.PlayOneShot(_dashSound);
+
             // 이전에 실행된 코루틴이 있다면 중지.
             if (peashotDisableCoroutine != null)
                 StopCoroutine(peashotDisableCoroutine);
